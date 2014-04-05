@@ -17,14 +17,10 @@ colorscheme molokai
 
 command! W :w
 
-" Allow pasting blocks of code without indenting
-set pastetoggle=<F2>
-
 "Fix Shift+Tab
 nmap <S-Tab> <<
 imap <S-Tab> <Esc><<i
 
-" Basic Settings
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
