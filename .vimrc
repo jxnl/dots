@@ -16,16 +16,15 @@ set wrap "Wrap lines
 colorscheme molokai
 
 command! W :w
- 
+
 " Allow pasting blocks of code without indenting
 set pastetoggle=<F2>
- 
+
 "Fix Shift+Tab
 nmap <S-Tab> <<
 imap <S-Tab> <Esc><<i
-" ==========================================================
+
 " Basic Settings
-" ==========================================================
 syntax on                     " syntax highlighing
 filetype on                   " try to detect filetypes
 filetype plugin indent on     " enable loading indent file for filetype
@@ -35,7 +34,7 @@ set title                     " show title in console title bar
 set wildmenu                  " Menu completion in command mode on <Tab>
 set wildmode=full             " <Tab> cycles between all matching choices.
 set showcmd
- 
+
 set colorcolumn=80
 inoremap # #
 set ls=2  "Always show status line"
@@ -44,7 +43,7 @@ set hidden
 set nolazyredraw
 set showmatch
 set encoding=utf8
- 
+
 set backspace=indent,eol,start
 
 " Set autocomplete form 
@@ -65,8 +64,6 @@ autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 " markdown
 au BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
 
-" http://www.brankovukelic.com/post/2091037293/turn-vim-into-powerful-javascript-editor"
-
 " HTML (tab width 2 chr, no wrapping)
 autocmd FileType html set sw=2
 autocmd FileType html set ts=2
@@ -79,7 +76,6 @@ autocmd FileType css set ts=2
 autocmd FileType css set sts=2
 
 "remove trailing whitespace
-"http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
 autocmd BufWritePre *.c :%s/\s\+$//e
 autocmd BufWritePre *.cpp :%s/\s\+$//e
 autocmd BufWritePre *.c++ :%s/\s\+$//e
@@ -127,8 +123,8 @@ filetype off                  " required
 
  set rtp+=~/.vim/bundle/vundle/
  call vundle#rc()
-"
-" " let Vundle manage Vundle, required
+
+" let Vundle manage Vundle, required
 Bundle 'gmarik/vundle'
 
 " Utilities
@@ -166,10 +162,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'sjl/gundo.vim'
 
-
-" " ...
-"
- filetype plugin indent on
+filetype plugin indent on
 
 " Pep8 using F6
 " You can change with this :
@@ -208,5 +201,4 @@ highlight Pmenu gui=bold
 if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
-
 
