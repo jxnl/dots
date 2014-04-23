@@ -1,35 +1,31 @@
-syntax on
 colorscheme molokai
-filetype on                   " try to detect filetypes
-filetype plugin indent on     " enable loading indent file for filetype
+syntax enable
 
 command! W :w
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=4                   " Tabs are four spaces
+set softtabstop=4               " Tabs counts as four spaces
+set shiftwidth=4                " << >> gives you four spaces
+
 set smarttab
 set expandtab
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
 
-"Fix Shift+Tab
+set autoindent                  " Auto indent
+set smartindent                 " Smart indent
+set nowrap                      " Dont wrap lines
+
+" << >> gives me tabs
 nmap <S-Tab> <<
 
-set ls=1  "Always show status line"
-set ruler
-set hidden
-set nolazyredraw
-set showmatch
-set number                    " Display line numbers
-set numberwidth=1             " using only 1 column (and 1 space) while possible
-set title                     " show title in console title bar
-set wildmenu                  " Menu completion in command mode on <Tab>
-set wildmode=full             " <Tab> cycles between all matching choices.
-set showcmd
+set ruler                       " Cursor information
+set nolazyredraw                " Don't be lazy
+set showmatch                   " Show matching parens
+set number                      " Display line numbers
+set numberwidth=1               " using only 1 column (and 1 space) while possible
+set wildmenu                    " Menu completion in command mode on <Tab>
+set wildmode=full               " <Tab> cycles between all matching choices.
+set showcmd                     " Show last command
 set encoding=utf8
-
 " No backup files
 set nobackup
 set nowb
@@ -38,19 +34,19 @@ set noswapfile
 " Undooooooooo
 set undodir=~/.vim/undodir
 set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+set undolevels=1000
+set undoreload=10000
 
 " Displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>.,trail:.,precedes:<,extends:>
 set list
 
 " Searching and Patterns
-set ignorecase              " Default to using case insensitive searches,
-set smartcase               " unless uppercase letters are used in the regex.
-set smarttab                " Handle tabs more intelligently
-set hlsearch                " Highlight searches by default.
-set incsearch               " Incrementally search while typing a /regex
+set ignorecase                  " Default to using case insensitive searches,
+set smartcase                   " unless uppercase letters are used in the regex.
+set smarttab                    " Handle tabs more intelligently
+set hlsearch                    " Highlight searches by default.
+set incsearch                   " Incrementally search while typing a /regex
 
 " Set autocomplete form 
 set completeopt=menuone,longest,preview
