@@ -1,4 +1,8 @@
-My Frankenstien of a .vimrc and .vim/ + Vundles.
------
+.vimrc
+--------
 
-I'll be moving around on different computers and I want to make sure I still have my set up going.
+Clone this repo and `mv /vim-files/.vimrc ~`.
+
+To install Vundle:
+  
+  $ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
