@@ -3,6 +3,13 @@ syntax enable
 
 command! W :w
 
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
 set tabstop=4                   " Tabs are four spaces
 set softtabstop=4               " Tabs counts as four spaces
 set shiftwidth=4                " << >> gives you four spaces
@@ -13,6 +20,39 @@ set expandtab
 set autoindent                  " Auto indent
 set smartindent                 " Smart indent
 set nowrap                      " Dont wrap lines
+
+set so=7                        " set 7 lines to the cursor
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" ss toggles spell check
+map <leader>ss :setlocal spell!<cr>
+
+" Set font according to system
+if has("mac") || has("macunix")
+    set gfn=Source\ Code\ Pro:h15,Menlo:h15
+elseif has("win16") || has("win32")
+    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("linux")
+    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+elseif has("unix")
+    set gfn=Monospace\ 11
+endif
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Persistent undo
+try
+    set undodir=~/.vim_runtime/temp_dirs/undodir
+    set undofile
+catch
+endtry
 
 " << >> gives me tabs
 nmap <S-Tab> <<
@@ -26,10 +66,12 @@ set wildmenu                    " Menu completion in command mode on <Tab>
 set wildmode=full               " <Tab> cycles between all matching choices.
 set showcmd                     " Show last command
 set encoding=utf8
+
 " No backup files
 set nobackup
 set nowb
 set noswapfile
+
 
 " Undooooooooo
 set undodir=~/.vim/undodir
@@ -47,6 +89,7 @@ set smartcase                   " unless uppercase letters are used in the regex
 set smarttab                    " Handle tabs more intelligently
 set hlsearch                    " Highlight searches by default.
 set incsearch                   " Incrementally search while typing a /regex
+set magic                       " Allow regex
 
 " Set autocomplete form 
 set completeopt=menuone,longest,preview
@@ -66,6 +109,7 @@ autocmd FileType vim set omnifunc=syntaxcomplete#Complete
 
 " Markdown
 autocmd BufEnter,Bufread *.mkd,*.md,*.mdown,*.markdown set tw=0
+autocmd FileType md set spell spelllang=en_us
 
 " HTML (tab width 2 chr, no wrapping)
 autocmd FileType html set sw=2
@@ -116,6 +160,9 @@ Bundle 'plasticboy/vim-markdown'
 " Syntax Commenter
 Bundle 'vim-scripts/tComment'
 
+" Racket
+Bundle 'wlangstroth/vim-racket'
+
 " Python
 Bundle 'kevinw/pyflakes-vim'
 Bundle 'vim-scripts/pep8'
@@ -136,6 +183,10 @@ Bundle 'fholgado/minibufexpl.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'sjl/gundo.vim'
+
+" LaTeX
+
+Bundle 'jcf/vim-latex'
 
 filetype plugin indent on
 
