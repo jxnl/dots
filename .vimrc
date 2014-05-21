@@ -22,6 +22,7 @@ set smartindent                 " Smart indent
 set nowrap                      " Dont wrap lines
 
 set so=7                        " set 7 lines to the cursor
+set paste               " Paste from a windows or from vim"
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
@@ -42,10 +43,10 @@ elseif has("unix")
 endif
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map  wj <C-W>j
+map  wk <C-W>k
+map  wh <C-W>h
+map  wl <C-W>l
 
 " Persistent undo
 try
@@ -71,7 +72,6 @@ set encoding=utf8
 set nobackup
 set nowb
 set noswapfile
-
 
 " Undooooooooo
 set undodir=~/.vim/undodir
@@ -185,7 +185,6 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'sjl/gundo.vim'
 
 " LaTeX
-
 Bundle 'jcf/vim-latex'
 
 filetype plugin indent on
