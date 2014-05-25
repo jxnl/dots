@@ -3,17 +3,13 @@ syntax enable
 
 command! W :w
 
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
+set t_Co=256
 
 set tabstop=4                   " Tabs are four spaces
 set softtabstop=4               " Tabs counts as four spaces
 set shiftwidth=4                " << >> gives you four spaces
 
+" comment this out if you use tabs and not spaces
 set smarttab
 set expandtab
 
@@ -43,13 +39,6 @@ map  wj <C-W>j
 map  wk <C-W>k
 map  wh <C-W>h
 map  wl <C-W>l
-
-" Persistent undo
-try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
-catch
-endtry
 
 " << >> gives me tabs
 nmap <S-Tab> <<
