@@ -1,0 +1,101 @@
+colorscheme molokai
+syntax enable
+
+command! W :w
+
+set t_Co=256
+
+set tabstop=4                   " Tabs are four spaces
+set softtabstop=4               " Tabs counts as four spaces
+set shiftwidth=4                " << >> gives you four spaces
+
+set smarttab                    " If use you tabs and not spaces like the devil, comment this out
+set expandtab                   " If use you tabs and not spaces like the devil, comment this out
+
+set autoindent                  " Auto indent
+set smartindent                 " Smart indent
+set nowrap                      " Dont wrap lines
+
+set so=7                        " set 7 lines to the cursor
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" << >> gives me tabs
+nmap <S-Tab> <<
+
+set ruler                       " Cursor information
+set nolazyredraw                " Don't be lazy
+set showmatch                   " Show matching parens
+set number                      " Display line numbers
+set numberwidth=1               " using only 1 column (and 1 space) while possible
+set wildmenu                    " Menu completion in command mode on <Tab>
+set wildmode=full               " <Tab> cycles between all matching choices.
+set showcmd                     " Show last command
+set encoding=utf8
+
+" No backup files
+set nobackup
+set nowb
+set noswapfile
+
+" Displays tabs with :set list & displays when a line runs off-screen
+" set listchars=tab:>.,trail:.,precedes:<,extends:>
+" set list
+
+" Searching and Patterns
+set ignorecase                  " Default to using case insensitive searches,
+set smartcase                   " unless uppercase letters are used in the regex.
+set smarttab                    " Handle tabs more intelligently
+set hlsearch                    " Highlight searches by default.
+set incsearch                   " Incrementally search while typing a /regex
+set magic                       " Allow regex
+
+" Set autocomplete form 
+set completeopt=menuone,longest,preview
+
+" Remove trailing whitespace
+autocmd BufWritePre *.c :%s/\s\+$//e
+autocmd BufWritePre *.cpp :%s/\s\+$//e
+autocmd BufWritePre *.c++ :%s/\s\+$//e
+autocmd BufWritePre *.h :%s/\s\+$//e
+autocmd BufWritePre *.java :%s/\s\+$//e
+autocmd BufWritePre *.php :%s/\s\+$//e
+autocmd BufWritePre *.pl :%s/\s\+$//e
+autocmd BufWritePre *.py :%s/\s\+$//e
+
+" Ignore these files when completing
+set wildignore+=*.o,*.obj,.git,*.pyc
+set wildignore+=eggs/**
+set wildignore+=*.egg-info/**
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle, required
+Bundle 'gmarik/vundle'
+
+" Utilities
+Bundle 'tsaleh/vim-matchit'
+Bundle 'Raimondi/delimitMate'
+Bundle 'honza/vim-snippets'
+Bundle 'SirVer/ultisnips'
+Bundle 'Lokaltog/vim-easymotion'
+
+" Markdown
+Bundle 'plasticboy/vim-markdown'
+
+" Files manager
+Bundle 'majutsushi/tagbar'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'vim-scripts/mru.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+
+" LaTeX
+Bundle 'jcf/vim-latex'
