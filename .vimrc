@@ -22,14 +22,10 @@ set smartindent                 " Smart indent
 set nowrap                      " Dont wrap lines
 
 set so=7                        " set 7 lines to the cursor
-set paste               " Paste from a windows or from vim"
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
-
-" ss toggles spell check
-map <leader>ss :setlocal spell!<cr>
 
 " Set font according to system
 if has("mac") || has("macunix")
@@ -149,10 +145,12 @@ Bundle 'gmarik/vundle'
 " Utilities
 Bundle 'tsaleh/vim-matchit'
 Bundle 'Raimondi/delimitMate'
-
+Bundle 'honza/vim-snippets'
+Bundle 'SirVer/ultisnips'
 Bundle 'mattn/emmet-vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
+Bundle 'klen/python-mode'
 
 " Markdown
 Bundle 'plasticboy/vim-markdown'
@@ -164,8 +162,6 @@ Bundle 'vim-scripts/tComment'
 Bundle 'wlangstroth/vim-racket'
 
 " Python
-Bundle 'kevinw/pyflakes-vim'
-Bundle 'vim-scripts/pep8'
 Bundle "vim-scripts/indentpython.vim"
 
 " HTML Development 
