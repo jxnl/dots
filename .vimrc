@@ -4,6 +4,7 @@ syntax enable
 command! W :w
 
 set t_Co=256
+set backspace=indent,eol,start
 
 set tabstop=4                   " Tabs are four spaces
 set softtabstop=4               " Tabs counts as four spaces
@@ -17,7 +18,7 @@ set autoindent                  " Auto indent
 set smartindent                 " Smart indent
 set nowrap                      " Dont wrap lines
 
-set so=7                        " set 7 lines to the cursor
+set so=10                        " set 10 lines to the cursor
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
@@ -44,7 +45,7 @@ map  wl <C-W>l
 nmap <S-Tab> <<
 
 set ruler                       " Cursor information
-set nolazyredraw                " Don't be lazy
+set nolazyredraw                " Don"t be lazy
 set showmatch                   " Show matching parens
 set number                      " Display line numbers
 set numberwidth=1               " using only 1 column (and 1 space) while possible
@@ -59,10 +60,10 @@ set nowb
 set noswapfile
 
 " Undooooooooo
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000
-set undoreload=10000
+set undofile                " Save undo's after file closes
+set undodir=~/.vim/undo     " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
 
 " Displays tabs with :set list & displays when a line runs off-screen
 set listchars=tab:>.,trail:.,precedes:<,extends:>
@@ -129,58 +130,49 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+Bundle "gmarik/vundle"
 
 " Utilities
-Bundle 'tsaleh/vim-matchit'
-Bundle 'Raimondi/delimitMate'
-Bundle 'honza/vim-snippets'
-Bundle 'SirVer/ultisnips'
-Bundle 'mattn/emmet-vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'klen/python-mode'
-
-" Markdown
-Bundle 'plasticboy/vim-markdown'
-
-" Syntax Commenter
-Bundle 'vim-scripts/tComment'
+Bundle "tsaleh/vim-matchit"
+Bundle "Raimondi/delimitMate"
+Bundle "honza/vim-snippets"
+Bundle "tpope/vim-fugitive"
+Bundle "Lokaltog/vim-easymotion"
 
 " Racket
-Bundle 'wlangstroth/vim-racket'
+Bundle "wlangstroth/vim-racket"
 
 " Python
 Bundle "vim-scripts/indentpython.vim"
+Bundle "klen/python-mode"
+Bundle "python-rope/rope"
 
 " HTML Development 
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle "mattn/emmet-vim"
 
 " Universal Syntax Checker + Completion
-Bundle 'scrooloose/syntastic'
+Bundle "scrooloose/syntastic"
 
 " Files manager
-Bundle 'majutsushi/tagbar'
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'vim-scripts/mru.vim'
-Bundle 'fholgado/minibufexpl.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'sjl/gundo.vim'
+Bundle "L9"
+Bundle "FuzzyFinder"
+Bundle "vim-scripts/mru.vim"
+Bundle "fholgado/minibufexpl.vim"
+Bundle "scrooloose/nerdtree"
+Bundle "jistr/vim-nerdtree-tabs"
+Bundle "sjl/gundo.vim"
+nnoremap <F5> :GundoToggle<CR> 
+" see undo with f5
 
 " LaTeX
-Bundle 'jcf/vim-latex'
+Bundle "jcf/vim-latex"
 
 filetype plugin indent on
 
-" Pep8 using F6
-let g:pep8_map='<F6>'
-
 " PYTHON STYLE 
-let python_highlight_all=1 " Enable all plugin's highlighting.
+let python_highlight_all=1 " Enable all plugin"s highlighting.
 let python_slow_sync=1 " For fast machines.
-let python_print_as_function=1 " Color 'print' function.
+let python_print_as_function=1 " Color "print" function.
 
 " FuzzFinder Shorcuts. Using F2 for opening FuzzyFinderTextMate
 map <leader>f :FufFileWithCurrentBufferDir<CR>

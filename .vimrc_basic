@@ -40,6 +40,11 @@ set nobackup
 set nowb
 set noswapfile
 
+set undofile                " Save undo's after file closes
+set undodir=~/.vim/undo     " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+
 " Displays tabs with :set list & displays when a line runs off-screen
 " set listchars=tab:>.,trail:.,precedes:<,extends:>
 " set list
@@ -82,20 +87,11 @@ Bundle 'gmarik/vundle'
 " Utilities
 Bundle 'tsaleh/vim-matchit'
 Bundle 'Raimondi/delimitMate'
-Bundle 'honza/vim-snippets'
-Bundle 'SirVer/ultisnips'
 Bundle 'Lokaltog/vim-easymotion'
 
-" Markdown
-Bundle 'plasticboy/vim-markdown'
-
 " Files manager
-Bundle 'majutsushi/tagbar'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'vim-scripts/mru.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-
-" LaTeX
-Bundle 'jcf/vim-latex'
