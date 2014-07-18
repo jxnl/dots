@@ -1,13 +1,18 @@
 .vimrc
 --------
 
-Clone this repo and `mv /vim-files/.vimrc ~`.
+To install the basic `.vimrc` file, just clone this repo and `mv /vim-files/.vimrc ~`.
+
+
+Before anything else, make sure you install `Vundle` before using the vimrc file, otherwise you'll just get tonnes of errors and non of the magic that comes with vim.
 
 To install Vundle:
   
     $ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 Some bits inspired by https://github.com/amix/vimrc/blob/master/vimrcs/extended.vim
+
+After you install `Vundle`, just run `:BundleInstall` and you should be good to go.
 
 
 # Notes:
