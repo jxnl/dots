@@ -1,6 +1,5 @@
 colorscheme molokai
 syntax enable
-
 command! W :w
 
 set t_Co=256
@@ -22,18 +21,6 @@ set so=10                        " set 10 lines to the cursor
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
-map <c-space> ?
-
-" Set font according to system
-if has("mac") || has("macunix")
-    set gfn=Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("linux")
-    set gfn=Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("unix")
-    set gfn=Monospace\ 11
-endif
 
 " Smart way to move between windows
 map  wj <C-W>j
@@ -77,11 +64,11 @@ set hlsearch                    " Highlight searches by default.
 set incsearch                   " Incrementally search while typing a /regex
 set magic                       " Allow regex
 
-" Set autocomplete form 
+" Set autocomplete form
 set completeopt=menuone,longest,preview
 
 " Python
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class, 
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,
 autocmd FileType py set textwidth=80
 autocmd FileType py set colorcolumn=80
 
@@ -134,20 +121,33 @@ Bundle "gmarik/vundle"
 
 " Utilities
 Bundle "tsaleh/vim-matchit"
-Bundle "Raimondi/delimitMate"
 Bundle "honza/vim-snippets"
 Bundle "tpope/vim-fugitive"
 Bundle "Lokaltog/vim-easymotion"
+Bundle "bling/vim-airline"
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+set ttimeoutlen=50
+Bundle "Shougo/neocomplcache"
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" " Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Racket
 Bundle "wlangstroth/vim-racket"
 
+" Haskell
+Bundle "raichoo/haskell-vim"
+
 " Python
 Bundle "vim-scripts/indentpython.vim"
 Bundle "klen/python-mode"
-Bundle "python-rope/rope"
 
-" HTML Development 
 Bundle "mattn/emmet-vim"
 
 " Universal Syntax Checker + Completion
@@ -161,15 +161,16 @@ Bundle "fholgado/minibufexpl.vim"
 Bundle "scrooloose/nerdtree"
 Bundle "jistr/vim-nerdtree-tabs"
 Bundle "sjl/gundo.vim"
-nnoremap <F5> :GundoToggle<CR> 
-" see undo with f5
+
+nnoremap <Leader>u :GundoToggle<CR>
+nnoremap <Leader>d :NERDTree<CR>
 
 " LaTeX
 Bundle "jcf/vim-latex"
 
 filetype plugin indent on
 
-" PYTHON STYLE 
+" PYTHON STYLE
 let python_highlight_all=1 " Enable all plugin"s highlighting.
 let python_slow_sync=1 " For fast machines.
 let python_print_as_function=1 " Color "print" function.
