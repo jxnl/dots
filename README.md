@@ -1,8 +1,5 @@
-.vimrc
+Installation
 --------
-
-To install the basic `.vimrc` file, just clone this repo and `mv /vim-files/.vimrc ~`.
-
 
 Before anything else, make sure you install `Vundle` before using the vimrc file, otherwise you'll just get tonnes of errors and non of the magic that comes with vim.
 
@@ -12,8 +9,8 @@ To install Vundle:
 
 Some bits inspired by https://github.com/amix/vimrc/blob/master/vimrcs/extended.vim
 
-After you install `Vundle`, just run `:BundleInstall` and you should be good to go.
-
+To install the `.vimrc` file, just clone this repo and `mv /vim-files/.vimrc ~` along with the `colors` repo.
+After you install `Vundle`, just run `:BundleInstall`
 
 # Notes:
 
