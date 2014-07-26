@@ -125,18 +125,19 @@ Bundle "honza/vim-snippets"
 Bundle "tpope/vim-fugitive"
 Bundle "Lokaltog/vim-easymotion"
 Bundle "bling/vim-airline"
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-set ttimeoutlen=50
+    let g:airline#extensions#tabline#enabled = 1
+    set laststatus=2
+    set ttimeoutlen=50
 Bundle "Shougo/neocomplcache"
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+    let g:acp_enableAtStartup = 0
+    let g:neocomplcache_enable_at_startup = 1
+    let g:neocomplcache_enable_smart_case = 1
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+Bundle 'SirVer/ultisnips'
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsEditSplit="vertical"
 
 " Racket
 Bundle "wlangstroth/vim-racket"
