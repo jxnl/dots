@@ -120,24 +120,15 @@ call vundle#rc()
 Bundle "gmarik/vundle"
 
 " Utilities
-Bundle "tsaleh/vim-matchit"
+Bundle "Raimondi/delimitMate"
 Bundle "honza/vim-snippets"
 Bundle "tpope/vim-fugitive"
 Bundle "Lokaltog/vim-easymotion"
+Bundle "scrooloose/nerdcommenter"
 Bundle "bling/vim-airline"
     let g:airline#extensions#tabline#enabled = 1
     set laststatus=2
     set ttimeoutlen=50
-Bundle "Shougo/neocomplcache"
-    let g:acp_enableAtStartup = 0
-    let g:neocomplcache_enable_at_startup = 1
-    let g:neocomplcache_enable_smart_case = 1
-    let g:neocomplcache_min_syntax_length = 3
-    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
-Bundle 'SirVer/ultisnips'
-    let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsEditSplit="vertical"
 
 " Racket
 Bundle "wlangstroth/vim-racket"
@@ -168,6 +159,9 @@ nnoremap <Leader>d :NERDTree<CR>
 
 " LaTeX
 Bundle "jcf/vim-latex"
+
+" Markdown
+Bundle "plasticboy/vim-markdown"
 
 filetype plugin indent on
 
