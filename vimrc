@@ -141,7 +141,6 @@ endfunc
 
 autocmd BufWrite *.py :call DeleteTrailingWS()
 
-
 " Ignore these files when completing
 set wildignore+=*.o,*.obj,.git,*.pyc
 
@@ -168,20 +167,6 @@ Bundle "bling/vim-airline"
     let g:airline#extensions#tabline#enabled = 1
     set laststatus=2
     set ttimeoutlen=50
-
-" Racket
-Bundle "wlangstroth/vim-racket"
-
-" Haskell
-Bundle "raichoo/haskell-vim"
-
-" Python
-Bundle "vim-scripts/indentpython.vim"
-Bundle "klen/python-mode"
-let python_highlight_all=1 " Enable all plugin"s highlighting.
-let python_slow_sync=1 " For fast machines.
-let python_print_as_function=1 " Color "print" function.
-let g:syntastic_python_checkers=['pyflakes']
 
 " Html
 Bundle "mattn/emmet-vim"
