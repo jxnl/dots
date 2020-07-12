@@ -200,5 +200,12 @@ Bundle "jcf/vim-latex"
 " Markdown
 Bundle "plasticboy/vim-markdown"
 
+Bundle "ambv/black"
+Bundle 'nvie/vim-flake8'
+Bundle 'valloric/youcompleteme'
+Bundle 'hdima/python-syntax'
+
+
+
 filetype plugin on
 filetype indent on
