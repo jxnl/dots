@@ -1,10 +1,4 @@
-alias waterloo='ssh jx5liu@linux.student.cs.uwaterloo.ca'
-alias bashrc='source .bash_profile'
-
-alias py3='python3'
-alias py2='python'
-
-alias vim='mvim -v'
+alias bashrc='source ~/.bash_profile'
 
 # Change Prompt
 export PS1="\w : \h (\u) \n>>> " 
@@ -29,8 +23,3 @@ alias c='clear'                             # c:            Clear terminal displ
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\'s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
-
-# Setting PATH for Python 3.4
-# The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.4/bin:${PATH}"
-export PATH
