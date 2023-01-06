@@ -12,6 +12,15 @@ Some bits inspired by https://github.com/amix/vimrc/blob/master/vimrcs/extended.
 To install the `.vimrc` file, just clone this repo and `mv /vim-files/.vimrc ~` along with the `colors` repo.
 After you install `Vundle`, just run `:BundleInstall`
 
+## Install zsh and oh-my-zsh
+
+```
+brew install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+follow https://sourabhbajaj.com/mac-setup/iTerm/zsh.html for more details
+
 # Notes:
 
 Here are some added features that I have installed. And a short summary of what it does.
