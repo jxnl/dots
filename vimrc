@@ -175,13 +175,15 @@ Bundle "mattn/emmet-vim"
 Bundle "scrooloose/syntastic"
 
 " Files manager
-Bundle "L9"
+Bundle "junegunn/fzf"
+Bundle "junegunn/fzf.vim"
+    " \f to find files in current directory
+    map <leader>f :Files<CR>
+    " \g to search content in files
+    map <leader>g :Rg<CR>
 Bundle "vim-scripts/mru.vim"
-Bundle "fholgado/minibufexpl.vim"
-Bundle "FuzzyFinder"
-    " \f and \m lets you search for files
-    map <leader>f :FufFileWithCurrentBufferDir<CR>
-    map <leader>m :FufFileWithFullCwd<CR>
+    " \m to show most recently used files
+    map <leader>m :MRU<CR>
 
 " Directories and tables
 Bundle "jistr/vim-nerdtree-tabs"
@@ -205,6 +207,12 @@ Bundle 'nvie/vim-flake8'
 Bundle 'hdima/python-syntax'
 
 
+
+" Additional modern plugins
+Bundle "tpope/vim-surround"
+Bundle "airblade/vim-gitgutter"
+Bundle "christoomey/vim-tmux-navigator"
+Bundle "mhinz/vim-startify"
 
 filetype plugin on
 filetype indent on
