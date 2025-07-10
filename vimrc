@@ -122,11 +122,6 @@ autocmd BufRead python set colorcolumn=80
 autocmd FileType markdown set spell
 autocmd FileType markdown set nonumber
 
-" HTML (tab width 2 chr, no wrapping)
-autocmd FileType html set sw=2
-autocmd FileType html set ts=2
-autocmd FileType html set sts=2
-
 " CSS (tab width 2 chr, wrap at 79th char)
 autocmd FileType css set sw=2
 autocmd FileType css set ts=2
@@ -200,11 +195,9 @@ Bundle "jcf/vim-latex"
 " Markdown
 Bundle "plasticboy/vim-markdown"
 
-Bundle "ambv/black"
-Bundle 'nvie/vim-flake8'
 Bundle 'hdima/python-syntax'
 
-
+let g:syntastic_python_checkers = ['ruff']
 
 filetype plugin on
 filetype indent on
