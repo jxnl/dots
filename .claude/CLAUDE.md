@@ -1,0 +1,8 @@
+- use uv when possible vs pip
+- make sure to use `uv run` not `python`
+- don't use emojis in pull requests
+- don't make up fake casestudies and numbers
+- never `git add .` you must select files one at a time
+- when in plan mode, always include writing tests
+- sacrifice grammar for the sake of concision
+- list any unresolved questions at the end, if any
