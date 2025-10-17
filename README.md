@@ -1,4 +1,16 @@
-Installation
+# Dots Directory
+
+This is my personal dotfiles repository containing configuration files for various development tools and environments.
+
+## Contents
+
+- **vimrc** - Vim configuration with plugins and keybindings
+- **tmux.conf** - Tmux terminal multiplexer configuration  
+- **bash_profile** - Bash shell configuration
+- **colors/** - Vim color schemes
+- **.claude/** - Claude AI assistant configuration and command documentation
+
+## Installation
 --------
 
 Before anything else, make sure you install `Vundle` before using the vimrc file, otherwise you'll just get tonnes of errors and non of the magic that comes with vim.
