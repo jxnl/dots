@@ -21,8 +21,14 @@ To install Vundle:
 
 Some bits inspired by https://github.com/amix/vimrc/blob/master/vimrcs/extended.vim
 
-To install the `.vimrc` file, just clone this repo and `mv /vim-files/.vimrc ~` along with the `colors` repo.
-After you install `Vundle`, just run `:BundleInstall`
+To install all configuration files, clone this repo and run the installer:
+
+    $ git clone https://github.com/yourusername/dots.git
+    $ cd dots
+    $ chmod +x install.sh
+    $ ./install.sh
+
+After you install `Vundle`, just run `:BundleInstall` in vim.
 
 ## Install zsh and oh-my-zsh
 
