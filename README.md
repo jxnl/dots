@@ -22,7 +22,10 @@ Personal dotfiles repository for development tools and environments.
    git clone https://github.com/jxnl/dots.git
    cd dots
    chmod +x install.sh
-   ./install.sh
+   ./install.sh                    # Install all components
+   ./install.sh --claude           # Install only Claude config
+   ./install.sh --vim              # Install only vim config
+   ./install.sh --help             # Show all options
    ```
 
 3. Install Vim plugins:
