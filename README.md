@@ -8,7 +8,7 @@ This is my personal dotfiles repository containing configuration files for vario
 - **tmux.conf** - Tmux terminal multiplexer configuration  
 - **bash_profile** - Bash shell configuration
 - **colors/** - Vim color schemes
-- **.claude/** - Claude AI assistant configuration and command documentation
+- **claude/** - Claude AI assistant configuration and command documentation
 
 ## Installation
 --------
