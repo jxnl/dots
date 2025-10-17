@@ -19,7 +19,7 @@ Personal dotfiles repository for development tools and environments.
 
 2. Install dotfiles:
    ```bash
-   git clone https://github.com/yourusername/dots.git
+   git clone https://github.com/jxnl/dots.git
    cd dots
    chmod +x install.sh
    ./install.sh
@@ -65,5 +65,3 @@ Personal dotfiles repository for development tools and environments.
 brew install zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
-
-Inspired by [amix/vimrc](https://github.com/amix/vimrc/blob/master/vimrcs/extended.vim)
