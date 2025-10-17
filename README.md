@@ -25,6 +25,8 @@ Personal dotfiles repository for development tools and environments.
    ./install.sh                    # Install all components
    ./install.sh --claude           # Install only Claude config
    ./install.sh --vim              # Install only vim config
+   ./install.sh --bash             # Install only bash config
+   ./install.sh --tmux             # Install only tmux config
    ./install.sh --help             # Show all options
    ```
 
@@ -32,6 +34,16 @@ Personal dotfiles repository for development tools and environments.
    ```bash
    vim +BundleInstall +qall
    ```
+
+## Installation Flags
+
+The installer supports selective installation with these flags:
+
+- `--vim` - Install only vim configuration (vimrc + colors)
+- `--bash` - Install only bash configuration (bash_profile)
+- `--tmux` - Install only tmux configuration (tmux.conf)
+- `--claude` - Install only Claude configuration (claude/)
+- `--help` - Show usage information and all available flags
 
 ## Key Plugins & Shortcuts
 
