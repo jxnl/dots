@@ -58,7 +58,6 @@ git commit -m "$(cat <<'EOF'
 type(scope): description
 
 Optional body explaining why this change was made.
-
 EOF
 )"
 ```

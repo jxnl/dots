@@ -10,6 +10,28 @@ Personal dotfiles repository for development tools and environments.
 - **colors/** - Vim color schemes
 - **claude/** - Claude AI assistant configuration and command documentation
 
+## Claude Commands
+
+Custom slash commands for Claude Code workflows:
+
+### GitHub Workflows
+- **gh-commit** - Smart commit manager with conventional commits, branch safety
+- **gh-review-pr** - Comprehensive PR review (metadata, code, CI, discussions)
+- **gh-address-pr-comments** - Interactive PR comment resolution
+- **gh-fix-ci** - Auto-detect and fix CI failures from logs
+
+### Development Tools
+- **make-tests** - Collaborative test creation with coverage analysis
+- **de-slop** - Remove AI artifacts (redundant comments, mock-heavy tests, fake data)
+- **new-cmd** - Command creation helper
+
+### Agents
+- **youtube** - YouTube transcript processing
+
+Files:
+- `CLAUDE.md` - Global instructions (uv, no mocking, commit conventions)
+- `settings.json` - Claude Code settings
+
 ## Installation
 
 1. Install Vundle:
