@@ -46,6 +46,7 @@ Files:
    cd dots
    chmod +x install.sh
    ./install.sh                    # Install all components
+   ./install.sh --interactive      # Interactive installer (choose components)
    ./install.sh --agents           # Install Claude + Codex prompts
    ./install.sh --claude           # Install only Claude config
    ./install.sh --openai           # Install only Codex prompts
@@ -67,6 +68,9 @@ Files:
 
 The installer supports selective installation with these flags:
 
+- `--interactive` - Interactive installer (prompts for choices)
+- `--backup` - Backup existing destination files before overwriting
+- `--dry-run` - Print actions without writing files
 - `--vim` - Install only vim configuration (vimrc + colors)
 - `--bash` - Install only bash configuration (bash_profile)
 - `--tmux` - Install only tmux configuration (tmux.conf)
