@@ -10,7 +10,6 @@ agents/
 ├── prompts/               # Reusable prompts / slash commands (tool-agnostic)
 └── claude/
     ├── settings.json      # Claude Code settings
-    └── agents/            # Claude background agents
 ```
 
 ## Installation
@@ -23,7 +22,7 @@ Run from the repo root (`dots/`):
 
 ### What `--agents` installs
 
-`./install.sh --agents` installs the shared prompts into all supported tools (Claude Code + Codex CLI + Cursor), plus Claude-only subagents.
+`./install.sh --agents` installs the shared prompts into all supported tools (Claude Code + Codex CLI + Cursor).
 
 ### Claude Code (Anthropic)
 
@@ -31,7 +30,6 @@ Installs:
 - `~/.claude/CLAUDE.md` (copied from `agents/AGENTS.md`)
 - `~/.claude/settings.json`
 - `~/.claude/commands/*.md` (copied from `agents/prompts/`)
-- `~/.claude/agents/*.md` (Claude-only subagents)
 
 ### OpenAI Developers (Codex CLI)
 
@@ -66,17 +64,10 @@ Install only prompts for a specific tool:
 List what you can install:
 ```bash
 ./install.sh --list-prompts
-./install.sh --list-claude-agents
 ```
 
 Install only specific prompts (works for `--claude`, `--openai`, `--cursor`, `--cursor-project`, and `--agents`):
 ```bash
 ./install.sh --openai --only-prompts gh-commit,make-tests
 ./install.sh --cursor --prompt gh-review-pr --prompt gh-fix-ci
-```
-
-Install only specific Claude subagents (Claude-only):
-```bash
-./install.sh --claude --claude-agent test-runner
-./install.sh --claude --claude-agent youtube --claude-agent test-runner
 ```

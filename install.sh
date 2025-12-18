@@ -10,17 +10,10 @@ INSTALL_CURSOR=true
 INSTALL_CURSOR_PROJECT=false
 
 SELECTED_PROMPTS=()
-SELECTED_CLAUDE_AGENTS=()
 
 list_prompts() {
     if [ -d "agents/prompts" ]; then
         ls -1 agents/prompts/*.md 2>/dev/null | xargs -n1 basename | sed 's/\\.md$//' | sort
-    fi
-}
-
-list_claude_agents() {
-    if [ -d "agents/claude/agents" ]; then
-        ls -1 agents/claude/agents/*.md 2>/dev/null | xargs -n1 basename | sed 's/\\.md$//' | sort
     fi
 }
 
@@ -31,17 +24,6 @@ require_prompt_exists() {
         echo ""
         echo "Available prompts:"
         list_prompts | sed 's/^/  - /'
-        exit 1
-    fi
-}
-
-require_claude_agent_exists() {
-    local agent="$1"
-    if [ ! -f "agents/claude/agents/${agent}.md" ]; then
-        echo "Unknown Claude agent: ${agent}"
-        echo ""
-        echo "Available Claude agents:"
-        list_claude_agents | sed 's/^/  - /'
         exit 1
     fi
 }
@@ -152,21 +134,8 @@ while [[ $# -gt 0 ]]; do
             done
             shift 2
             ;;
-        --claude-agent)
-            if [ -z "$2" ]; then
-                echo "Missing value for --claude-agent"
-                exit 1
-            fi
-            require_claude_agent_exists "$2"
-            SELECTED_CLAUDE_AGENTS+=("$2")
-            shift 2
-            ;;
         --list-prompts)
             list_prompts
-            exit 0
-            ;;
-        --list-claude-agents)
-            list_claude_agents
             exit 0
             ;;
         --help|-h)
@@ -183,9 +152,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --cursor-project  Install Cursor commands to .cursor/commands (project)"
             echo "  --prompt NAME  Install only one prompt (repeatable)"
             echo "  --only-prompts a,b,c  Install only these prompts"
-            echo "  --claude-agent NAME  Install only one Claude subagent (repeatable)"
             echo "  --list-prompts  List available prompts"
-            echo "  --list-claude-agents  List available Claude agents"
             echo "  --help    Show this help message"
             echo ""
             echo "Default: Install all components"
@@ -198,10 +165,6 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
-
-if [ ${#SELECTED_CLAUDE_AGENTS[@]} -gt 0 ] && [ "$INSTALL_CLAUDE" != true ]; then
-    echo "Warning: --claude-agent has no effect unless installing Claude (--claude or --agents)." >&2
-fi
 
 if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "$INSTALL_CLAUDE" != true ] && [ "$INSTALL_OPENAI" != true ] && [ "$INSTALL_CURSOR" != true ] && [ "$INSTALL_CURSOR_PROJECT" != true ]; then
     echo "Warning: --prompt/--only-prompts has no effect unless installing prompts for Claude/Codex/Cursor." >&2
@@ -235,7 +198,7 @@ fi
 # Install Claude configuration
 if [ "$INSTALL_CLAUDE" = true ]; then
     echo "🤖 Installing Claude configuration..."
-    mkdir -p ~/.claude/commands ~/.claude/agents
+    mkdir -p ~/.claude/commands
     cp agents/AGENTS.md ~/.claude/CLAUDE.md
     cp agents/claude/settings.json ~/.claude/settings.json
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -244,14 +207,6 @@ if [ "$INSTALL_CLAUDE" = true ]; then
         done
     else
         cp -r agents/prompts/. ~/.claude/commands/
-    fi
-
-    if [ ${#SELECTED_CLAUDE_AGENTS[@]} -gt 0 ]; then
-        for agent in "${SELECTED_CLAUDE_AGENTS[@]}"; do
-            cp "agents/claude/agents/${agent}.md" ~/.claude/agents/
-        done
-    else
-        cp -r agents/claude/agents/. ~/.claude/agents/
     fi
     echo "✅ Claude configuration installed"
 fi
