@@ -140,7 +140,7 @@ Check before committing:
 git log --oneline -10  # Follow existing patterns
 ```
 
-Read if exists: `CLAUDE.md`, `CONTRIBUTING.md`, `.gitmessage`
+Read if exists: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.gitmessage`
 
 ## Output Format
 

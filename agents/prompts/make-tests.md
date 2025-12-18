@@ -96,7 +96,7 @@ cat tests/conftest.py  # fixtures
 
 **Follow patterns:** test naming, imports, fixtures, assertions
 
-**No mocking unless necessary** (per CLAUDE.md)
+**No mocking unless necessary** (per `AGENTS.md`/`CLAUDE.md`)
 
 ## Output Format
 

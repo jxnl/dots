@@ -180,7 +180,7 @@ Check if the repo uses conventional commits (feat:, fix:, docs:, etc.) and verif
 
 Before reviewing, check for:
 - `CONTRIBUTING.md` - Review guidelines
-- `CLAUDE.md` - Project-specific instructions
+- `AGENTS.md` / `CLAUDE.md` - Project-specific instructions
 - `.github/PULL_REQUEST_TEMPLATE.md` - PR template requirements
 - CI configuration - Understanding what checks run
 

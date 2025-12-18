@@ -8,11 +8,11 @@ Personal dotfiles repository for development tools and environments.
 - **tmux.conf** - Tmux terminal multiplexer configuration  
 - **bash_profile** - Bash shell configuration
 - **colors/** - Vim color schemes
-- **claude/** - Claude AI assistant configuration and command documentation
+- **agents/** - Assistant prompts and configuration (Claude + Codex)
 
-## Claude Commands
+## Agent Prompts
 
-Custom slash commands for Claude Code workflows:
+Reusable prompts/slash-commands for Claude Code and Codex CLI:
 
 ### GitHub Workflows
 - **gh-commit** - Smart commit manager with conventional commits, branch safety
@@ -29,8 +29,8 @@ Custom slash commands for Claude Code workflows:
 - **youtube** - YouTube transcript processing
 
 Files:
-- `CLAUDE.md` - Global instructions (uv, no mocking, commit conventions)
-- `settings.json` - Claude Code settings
+- `agents/AGENTS.md` - Global instructions (uv, no mocking, commit conventions)
+- `agents/claude/settings.json` - Claude Code settings
 
 ## Installation
 
@@ -45,7 +45,13 @@ Files:
    cd dots
    chmod +x install.sh
    ./install.sh                    # Install all components
+   ./install.sh --agents           # Install Claude + Codex prompts
    ./install.sh --claude           # Install only Claude config
+   ./install.sh --openai           # Install only Codex prompts
+   ./install.sh --cursor           # Install only Cursor commands (global)
+   ./install.sh --cursor-project   # Install Cursor commands into .cursor/commands
+   ./install.sh --openai --only-prompts gh-commit,make-tests
+   ./install.sh --claude --claude-agent test-runner
    ./install.sh --vim              # Install only vim config
    ./install.sh --bash             # Install only bash config
    ./install.sh --tmux             # Install only tmux config
@@ -64,7 +70,16 @@ The installer supports selective installation with these flags:
 - `--vim` - Install only vim configuration (vimrc + colors)
 - `--bash` - Install only bash configuration (bash_profile)
 - `--tmux` - Install only tmux configuration (tmux.conf)
-- `--claude` - Install only Claude configuration (claude/)
+- `--agents` - Install assistant prompts (Claude + Codex)
+- `--claude` - Install only Claude configuration
+- `--openai` - Install only Codex configuration (OpenAI Developers)
+- `--cursor` - Install only Cursor commands (global)
+- `--cursor-project` - Install Cursor commands into `.cursor/commands` (project)
+- `--prompt NAME` - Install only one prompt (repeatable)
+- `--only-prompts a,b,c` - Install only these prompts
+- `--claude-agent NAME` - Install only one Claude subagent (repeatable)
+- `--list-prompts` - List available prompts
+- `--list-claude-agents` - List available Claude agents
 - `--help` - Show usage information and all available flags
 
 ## Key Plugins & Shortcuts
