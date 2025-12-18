@@ -41,7 +41,7 @@ Simple getter with 10-line docstring
 ```python
 @patch @patch @patch  # >3 mocks, tests nothing real
 ```
-Note: CLAUDE.md says "no mocking in tests"
+Note: `AGENTS.md`/`CLAUDE.md` says "no mocking in tests"
 
 #### F. Fake Data
 Suspiciously specific metrics without citation, made-up case studies

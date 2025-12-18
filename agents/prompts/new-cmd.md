@@ -1,6 +1,6 @@
 # New Command
 
-Create new Claude commands following best practices.
+Create new assistant commands/prompts following best practices.
 
 ## Interview Process
 
@@ -13,10 +13,11 @@ Create new Claude commands following best practices.
 
 ### 2. Research Similar Commands
 
-**Check existing commands:**
+**Check existing commands/prompts:**
 ```bash
-ls -la .claude/commands/     # Project
-ls -la ~/.claude/commands/   # User
+ls -la .claude/commands/     # Project (Claude Code)
+ls -la ~/.claude/commands/   # User (Claude Code)
+ls -la ~/.codex/prompts/     # User (Codex CLI)
 ```
 
 **Read similar ones for patterns:**
@@ -36,6 +37,11 @@ ls -la ~/.claude/commands/   # User
 - General-purpose
 - Reusable across projects
 - Personal productivity
+
+**User prompt** (~/.codex/prompts/):
+- General-purpose
+- Reusable across projects
+- Codex CLI custom prompts
 
 ### 4. Follow Patterns
 
