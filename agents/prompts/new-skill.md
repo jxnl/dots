@@ -33,7 +33,12 @@ Use context clues (repo layout, `AGENTS.md`, existing `~/.codex/skills`, any Cla
 
 ## Propose scripts + resources (make suggestions, then confirm)
 
-Based on the interview, suggest what will make the skill actually useful. Examples:
+Based on the interview, your job is to make a concrete recommendation for:
+- tool/runtime choices (shell vs uv Python vs bun TypeScript)
+- what to put in `scripts/`
+- what to put in `resources/` + `resources/references/`
+
+First, present a short recommendation (then confirm). Keep it specific and tied to the user’s goal.
 
 **Good candidates for `scripts/`:**
 - Shell: glue + reproducible CLI sequences, git/gh workflows, simple automation
@@ -53,6 +58,26 @@ Ask targeted questions:
 - `checklists.md` (QA steps, release steps)
 
 Make a concrete proposal (paths + files + 1-line purpose each) and confirm once.
+
+## Recommendation format (use this structure)
+
+Before writing files, output a recommendation like:
+
+```
+Recommendation
+- Skill system: Codex | Claude
+- Location: global | project-local
+- Name: ...
+- Scripts: shell | uv python | bun ts (why)
+- Files to create:
+  - SKILL.md (purpose)
+  - resources/README.md (what’s in here)
+  - resources/references/README.md (links + conventions)
+  - resources/samples/... (optional)
+  - scripts/run.(sh|py|ts) (what it does)
+```
+
+Then ask: “Confirm this plan? (yes/no)”. Only write files after yes.
 
 ## Scaffold (after confirmation)
 
