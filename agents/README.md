@@ -70,4 +70,5 @@ Install only specific prompts (works for `--claude`, `--openai`, `--cursor`, `--
 ```bash
 ./install.sh --openai --only-prompts gh-commit,make-tests
 ./install.sh --cursor --prompt gh-review-pr --prompt gh-fix-ci
+./install.sh --agents --prompt new-skill
 ```
