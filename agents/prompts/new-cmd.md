@@ -30,6 +30,17 @@ Also confirm:
 
 Suggest the smallest set of steps that solve the problem, plus safety. Confirm before writing the file.
 
+## Prefer a CLI when it fits
+
+If the workflow is repeatable or should be runnable outside chat, bias toward creating a small CLI:
+- Define inputs as flags/args
+- Print machine-readable output when useful (JSON)
+- Keep a single entrypoint and a small help/usage section
+
+Language hints:
+- **Python**: prefer a Typer CLI when you can.
+- **TypeScript**: choose a CLI approach based on context clues (existing deps, bun/node, repo patterns). If unsure, ask which runtime they want and keep it dependency-light.
+
 ## Template
 
 ```md
