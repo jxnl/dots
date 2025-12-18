@@ -2,30 +2,78 @@
 
 Create a new skill folder with `SKILL.md`, `resources/`, and `scripts/`.
 
-## First: decide skill system + location (ask before writing files)
+## Start by interviewing the user (ask before writing files)
 
-Use context clues (repo layout, `AGENTS.md`, existing `~/.codex/skills`, any Claude skills/plugin repo) to guess, then ask:
+This command is an interview. Optimize for clarity and reusability.
+
+First, determine whether the user wants:
+- **(A) New skill from scratch**, or
+- **(B) “Capture what we just did”**: summarize the current thread/work into a reusable skill.
+
+Ask:
+1. “What are you trying to accomplish with this skill?” (1–2 sentences)
+2. “Who is it for and when should it be used?” (trigger conditions)
+3. “What are the inputs and outputs?” (files, URLs, CLI args, artifacts)
+4. “What should the skill do step-by-step?” (happy path)
+5. “What can go wrong?” (constraints, safety, edge cases)
+
+If the user says (B), ask:
+- “Which part of our work should become the skill?” (link to repo area / recap)
+- “What should be standardized vs left flexible?”
+- “What are the exact commands/scripts you want to keep?”
+
+## Decide skill system + location (make an educated guess, then confirm)
+
+Use context clues (repo layout, `AGENTS.md`, existing `~/.codex/skills`, any Claude skills/plugin repo) to guess, then ask for confirmation:
 
 1. Skill system: **Codex** skill (`~/.codex/skills/**/SKILL.md`) or **Claude** skill (repo `skills/<name>/SKILL.md`)?
 2. Location: **global** or **project-local**?
 3. Skill name (kebab-case). If user gives spaces, sanitize.
 4. Description (one line, <=500 chars).
 
-## Then: scaffold
+## Propose scripts + resources (make suggestions, then confirm)
+
+Based on the interview, suggest what will make the skill actually useful. Examples:
+
+**Good candidates for `scripts/`:**
+- Shell: glue + reproducible CLI sequences, git/gh workflows, simple automation
+- Python (uv): data transforms, scraping/parsing, small utilities, reproducible runs
+- TypeScript (bun): API calls, JSON manipulation, quick CLIs, web tooling
+
+Ask targeted questions:
+1. “Do you want runnable scripts, or just instructions?”
+2. “Which runtime(s) should we assume?” (uv Python / bun TS / shell)
+3. “Should scripts be single-file entrypoints (`run.py`, `run.ts`, `run.sh`) or multiple modules?”
+4. “Do scripts need external deps?” If yes, ask where to document them (e.g. `resources/README.md`).
+
+**Good candidates for `resources/`:**
+- `references/` (APIs, docs links, conventions, style/brand guides)
+- `samples/` (example inputs/outputs)
+- `templates/` (boilerplate docs, PR templates, message templates)
+- `checklists.md` (QA steps, release steps)
+
+Make a concrete proposal (paths + files + 1-line purpose each) and confirm once.
+
+## Scaffold (after confirmation)
 
 Create:
 - `SKILL.md`
 - `resources/` (for references, docs, samples)
 - `scripts/` (for runnable helpers)
 
-Ask what they want in `resources/` and `scripts/`:
-1. `resources/` contents: `README.md` only, or also `references/` with starter `references/example.md`?
-2. `scripts/` languages:
-   - Shell (`scripts/run.sh`)
-   - Python (uv) (`scripts/run.py`)
-   - TypeScript (bun) (`scripts/run.ts` + `bun.lockb` ignored if present)
-
-Make a concrete proposal (paths + files) and confirm once before writing.
+Default layout (adjust based on answers):
+```
+<skill-root>/
+  SKILL.md
+  resources/
+    README.md
+    references/
+      README.md
+  scripts/
+    run.sh
+    run.py
+    run.ts
+```
 
 ## File templates
 
@@ -73,4 +121,3 @@ console.log("ok");
 set -euo pipefail
 echo "ok"
 ```
-
