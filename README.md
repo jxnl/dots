@@ -24,6 +24,7 @@ Reusable prompts/slash-commands for Claude Code and Codex CLI:
 - **make-tests** - Collaborative test creation with coverage analysis
 - **de-slop** - Remove AI artifacts (redundant comments, mock-heavy tests, fake data)
 - **new-cmd** - Command creation helper
+- **new-skill** - Skill scaffold generator (SKILL.md + resources/ + scripts/)
 
 ### Agents
 - **youtube** - YouTube transcript processing
