@@ -1,182 +1,36 @@
-# Smart Commit Command
+# Commit
 
-You are a commit specialist that creates well-organized, logical commits following conventional commit standards.
+Create small, logical commits with conventional commit messages.
 
-## Workflow
+## Steps
 
-### 1. Safety & Branch Check
-
+1. Safety
 ```bash
 git branch --show-current
 ```
+- If on `main`/`master`: stop and create a branch: `git checkout -b feat/short-desc`
 
-**If on main/master:**
-- ⚠️ **STOP**: Never commit to main
-- Ask: "What feature/fix are you working on?"
-- Create branch: `git checkout -b {type}/{description}` (e.g., `feat/add-yaml-support`)
-
-**If on feature branch:**
-- ✅ Proceed with analysis
-
-**Check for changes:**
+2. Inspect changes
 ```bash
 git status --porcelain
 git diff --stat
 ```
 
-### 2. Analyze & Batch Changes
+3. Batch changes (typical: `feat|fix`, then `test`, then `docs`, then `refactor/chore`)
+- Keep commits atomic
+- Do not mix unrelated concerns
+- Never `git add .`
 
-**Read user's request** to understand purpose (feature, fix, refactor, docs, etc.)
-
-**Categorize changes** by type and scope:
-- **feat/fix**: Core implementation, main logic
-- **test**: Test files, test updates
-- **docs**: README, docstrings, documentation
-- **refactor**: Code cleanup without behavior change
-- **chore**: Dependencies, build config, tooling
-
-**Batching rules:**
-- Keep related changes together
-- Separate concerns (don't mix unrelated code)
-- Each commit should be atomic
-- If test depends on implementation, commit together
-
-### 3. Create Commits
-
-For each batch:
-
-**Add files by group:**
+4. Stage + commit each batch
 ```bash
-git add file1.py file2.py file3.py
+git add path/to/file1 path/to/file2
+git commit -m "type(scope): short description"
 ```
-- ✅ Add files for this batch only
-- ❌ Never `git add .`
 
-**Commit with conventional format:**
+5. Summary
 ```bash
-git commit -m "$(cat <<'EOF'
-type(scope): description
-
-Optional body explaining why this change was made.
-EOF
-)"
+git log --oneline -10
+git diff --stat origin/$(git remote show origin | awk '/HEAD branch/ {print $NF}')...HEAD
 ```
 
-**Types:** feat, fix, docs, test, refactor, style, perf, chore, ci
-
-**Scope examples:** anthropic, openai, validation, streaming, cli, docs
-
-**Description rules:**
-- Imperative mood: "add feature" not "added feature"
-- Concise but descriptive
-- No ending period
-- Simple, clear language
-
-### 4. Summary & Next Steps
-
-```bash
-# Show commits created
-git log main..HEAD --oneline
-
-# Show diff summary
-git diff main...HEAD --stat
-```
-
-**Report:**
-- List commits created
-- Explain batching rationale
-- Suggest: push, create PR, or continue working
-
-## Examples
-
-```
-feat(anthropic): add support for Claude 3.5 Sonnet
-
-Implements client wrapper with streaming and function calling.
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-```
-fix(validation): handle empty response arrays
-
-Previously crashed on empty arrays. Now returns empty list.
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-```
-test(gemini): add validation tests for JSON mode
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-```
-docs(README): update installation instructions
-
-Add UV installation method and Python 3.9+ requirement.
-
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-## Special Cases
-
-**Multiple features:** Ask if separate commits or together
-
-**Breaking changes:** Add `BREAKING CHANGE:` in body or use `feat!:`
-
-**Large refactoring:** Ask user for batching preferences
-
-**Pre-commit hooks fail:** Show output, ask if fixes should be in same or separate commit
-
-## Project Awareness
-
-Check before committing:
-```bash
-git log --oneline -10  # Follow existing patterns
-```
-
-Read if exists: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.gitmessage`
-
-## Output Format
-
-```
-🔍 Analyzing changes...
-
-Branch: feat/add-yaml-support
-Changed: 8 files
-
-📦 Batches:
-  1. Core (3 files) - feat(yaml)
-  2. Tests (3 files) - test(yaml)
-  3. Docs (2 files) - docs(yaml)
-
-✅ Creating commits...
-
-📝 feat(yaml): add MD_YAML mode for YAML extraction
-   Files: instructor/mode.py, instructor/client_openai.py, instructor/yaml_handler.py
-   ✓ abc123f
-
-📝 test(yaml): add tests for MD_YAML mode
-   Files: tests/test_yaml.py, tests/fixtures/yaml_samples.py
-   ✓ def456a
-
-📝 docs(yaml): document MD_YAML usage
-   Files: README.md, docs/concepts/yaml-mode.md
-   ✓ ghi789b
-
-✨ Summary: 3 commits, 8 files changed
-
-Next: git push -u origin feat/add-yaml-support
-```
-
-## Usage
-
-```bash
-/commit                    # Analyze and commit
-/commit "description"      # Use description to inform messages
-```
+Read if present: `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `.gitmessage`.
