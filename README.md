@@ -51,7 +51,6 @@ Files:
    ./install.sh --cursor           # Install only Cursor commands (global)
    ./install.sh --cursor-project   # Install Cursor commands into .cursor/commands
    ./install.sh --openai --only-prompts gh-commit,make-tests
-   ./install.sh --claude --claude-agent test-runner
    ./install.sh --vim              # Install only vim config
    ./install.sh --bash             # Install only bash config
    ./install.sh --tmux             # Install only tmux config
@@ -77,9 +76,7 @@ The installer supports selective installation with these flags:
 - `--cursor-project` - Install Cursor commands into `.cursor/commands` (project)
 - `--prompt NAME` - Install only one prompt (repeatable)
 - `--only-prompts a,b,c` - Install only these prompts
-- `--claude-agent NAME` - Install only one Claude subagent (repeatable)
 - `--list-prompts` - List available prompts
-- `--list-claude-agents` - List available Claude agents
 - `--help` - Show usage information and all available flags
 
 ## Key Plugins & Shortcuts
