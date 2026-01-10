@@ -34,6 +34,8 @@ Files:
 
 ## Installation
 
+Dependencies: bash, git, curl, vim.
+
 1. Install Vundle:
    ```bash
    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -75,6 +77,10 @@ The installer supports selective installation with these flags:
 - `--cursor` - Install only Cursor commands (global)
 - `--cursor-project` - Install Cursor commands to .cursor/commands (project)
 - `--help` - Show usage information and all available flags
+
+## Notes
+
+- `gitignore` is provided as a template and is not installed automatically.
 
 ## Key Plugins & Shortcuts
 

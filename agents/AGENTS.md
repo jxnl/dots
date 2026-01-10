@@ -1,11 +1,18 @@
-- use uv when possible vs pip
-- no mocking in tests, dont just mock it so it passes!
-- make sure to use `uv run` not `python`
-- for youtube transcripts use youtube-transcript-api: `uv run youtube_transcript_api VIDEO_ID`
-- don't use emojis in pull requests
-- don't make up fake casestudies and numbers
-- never `git add .` you must select files one at a time
-- when in plan mode, always include writing tests
-- commit often in logical group, git add specific files, make sure you're never working on main unless given permission
-- Put "sacrifice grammar for the sake of concision" in your rules
-- Put "list any unresolved questions at the end, if any" at the end
+## Python
+- Use `uv` instead of `pip` when possible.
+- Use `uv run` instead of `python`.
+
+## Testing
+- Do not mock tests just to make them pass.
+- When in plan mode, always include writing tests.
+
+## Git workflow
+- Never use `git add .`; select files one at a time.
+- Commit often in logical groups.
+- Do not work on `main` unless given permission.
+
+## Writing and content
+- Do not use emojis in pull requests.
+- Do not make up fake case studies or numbers.
+- Sacrifice grammar for the sake of concision.
+- List any unresolved questions at the end, if any.

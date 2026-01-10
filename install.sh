@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euo pipefail
 
 # Default: install all components
 INSTALL_VIM=true
@@ -80,7 +81,10 @@ install_cp_dir_contents() {
 
 list_prompts() {
     if [ -d "agents/prompts" ]; then
-        ls -1 agents/prompts/*.md 2>/dev/null | xargs -n1 basename | sed 's/\\.md$//' | sort
+        find agents/prompts -maxdepth 1 -type f -name '*.md' -print \
+            | xargs -n1 basename \
+            | sed 's/\\.md$//' \
+            | sort
     fi
 }
 
