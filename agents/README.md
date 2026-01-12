@@ -8,6 +8,7 @@ General assistant setup (Claude Code, Codex CLI, and other tools) with shared pr
 agents/
 ├── AGENTS.md              # General instructions (Codex-style)
 └── prompts/               # Reusable prompts / slash commands (tool-agnostic)
+└── skills/                # Codex skills for ~/.codex/skills
 ```
 
 ## Installation
@@ -20,7 +21,7 @@ Run from the repo root (`dots/`):
 
 ### What `--agents` installs
 
-`./install.sh --agents` installs the shared prompts into all supported tools (Claude Code + Codex CLI + Cursor).
+`./install.sh --agents` installs shared prompts into all supported tools (Claude Code + Codex CLI + Cursor) and installs Codex skills.
 
 ### Claude Code (Anthropic)
 
@@ -32,6 +33,7 @@ Installs:
 
 Installs:
 - `~/.codex/prompts/*.md` (copied from `agents/prompts/`)
+- `~/.codex/skills/*` (copied from `agents/skills/`)
 
 ### Cursor
 
@@ -56,6 +58,11 @@ Install only prompts for a specific tool:
 ./install.sh --openai
 ./install.sh --cursor
 ./install.sh --cursor-project
+```
+
+Install only Codex skills:
+```bash
+./install.sh --skills
 ```
 
 List what you can install:

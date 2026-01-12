@@ -9,6 +9,7 @@ INSTALL_CLAUDE=true
 INSTALL_OPENAI=true
 INSTALL_CURSOR=true
 INSTALL_CURSOR_PROJECT=false
+INSTALL_SKILLS=false
 
 SELECTED_PROMPTS=()
 INTERACTIVE=false
@@ -198,7 +199,8 @@ run_interactive_wizard() {
     echo ""
     if prompt_yes_no "Install assistant prompts/configs?" y; then
         if prompt_yes_no "  Install Claude config?" y; then INSTALL_CLAUDE=true; fi
-        if prompt_yes_no "  Install Codex config (OpenAI Developers)?" y; then INSTALL_OPENAI=true; fi
+    if prompt_yes_no "  Install Codex config (OpenAI Developers)?" y; then INSTALL_OPENAI=true; fi
+    if prompt_yes_no "  Install Codex skills?" y; then INSTALL_SKILLS=true; fi
         if prompt_yes_no "  Install Cursor commands (global)?" y; then INSTALL_CURSOR=true; fi
         if prompt_yes_no "  Install Cursor commands into this repo (.cursor/commands)?" n; then INSTALL_CURSOR_PROJECT=true; fi
 
@@ -220,6 +222,7 @@ run_interactive_wizard() {
     echo "  codex(openai):  $INSTALL_OPENAI"
     echo "  cursor(global): $INSTALL_CURSOR"
     echo "  cursor(project):$INSTALL_CURSOR_PROJECT"
+    echo "  codex skills:   $INSTALL_SKILLS"
     echo "  backup:         $BACKUP"
     echo "  dry-run:        $DRY_RUN"
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -289,6 +292,7 @@ while [[ $# -gt 0 ]]; do
             INSTALL_OPENAI=true
             INSTALL_CURSOR=true
             INSTALL_CURSOR_PROJECT=false
+            INSTALL_SKILLS=true
             shift
             ;;
         --claude)
@@ -309,6 +313,7 @@ while [[ $# -gt 0 ]]; do
             INSTALL_OPENAI=true
             INSTALL_CURSOR=false
             INSTALL_CURSOR_PROJECT=false
+            INSTALL_SKILLS=false
             shift
             ;;
         --cursor)
@@ -329,6 +334,18 @@ while [[ $# -gt 0 ]]; do
             INSTALL_OPENAI=false
             INSTALL_CURSOR=false
             INSTALL_CURSOR_PROJECT=true
+            INSTALL_SKILLS=false
+            shift
+            ;;
+        --skills)
+            INSTALL_VIM=false
+            INSTALL_BASH=false
+            INSTALL_TMUX=false
+            INSTALL_CLAUDE=false
+            INSTALL_OPENAI=false
+            INSTALL_CURSOR=false
+            INSTALL_CURSOR_PROJECT=false
+            INSTALL_SKILLS=true
             shift
             ;;
         --prompt)
@@ -373,6 +390,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --openai/--codex  Install only Codex configuration (OpenAI Developers)"
             echo "  --cursor  Install only Cursor commands (global)"
             echo "  --cursor-project  Install Cursor commands to .cursor/commands (project)"
+            echo "  --skills  Install Codex skills to ~/.codex/skills"
             echo "  --prompt NAME  Install only one prompt (repeatable)"
             echo "  --only-prompts a,b,c  Install only these prompts"
             echo "  --list-prompts  List available prompts"
@@ -461,6 +479,17 @@ if [ "$INSTALL_OPENAI" = true ]; then
         install_cp_dir_contents agents/prompts ~/.codex/prompts
     fi
     echo "✅ Codex configuration installed"
+fi
+
+if [ "$INSTALL_SKILLS" = true ]; then
+    echo "🧠 Installing Codex skills..."
+    mkdir -p ~/.codex/skills
+    if [ -d "agents/skills" ]; then
+        install_cp_dir_contents agents/skills ~/.codex/skills
+    else
+        echo "No skills found under agents/skills."
+    fi
+    echo "✅ Codex skills installed"
 fi
 
 if [ "$INSTALL_CURSOR" = true ]; then

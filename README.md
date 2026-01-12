@@ -8,7 +8,7 @@ Personal dotfiles repository for development tools and environments.
 - **tmux.conf** - Tmux terminal multiplexer configuration  
 - **bash_profile** - Bash shell configuration
 - **colors/** - Vim color schemes
-- **agents/** - Shared agent prompts + tool-specific settings
+- **agents/** - Shared agent prompts + tool-specific settings (including Codex skills)
 
 ## Codex Commands
 
@@ -55,6 +55,7 @@ Dependencies: bash, git, curl, vim.
    ./install.sh --vim              # Install only vim config
    ./install.sh --bash             # Install only bash config
    ./install.sh --tmux             # Install only tmux config
+   ./install.sh --skills           # Install only Codex skills
    ./install.sh --help             # Show all options
    ```
 
@@ -78,6 +79,7 @@ The installer supports selective installation with these flags:
 - `--openai`/`--codex` - Install only Codex configuration (OpenAI Developers)
 - `--cursor` - Install only Cursor commands (global)
 - `--cursor-project` - Install Cursor commands to .cursor/commands (project)
+- `--skills` - Install Codex skills to ~/.codex/skills
 - `--prompt NAME` - Install only one prompt (repeatable)
 - `--only-prompts a,b,c` - Install only these prompts (comma-separated)
 - `--list-prompts` - List available prompts
