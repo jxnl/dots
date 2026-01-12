@@ -86,7 +86,9 @@ Create:
 - `resources/` (for references, docs, samples)
 - `scripts/` (for runnable helpers)
 
-Default layout (adjust based on answers):
+Only create the runtime file(s) chosen during the interview. Do not create all three.
+
+Example layout (adjust based on chosen runtime):
 ```
 <skill-root>/
   SKILL.md
@@ -95,12 +97,14 @@ Default layout (adjust based on answers):
     references/
       README.md
   scripts/
-    run.sh
-    run.py
-    run.ts
+    run.sh    # Only if shell was chosen
+    # OR run.py (only if uv Python was chosen)
+    # OR run.ts (only if bun TypeScript was chosen)
 ```
 
 ## File templates
+
+**Important:** Only create the script file(s) for the runtime(s) chosen during the interview. Do not create all three.
 
 `SKILL.md`:
 ```md

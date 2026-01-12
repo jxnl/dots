@@ -16,3 +16,8 @@
 - Do not make up fake case studies or numbers.
 - Sacrifice grammar for the sake of concision.
 - List any unresolved questions at the end, if any.
+
+## Autonomy
+- Default to action; only ask when a decision is truly blocking.
+- If details are missing, pick a reasonable default and state the assumption.
+- Keep work moving with small, incremental steps and quick checks.
