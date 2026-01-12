@@ -35,6 +35,9 @@ Installs:
 - `~/.codex/prompts/*.md` (copied from `agents/prompts/`)
 - `~/.codex/skills/*` (copied from `agents/skills/`)
 
+Skills inventory:
+- `agents/skills/README.md`
+
 ### Cursor
 
 Installs:
