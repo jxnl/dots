@@ -368,9 +368,9 @@ while [[ $# -gt 0 ]]; do
             echo "  --vim     Install only vim configuration"
             echo "  --bash    Install only bash configuration"
             echo "  --tmux    Install only tmux configuration"
-            echo "  --agents  Install assistant prompts (Claude + Codex)"
+            echo "  --agents  Install assistant prompts (Claude + Codex + Cursor)"
             echo "  --claude  Install only Claude configuration"
-            echo "  --openai  Install only Codex configuration (OpenAI Developers)"
+            echo "  --openai/--codex  Install only Codex configuration (OpenAI Developers)"
             echo "  --cursor  Install only Cursor commands (global)"
             echo "  --cursor-project  Install Cursor commands to .cursor/commands (project)"
             echo "  --prompt NAME  Install only one prompt (repeatable)"
@@ -436,7 +436,6 @@ if [ "$INSTALL_CLAUDE" = true ]; then
     echo "🤖 Installing Claude configuration..."
     mkdir -p ~/.claude/commands
     install_cp_file agents/AGENTS.md ~/.claude/CLAUDE.md
-    install_cp_file agents/claude/settings.json ~/.claude/settings.json
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then

@@ -7,9 +7,7 @@ General assistant setup (Claude Code, Codex CLI, and other tools) with shared pr
 ```
 agents/
 ├── AGENTS.md              # General instructions (Codex-style)
-├── prompts/               # Reusable prompts / slash commands (tool-agnostic)
-└── claude/
-    ├── settings.json      # Claude Code settings
+└── prompts/               # Reusable prompts / slash commands (tool-agnostic)
 ```
 
 ## Installation
@@ -28,7 +26,6 @@ Run from the repo root (`dots/`):
 
 Installs:
 - `~/.claude/CLAUDE.md` (copied from `agents/AGENTS.md`)
-- `~/.claude/settings.json`
 - `~/.claude/commands/*.md` (copied from `agents/prompts/`)
 
 ### OpenAI Developers (Codex CLI)

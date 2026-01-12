@@ -30,7 +30,6 @@ Custom slash commands for Codex CLI workflows (also compatible with Claude Code 
 
 Files:
 - `agents/AGENTS.md` - Global instructions (uv, no mocking, commit conventions)
-- `agents/claude/settings.json` - Claude Code settings
 
 ## Installation
 
@@ -68,6 +67,9 @@ Dependencies: bash, git, curl, vim.
 
 The installer supports selective installation with these flags:
 
+- `--interactive` - Interactive installer (prompts for choices)
+- `--backup` - Backup existing destination files before overwriting
+- `--dry-run` - Print actions without writing files
 - `--vim` - Install only vim configuration (vimrc + colors)
 - `--bash` - Install only bash configuration (bash_profile)
 - `--tmux` - Install only tmux configuration (tmux.conf)
@@ -76,6 +78,9 @@ The installer supports selective installation with these flags:
 - `--openai`/`--codex` - Install only Codex configuration (OpenAI Developers)
 - `--cursor` - Install only Cursor commands (global)
 - `--cursor-project` - Install Cursor commands to .cursor/commands (project)
+- `--prompt NAME` - Install only one prompt (repeatable)
+- `--only-prompts a,b,c` - Install only these prompts (comma-separated)
+- `--list-prompts` - List available prompts
 - `--help` - Show usage information and all available flags
 
 ## Notes
