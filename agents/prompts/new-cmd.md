@@ -1,59 +1,34 @@
 # New Command
 
-Create a new reusable command/prompt by interviewing the user first, then writing the smallest useful version.
+Create a new command from user's description. No interview - just build it.
 
-## Interview (ask before writing files)
+## Steps
 
-Start by asking:
-1. “What are you trying to accomplish with this command?” (1–2 sentences)
-2. “When should someone use it?” (trigger + success criteria)
-3. “What inputs does it take?” (positional args? named args? files?)
-4. “What should the output look like?” (format + what to include/omit)
-5. “Any safety rules?” (no destructive ops, confirm before write, etc.)
-
-If this command is meant to codify the current thread, ask:
-- “Which workflow should we capture from what we just did?”
-- “What should be standardized vs left flexible?”
-
-## Decide where it lives (guess, then confirm)
-
-Use context clues (repo type, existing directories, user mentions) to guess, then ask:
-1. Cursor: `.cursor/commands/` (project) or `~/.cursor/commands/` (global)
-2. Codex prompts: `~/.codex/prompts/`
-3. Claude: `~/.claude/commands/`
-
-Also confirm:
-- File name (kebab-case, no spaces)
-- One-line description
-
-## Propose a minimal command outline (confirm once)
-
-Suggest the smallest set of steps that solve the problem, plus safety. Confirm before writing the file.
-
-## Prefer a CLI when it fits
-
-If the workflow is repeatable or should be runnable outside chat, bias toward creating a small CLI:
-- Define inputs as flags/args
-- Print machine-readable output when useful (JSON)
-- Keep a single entrypoint and a small help/usage section
-
-Language hints:
-- **Python**: prefer a Typer CLI when you can.
-- **TypeScript**: choose a CLI approach based on context clues (existing deps, bun/node, repo patterns). If unsure, ask which runtime they want and keep it dependency-light.
-
-## Template
-
-```md
-# Title
+1. Parse request - extract name (kebab-case, gh- prefix for GitHub), purpose, args
+2. Check existing commands for style
+```bash
+ls ~/.claude/commands/
+ls ~/.codex/prompts/
+```
+3. Write to `~/.claude/commands/{name}.md` using concise format:
+```markdown
+# Name
 
 One-line description.
 
 ## Steps
-1. ...
-2. ...
+1. Step with `bash command`
+2. Step with decisions
 
-## Safety
-- ...
+## Usage
+/{name} [args]
 ```
+4. Ask: "Claude, Codex, or both?" then install to chosen location(s)
+5. Report created files and usage
 
-Finish by testing the command once on a small example and tightening wording.
+## Rules
+
+- Ask once: "Claude, Codex, or both?"
+- No other questions unless truly ambiguous
+- Infer intent from context
+- Start minimal, iterate later
