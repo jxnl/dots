@@ -1,16 +1,22 @@
 # New Command
 
-Create a new command from user's description. No interview - just build it.
+Create a command from conversation history or user description.
 
 ## Steps
 
-1. Parse request - extract name (kebab-case, gh- prefix for GitHub), purpose, args
+1. **Detect context**
+   - If history exists: auto-capture workflow into command
+   - If no history: parse user's description
+
 2. Check existing commands for style
 ```bash
 ls ~/.claude/commands/
 ls ~/.codex/prompts/
 ```
-3. Write to `~/.claude/commands/{name}.md` using concise format:
+
+3. Ask: "Claude, Codex, or both?"
+
+4. Write command using concise format:
 ```markdown
 # Name
 
@@ -23,12 +29,15 @@ One-line description.
 ## Usage
 /{name} [args]
 ```
-4. Ask: "Claude, Codex, or both?" then install to chosen location(s)
-5. Report created files and usage
+
+5. Report created file and usage
+
+## Flags
+
+`--interview`: Ask detailed questions about purpose, triggers, inputs, outputs
 
 ## Rules
 
-- Ask once: "Claude, Codex, or both?"
-- No other questions unless truly ambiguous
-- Infer intent from context
-- Start minimal, iterate later
+- Default to capturing conversation if history exists
+- Ask one question: "Claude, Codex, or both?"
+- Infer everything else from context
