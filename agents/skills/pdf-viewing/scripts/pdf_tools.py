@@ -48,8 +48,8 @@ def ocr(
     pdf_path: Path = typer.Argument(..., exists=True, dir_okay=False, readable=True),
     out_dir: Optional[Path] = typer.Option(None, "--out-dir", "-o"),
     copy_pdf: bool = typer.Option(True, "--copy-pdf/--no-copy-pdf"),
-    json_name: str = typer.Option("ocr-pages.json", "--json-name"),
-    text_name: str = typer.Option("ocr-pages.txt", "--text-name"),
+    pages_json: str = typer.Option("ocr-pages.json", "--pages-json"),
+    pages_text: str = typer.Option("ocr-pages.txt", "--pages-text"),
 ) -> None:
     """OCR a PDF with docling and save per-page text."""
     out_dir = _resolve_out_dir(pdf_path, out_dir)
@@ -79,10 +79,10 @@ def ocr(
             text = str(document)
         page_entries.append({"page": 1, "text": text})
 
-    json_path = out_dir / json_name
+    json_path = out_dir / pages_json
     json_path.write_text(json.dumps(page_entries, ensure_ascii=True, indent=2))
 
-    text_path = out_dir / text_name
+    text_path = out_dir / pages_text
     parts = []
     for entry in page_entries:
         parts.append(f"=== Page {entry['page']} ===\n{entry['text']}")
@@ -98,8 +98,8 @@ def rasterize(
     out_dir: Optional[Path] = typer.Option(None, "--out-dir", "-o"),
     copy_pdf: bool = typer.Option(True, "--copy-pdf/--no-copy-pdf"),
     dpi: int = typer.Option(200, "--dpi"),
-    image_dir: str = typer.Option("images", "--image-dir"),
-    manifest_name: str = typer.Option("images.json", "--manifest-name"),
+    images_dir: str = typer.Option("images", "--images-dir"),
+    images_manifest: str = typer.Option("images.json", "--images-manifest"),
 ) -> None:
     """Rasterize a PDF to JPEG images using PyMuPDF."""
     out_dir = _resolve_out_dir(pdf_path, out_dir)
@@ -112,23 +112,23 @@ def rasterize(
         typer.echo(f"Failed to import PyMuPDF (fitz): {exc}", err=True)
         raise typer.Exit(code=1)
 
-    images_dir = out_dir / image_dir
-    images_dir.mkdir(parents=True, exist_ok=True)
+    images_dir_path = out_dir / images_dir
+    images_dir_path.mkdir(parents=True, exist_ok=True)
 
     doc = fitz.open(str(pdf_path))
     image_paths = []
     for idx in range(doc.page_count):
         page = doc.load_page(idx)
         pix = page.get_pixmap(dpi=dpi, alpha=False)
-        out_path = images_dir / f"page-{idx + 1:04d}.jpg"
+        out_path = images_dir_path / f"page-{idx + 1:04d}.jpg"
         pix.save(str(out_path))
         image_paths.append(str(out_path))
 
-    manifest_path = out_dir / manifest_name
+    manifest_path = out_dir / images_manifest
     manifest_path.write_text(json.dumps(image_paths, ensure_ascii=True, indent=2))
 
     typer.echo(f"Wrote {manifest_path}")
-    typer.echo(f"Rasterized {len(image_paths)} pages to {images_dir}")
+    typer.echo(f"Rasterized {len(image_paths)} pages to {images_dir_path}")
 
 
 if __name__ == "__main__":
