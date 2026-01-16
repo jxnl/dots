@@ -9,10 +9,10 @@ description: OCR PDFs with docling while tracking per-page text and rasterize PD
 Use this skill to OCR PDFs with docling and preserve page numbers, or rasterize PDF pages into JPEGs for visual inspection. Always save outputs under a local project directory (default: `./.pdf-artifacts/<pdf-stem>`).
 
 ## Quick Start
-1. Create a local venv in the project and install deps:
+1. Create a local venv in the project and install deps as dev dependencies:
    ```bash
    uv venv
-   uv pip install docling typer pymupdf
+   uv add --dev docling typer pymupdf
    ```
 2. Run the OCR tool:
    ```bash
