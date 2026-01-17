@@ -7,19 +7,23 @@ Create a skill from conversation history or user description.
 1. **Detect context**
    - If history exists: auto-capture workflow into skill
    - If no history: parse user's description
+   - Use thread context clues to infer name, description, and triggers
 
-2. **Ask 3 questions:**
-   - "Codex or Claude skill?"
-   - "What tools/scripts should this create?" (CLI, python script, shell script, none)
-   - "What libraries/CLIs can it use?" (e.g., uv, bun, gh, jq, ffmpeg)
+2. Determine host (Codex, Claude, Cursor) from current runtime
+   - Say: "Since I am {host}, I will install it in {host}"
 
-3. Check existing skills for patterns
+3. Propose the skill name, description, triggers, location, and whether scripts are needed
+   - Proceed unless user rejects or corrects
+
+4. Check existing skills for patterns (host-specific)
 ```bash
 ls ~/.codex/skills/
+ls ~/.claude/skills/
+ls ~/.cursor/skills/
 ls agents/skills/
 ```
 
-4. Create skill structure:
+5. Create skill structure:
 ```
 {skill-name}/
   SKILL.md
@@ -28,12 +32,12 @@ ls agents/skills/
     run.py|ts|sh
 ```
 
-5. Write SKILL.md:
+6. Write SKILL.md:
 ```markdown
 ---
 name: skill-name
 description: one-line
-allowed_tools: [list from question 3]
+allowed_tools: [list inferred from context]
 ---
 
 # Skill Name
@@ -49,7 +53,7 @@ allowed_tools: [list from question 3]
 - scripts/run.py: what it does
 ```
 
-6. Report created files
+7. Report created files
 
 ## Flags
 
@@ -81,6 +85,7 @@ echo "ok"
 ## Rules
 
 - Default to capturing conversation if history exists
-- Ask 3 questions, infer everything else
+- Default host to current runtime and install there
+- Ask at most one question, only if ambiguity blocks execution
 - Only create scripts if requested
 - Match existing skill patterns in repo
