@@ -11,8 +11,10 @@ brew "zoxide"
 brew "python"
 brew "uv"
 brew "bun"
-brew "codex"
-brew "claude"
+
+# AI CLIs (official casks)
+cask "codex"
+cask "claude-code"
 
 # Editors
 brew "neovim"
