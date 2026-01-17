@@ -6,6 +6,7 @@
 
 ## Installation
 - Use `./install.sh` to install dotfiles (vim/bash/tmux) plus Claude/Codex/Cursor prompts.
+- Use `./agents/install.sh` to install only agent prompts/skills (no dotfiles).
 - Use `./install.sh --agents` to install shared prompts into Claude, Codex, and Cursor.
 - Use `./install.sh --agents --only-prompts name1,name2` to install specific prompts across tools.
 - Optional: `brew bundle --file Brewfile` on macOS for common tooling.

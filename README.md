@@ -55,10 +55,13 @@ Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Br
    git clone https://github.com/jxnl/dots.git
    cd dots
    chmod +x install.sh
+   chmod +x agents/install.sh
    # Codex (default)
    ./install.sh --openai          # or: ./install.sh --codex
    # All agents (Codex + Claude + Cursor)
    ./install.sh --agents
+   # Agents only (no vim/bash/tmux)
+   ./agents/install.sh
    # Claude (optional)
    ./install.sh                    # Install all components
    ./install.sh --claude           # Install only Claude config

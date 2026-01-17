@@ -13,15 +13,15 @@ agents/
 
 ## Installation
 
-Run from the repo root (`dots/`):
+Run from the repo root (`dots/`) or inside `agents/`:
 
 ```bash
-./install.sh --agents
+./agents/install.sh
 ```
 
 ### What `--agents` installs
 
-`./install.sh --agents` installs shared prompts into all supported tools (Claude Code + Codex CLI + Cursor) and installs Codex skills.
+`./agents/install.sh` (or `./install.sh --agents`) installs shared prompts into all supported tools (Claude Code + Codex CLI + Cursor) and installs Codex skills.
 
 ### Claude Code (Anthropic)
 
@@ -58,24 +58,24 @@ Install everything (vim + bash + tmux + all agent config):
 Install only prompts for a specific tool:
 ```bash
 ./install.sh --claude
-./install.sh --openai
-./install.sh --cursor
-./install.sh --cursor-project
+./agents/install.sh --openai
+./agents/install.sh --cursor
+./agents/install.sh --cursor-project
 ```
 
 Install only Codex skills:
 ```bash
-./install.sh --skills
+./agents/install.sh --skills
 ```
 
 List what you can install:
 ```bash
-./install.sh --list-prompts
+./agents/install.sh --list-prompts
 ```
 
 Install only specific prompts (works for `--claude`, `--openai`, `--cursor`, `--cursor-project`, and `--agents`):
 ```bash
-./install.sh --openai --only-prompts gh-commit,make-tests
-./install.sh --cursor --prompt gh-review-pr --prompt gh-fix-ci
-./install.sh --agents --prompt new-skill
+./agents/install.sh --openai --only-prompts gh-commit,make-tests
+./agents/install.sh --cursor --prompt gh-review-pr --prompt gh-fix-ci
+./agents/install.sh --agents --prompt new-skill
 ```
