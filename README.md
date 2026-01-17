@@ -37,9 +37,10 @@ Dependencies: bash, git, curl, vim (or neovim).
 
 Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
 
-1. Install Vundle:
+1. Install vim-plug (optional; auto-installs on first Vim/Neovim start):
    ```bash
-   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
    ```
 
 2. Install dotfiles:
@@ -61,9 +62,11 @@ Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install tr
    ./install.sh --help             # Show all options
    ```
 
-3. Install Vim plugins:
+3. Install Vim/Neovim plugins:
    ```bash
-   vim +BundleInstall +qall
+   vim +PlugInstall +qall
+   # or
+   nvim +PlugInstall +qall
    ```
 
 ## Installation Flags
@@ -91,6 +94,7 @@ The installer supports selective installation with these flags:
 
 - `gitignore` is provided as a template and is not installed automatically.
 - `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
+- Vim plugins are managed with vim-plug and can be installed via `:PlugInstall`.
 
 ## Key Plugins & Shortcuts
 

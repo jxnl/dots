@@ -11,3 +11,6 @@
 
 ## Shell Defaults
 - `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
+
+## Vim Plugins
+- Plugins are managed with vim-plug; use `:PlugInstall` in vim/nvim.

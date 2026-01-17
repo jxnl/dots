@@ -529,5 +529,5 @@ fi
 echo ""
 echo "🎉 Installation complete!"
 if [ "$INSTALL_VIM" = true ]; then
-    echo "📝 Don't forget to install Vundle and run :BundleInstall in vim"
+    echo "📝 Don't forget to run :PlugInstall in vim/nvim"
 fi
