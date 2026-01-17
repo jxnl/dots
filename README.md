@@ -37,7 +37,7 @@ Files:
 Dependencies: bash, git, curl, vim (or neovim).
 
 Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
-Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Brewfile`).
+Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Brewfile`), including `codex`, `claude-code`, `python`, `uv`, and `bun`.
 
 1. Install Homebrew packages (optional, macOS):
    ```bash
@@ -103,6 +103,7 @@ The installer supports selective installation with these flags:
 - `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
 - Vim plugins are managed with vim-plug and can be installed via `:PlugInstall`.
 - Neovim config installs to `~/.config/nvim/init.vim`.
+- Codex CLI installs via Homebrew cask `codex` and depends on `ripgrep`.
 
 ## Key Plugins & Shortcuts
 

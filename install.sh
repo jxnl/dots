@@ -535,3 +535,6 @@ echo "🎉 Installation complete!"
 if [ "$INSTALL_VIM" = true ]; then
     echo "📝 Don't forget to run :PlugInstall in vim/nvim"
 fi
+if command -v brew >/dev/null 2>&1 && [ -f "Brewfile" ]; then
+    echo "🍺 To install Brewfile packages: brew bundle --file Brewfile"
+fi
