@@ -39,6 +39,11 @@ Dependencies: bash, git, curl, vim (or neovim).
 Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
 Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Brewfile`), including `codex`, `claude-code`, `python`, `uv`, and `bun`.
 
+### Choose what to install
+
+- **Dotfiles**: vim/bash/tmux plus agent prompts (default).
+- **Agents-only**: install prompts/skills without touching dotfiles.
+
 1. Install Homebrew packages (optional, macOS):
    ```bash
    brew bundle --file Brewfile
@@ -56,14 +61,15 @@ Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Br
    cd dots
    chmod +x install.sh
    chmod +x agents/install.sh
-   # Codex (default)
-   ./install.sh --openai          # or: ./install.sh --codex
-   # All agents (Codex + Claude + Cursor)
-   ./install.sh --agents
-   # Agents only (no vim/bash/tmux)
+   # Dotfiles (default)
+   ./install.sh
+   # Agents-only (no vim/bash/tmux)
    ./agents/install.sh
+   # Codex only (prompts)
+   ./install.sh --openai          # or: ./install.sh --codex
+   # All agents (Codex + Claude + Cursor + skills)
+   ./install.sh --agents
    # Claude (optional)
-   ./install.sh                    # Install all components
    ./install.sh --claude           # Install only Claude config
    ./install.sh --vim              # Install only vim config
    ./install.sh --bash             # Install only bash config
