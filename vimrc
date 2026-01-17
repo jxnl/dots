@@ -303,6 +303,21 @@ Plug 'honza/vim-snippets'
 Plug 'sjl/gundo.vim'                         " Undo tree
 Plug 'christoomey/vim-tmux-navigator'        " Tmux integration
 
+" ============================================================================
+" NEOVIM-ONLY PLUGINS
+" ============================================================================
+
+if has('nvim')
+  Plug 'nvim-lua/plenary.nvim'               " Lua helpers (required by Telescope)
+  Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'folke/which-key.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'folke/trouble.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+endif
+
 call plug#end()
 
 " ============================================================================

@@ -5,6 +5,7 @@ Personal dotfiles repository for development tools and environments.
 ## Contents
 
 - **vimrc** - Vim configuration with plugins and keybindings
+- **nvim/** - Neovim configuration (installed to `~/.config/nvim`)
 - **tmux.conf** - Tmux terminal multiplexer configuration  
 - **bash_profile** - Bash shell configuration
 - **colors/** - Vim color schemes
@@ -36,14 +37,20 @@ Files:
 Dependencies: bash, git, curl, vim (or neovim).
 
 Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
+Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Brewfile`).
 
-1. Install vim-plug (optional; auto-installs on first Vim/Neovim start):
+1. Install Homebrew packages (optional, macOS):
+   ```bash
+   brew bundle --file Brewfile
+   ```
+
+2. Install vim-plug (optional; auto-installs on first Vim/Neovim start):
    ```bash
    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
    ```
 
-2. Install dotfiles:
+3. Install dotfiles:
    ```bash
    git clone https://github.com/jxnl/dots.git
    cd dots
@@ -62,7 +69,7 @@ Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install tr
    ./install.sh --help             # Show all options
    ```
 
-3. Install Vim/Neovim plugins:
+4. Install Vim/Neovim plugins:
    ```bash
    vim +PlugInstall +qall
    # or
@@ -95,6 +102,7 @@ The installer supports selective installation with these flags:
 - `gitignore` is provided as a template and is not installed automatically.
 - `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
 - Vim plugins are managed with vim-plug and can be installed via `:PlugInstall`.
+- Neovim config installs to `~/.config/nvim/init.vim`.
 
 ## Key Plugins & Shortcuts
 

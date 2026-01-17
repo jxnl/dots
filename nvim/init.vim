@@ -5,7 +5,10 @@ source ~/.vimrc
 
 " Neovim specific settings
 set termguicolors
-let g:python3_host_prog = '/usr/local/bin/python3'
+if executable('python3')
+  let g:python3_host_prog = system('command -v python3')
+  let g:python3_host_prog = substitute(g:python3_host_prog, '\n', '', 'g')
+endif
 
 " Use native LSP instead of CoC for Neovim
 lua << EOF

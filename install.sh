@@ -426,6 +426,10 @@ if [ "$INSTALL_VIM" = true ]; then
     echo "📝 Installing vim configuration..."
     mkdir -p ~/.vim
     install_cp_file vimrc ~/.vimrc
+    if [ -f "nvim/init.vim" ]; then
+        mkdir -p ~/.config/nvim
+        install_cp_file nvim/init.vim ~/.config/nvim/init.vim
+    fi
     if [ "$DRY_RUN" = true ]; then
         echo "[dry-run] cp -r \"colors\" \"$HOME/.vim/\""
     else
