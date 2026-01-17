@@ -60,6 +60,10 @@ install_cp_file() {
         echo "[dry-run] cp \"$src\" \"$dest\""
         return 0
     fi
+    if [ -e "$dest" ] && cmp -s "$src" "$dest"; then
+        echo "Skipping $dest (identical)"
+        return 0
+    fi
     if [ "$BACKUP" = true ] && [ -e "$dest" ]; then
         local bak
         bak="$(backup_path "$dest")"

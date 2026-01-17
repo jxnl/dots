@@ -1,5 +1,23 @@
 alias bashrc='source ~/.bash_profile'
 
+# Prefer Neovim when available; fall back to Vim.
+if command -v nvim >/dev/null 2>&1; then
+  export EDITOR="nvim"
+  export VISUAL="nvim"
+  export GIT_EDITOR="nvim"
+  alias vim='nvim'
+  alias v='nvim'
+else
+  export EDITOR="vim"
+  export VISUAL="vim"
+  export GIT_EDITOR="vim"
+  alias v='vim'
+fi
+
+# Shell safety defaults
+set -o noclobber
+alias clobber='set +o noclobber'
+
 # Change Prompt
 export PS1="\w : \h (\u) \n>>> " 
 export PS2="  > "
@@ -9,10 +27,16 @@ export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # Terminal Preferences
-alias rm='echo "rm is disabled, use trash or /bin/rm instead."'
-alias remove='rm -irv'
+if command -v trash >/dev/null 2>&1; then
+  alias rm='trash'
+  alias remove='trash -i'
+else
+alias rm='echo "rm is disabled, install trash or use /bin/rm instead."'
+  alias remove='echo "remove is disabled, install trash or use /bin/rm instead."'
+fi
 alias cp='cp -iv'                           # Preferred 'cp' implementation
 alias mv='mv -iv'                           # Preferred 'mv' implementation
+alias ln='ln -iv'                           # Safer symlink creation
 alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias cd..='cd ../'                         # Go back 1 directory level (for fast typers)
 alias ..='cd ../'                           # Go back 1 directory level

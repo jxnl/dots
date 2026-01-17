@@ -33,7 +33,9 @@ Files:
 
 ## Installation
 
-Dependencies: bash, git, curl, vim.
+Dependencies: bash, git, curl, vim (or neovim).
+
+Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
 
 1. Install Vundle:
    ```bash
@@ -88,6 +90,7 @@ The installer supports selective installation with these flags:
 ## Notes
 
 - `gitignore` is provided as a template and is not installed automatically.
+- `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
 
 ## Key Plugins & Shortcuts
 
