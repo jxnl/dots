@@ -3,7 +3,7 @@ name: pdf-viewing
 description: OCR PDFs with docling while tracking per-page text and rasterize PDFs to images. Use for PDF ingestion, page-aware text extraction, rendering pages to images, or inspecting PDF metadata, with outputs saved under a local project directory.
 ---
 
-# Pdf Viewing
+# PDF Viewing
 
 ## Overview
 Use this skill to OCR PDFs with docling and preserve page numbers, rasterize pages into images, or inspect PDF metadata. Always save outputs under a local project directory (default: `./.pdf-artifacts/<pdf-stem>`).
