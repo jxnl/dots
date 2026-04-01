@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit AI Frontend"
+  short_description: "Audit and de-genericize AI-looking web UI"
+  default_prompt: "Use $audit-ai-frontend to review this UI/code for AI-generated frontend tells and propose targeted fixes."
