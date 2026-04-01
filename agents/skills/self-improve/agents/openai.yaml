@@ -1,0 +1,4 @@
+interface:
+  display_name: "Self Improve"
+  short_description: "Dream over sessions and propose instruction edits"
+  default_prompt: "Use $self-improve to dream over recent sessions and propose updates to skills, project AGENTS.md, and global AGENTS.md."
