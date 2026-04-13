@@ -10,7 +10,7 @@ Delegate browser operation details to the existing Playwright skills:
 
 - Use `$playwright` for one-shot CLI browser inspection, snapshots, screenshots, and trace capture.
 - Use `$playwright-interactive` for persistent browser sessions, repeated edit/reload loops, and deeper visual QA with a shared QA inventory.
-- Open `${CODEX_HOME:-$HOME/.codex}/skills/playwright/SKILL.md` or `${CODEX_HOME:-$HOME/.codex}/skills/playwright-interactive/SKILL.md` before running browser commands.
+- Open `/Users/jasonliu/.codex/skills/playwright/SKILL.md` or `/Users/jasonliu/.codex/skills/playwright-interactive/SKILL.md` before running browser commands.
 - Keep this workflow focused on what to inspect for AI-frontend quality, not how to operate Playwright primitives.
 
 1. Open the page in a real browser using the `playwright` skill.
