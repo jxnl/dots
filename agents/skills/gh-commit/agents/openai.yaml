@@ -1,0 +1,4 @@
+interface:
+  display_name: "GH Commit"
+  short_description: "Split diffs into semantic git commits"
+  default_prompt: "Use $gh-commit to review the current diff and split it into semantic commits."

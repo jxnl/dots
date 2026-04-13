@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slidev Presentation Kit"
+  short_description: "Draft and polish Slidev decks in the presentations repo"
+  default_prompt: "Use $slidev-presentation-kit to draft or polish this Slidev deck."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube Extractor"
+  short_description: "Extract YouTube transcripts, titles, and thumbnails"
+  default_prompt: "Use $youtube-extractor to extract this video's transcript and metadata."

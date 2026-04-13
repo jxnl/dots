@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit AI Writing"
+  short_description: "AI writing patterns + fixes"
+  default_prompt: "Use $audit-ai-writing as a reference checklist to identify likely AI-writing artifacts and tells in this text, then explain how to fix each issue while avoiding false-positive assumptions."

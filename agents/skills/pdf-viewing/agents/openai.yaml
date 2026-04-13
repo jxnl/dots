@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Viewing"
+  short_description: "OCR PDFs and render pages for inspection"
+  default_prompt: "Use $pdf-viewing to OCR this PDF and render the key pages."
