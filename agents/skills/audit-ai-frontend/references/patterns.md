@@ -216,6 +216,9 @@ Search for these framework-agnostic patterns before patching:
 - repeated hover scale transforms on every card or tile
 - repeated `Card` maps with the same `Icon + title + description` structure
 - repeated outline-icon imports used only as section decoration
+- component-library demo shells such as `CardHeader`, `CardDescription`, `Badge`, `Tabs`, `DropdownMenu`, `text-muted-foreground`, or `lucide-react`
+- full-stack builder scaffolding such as `Dashboard`, `Overview`, `Recent Activity`, `Settings`, `ProtectedRoute`, `useAuth`, `supabase`, `VITE_`, or fallback demo arrays
+- design-to-code residue such as fixed `left/top/width/height`, layer-like asset names, or repeated exact pixel values
 - `outline: none`, `tabIndex={-1}`, clickable `div`/`span`
 - missing `aria-label`, `aria-describedby`, `alt`, or dialog titles
 - fixed desktop widths, fixed card grids, sticky sidebars, or wide tables with no mobile fallback
@@ -226,6 +229,7 @@ If the project uses Tailwind, also search for these optional utility-class equiv
 
 - `font-sans`, `from-purple-*`, `to-indigo-*`, `bg-indigo-*`, `text-transparent bg-clip-text`
 - `rounded-2xl`, `rounded-3xl`, `shadow-xl`, `backdrop-blur-*`, `hover:scale-105`
+- `text-muted-foreground`, `bg-card`, `border-border`, `bg-background`, `--radius`, `oklch`
 
 ## Minimal Repair Playbook
 

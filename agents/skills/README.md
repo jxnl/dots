@@ -3,6 +3,7 @@
 Codex skills stored for installation to `~/.codex/skills` via `./install.sh --skills` or `./install.sh --agents`.
 
 ## Included
+- `audit-ai-code` - Audit AI-shaped backend/general code and apply safe cleanup fixes.
 - `audit-ai-frontend` - Audit AI-looking frontend UI and apply targeted fixes.
 - `audit-ai-writing` - Audit AI-writing residue, citation failures, and cleanup rewrites.
 - `gh-address-comments` - Address GitHub PR review comments on the current branch.

@@ -84,6 +84,26 @@ Fix:
 - Replace relative dates with absolute dates or explicit version ranges.
 - If roadmap timing is uncertain, scope the claim to the source date and avoid forward-looking promises.
 
+## Rule: tighten docs wording without changing meaning
+
+- Synonym churn for the same concept: one feature, API, or object gets renamed repeatedly just to vary wording.
+- Weak or padded verbs: `utilize`, `leverage`, "make use of", "is able to", "establish connectivity", "perform an update".
+- Ambiguous task language: "the user should...", "one can...", or "you should..." where it is unclear whether the step is required, optional, or just a recommendation.
+- Hidden actors and vague passive voice: "was implemented", "is performed", "was generated", "it was decided" when the sentence no longer says who did what.
+- Note/sidebar clutter: stacked `Note:` blocks, prerequisites hidden in callouts, or parenthetical asides that interrupt step text.
+- Culturally narrow idioms and cute metaphors: pop-culture jokes, "boom", "game-changer", mixed metaphors, or local references that reduce clarity for global readers.
+- Meaning drift after "polish": rewritten text becomes more neutral, broader, or softer than the source claim and loses the original stance, constraint, or caveat.
+
+Fix:
+
+- Use one canonical term per concept unless the text is intentionally introducing a synonym.
+- Replace padded verb phrases with one precise verb and use direct `you` + imperative for procedural docs when that matches house style.
+- Replace ambiguous `should` with `must`, `can`, `might`, or "We recommend..." based on the actual requirement level.
+- Rewrite passive sentences to actor + verb when the actor matters.
+- Inline required prerequisites, keep only genuinely optional notes, and move long asides out of step sentences.
+- Replace idioms and jokes with plain literal wording.
+- Compare the edited sentence against the source or previous draft and restore any lost claim, boundary, or caveat.
+
 ## Rule: normalize repetitive style clusters without over-claiming
 
 - Dense clusters of abstract "AI vocabulary": `pivotal`, `underscores`, `delve`, `interplay`, `intricate`, `tapestry`, `vibrant`, `landscape`, `showcase`, repeated sentence-openers like `Additionally,`.
@@ -118,6 +138,7 @@ Fix:
 
 - Wikipedia: `https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing`
 - Google style guide: `https://developers.google.com/style/tone`, `https://developers.google.com/style/excessive-claims`
+- Google/Microsoft docs style: `https://developers.google.com/style/person`, `https://developers.google.com/style/prescriptive-documentation`, `https://developers.google.com/style/notices`, `https://developers.google.com/style/timeless-documentation`, `https://learn.microsoft.com/en-us/contribute/content/style-quick-start`, `https://learn.microsoft.com/en-us/style-guide/word-choice/use-simple-words-concise-sentences`, `https://learn.microsoft.com/en-us/style-guide/grammar/verbs`
 - Citation fabrication studies: `https://pmc.ncbi.nlm.nih.gov/articles/PMC10484980/`, `https://pmc.ncbi.nlm.nih.gov/articles/PMC11153973/`
 - Detector-bias and detector-fragility studies: `https://arxiv.org/abs/2304.02819`, `https://arxiv.org/abs/2303.11156`
-- Time-drifting marker vocabulary: `https://arxiv.org/abs/2502.09606`
+- Time-drifting marker vocabulary and meaning drift: `https://arxiv.org/abs/2502.09606`, `https://arxiv.org/abs/2603.18161`

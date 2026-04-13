@@ -7,6 +7,8 @@ description: Reference-only checklist for AI-writing artifacts, citation failure
 
 ## Use
 
+Audit or repair Markdown, docs, and pasted prose that may contain AI-writing residue, broken citations, or house-style drift.
+
 Open `patterns.md` and review in this order:
 
 1. Machine residue, broken markup, and broken citations.
@@ -21,13 +23,14 @@ For each finding, include:
 - `Issue`
 - `Evidence` (exact snippet or line location)
 - `Class` (`P0`, `P1`, `P2`)
-- `Why it matters / why it reads as generic`
+- `Why it matters / why it reads as generated`
 - `Possible non-AI explanation`
 - `Smallest fix`
+- `Acceptance check`
 - `Confidence` (`High`, `Medium`, `Low`)
-- `File/line` when available
+- `File/line` when a file is available
 
-Return only the top 5-8 findings and merge repeated symptoms under one root cause.
+Return only the top 5-8 findings and merge repeated symptoms under one root cause. For rewrite asks, patch the text directly and summarize only the meaningful cleanup.
 
 ## Guardrails
 
@@ -38,4 +41,4 @@ Return only the top 5-8 findings and merge repeated symptoms under one root caus
 
 ## Resource
 
-- `patterns.md`: compact artifact taxonomy, verification checks, and rewrite guidance.
+- `patterns.md`: compact artifact taxonomy, verification checks, rewrite guidance, and source basis.
