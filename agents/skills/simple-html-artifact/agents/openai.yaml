@@ -1,0 +1,4 @@
+interface:
+  display_name: "Simple HTML Artifact"
+  short_description: "Design clear single-page HTML artifacts"
+  default_prompt: "Use $simple-html-artifact to build an information-first single-page HTML artifact with restrained styling and strong hierarchy."
