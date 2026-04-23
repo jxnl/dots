@@ -1,0 +1,4 @@
+interface:
+  display_name: "Iterate Forever"
+  short_description: "Build UI from references with screenshot loops"
+  default_prompt: "Use $iterate-forever to build this app screen from the provided reference image and iterate with Playwright screenshots until it matches."

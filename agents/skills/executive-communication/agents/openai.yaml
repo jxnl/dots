@@ -1,0 +1,4 @@
+interface:
+  display_name: "Executive Communication"
+  short_description: "Write executive-ready updates"
+  default_prompt: "Use $executive-communication to turn this into a concise executive update with a clear ask."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Code Audit"
+  short_description: "Audit AI-shaped backend/code smells and apply safe fixes."
+  default_prompt: "Use $audit-ai-code to review my current diff for duplicate helpers, defensive branches, broad exception handlers, speculative wrappers, and fixture-shaped hacks."
