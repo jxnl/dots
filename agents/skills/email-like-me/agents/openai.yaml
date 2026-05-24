@@ -1,0 +1,4 @@
+interface:
+  display_name: "Email Like Me"
+  short_description: "Draft emails in Jason's context-aware voice"
+  default_prompt: "Use $email-like-me to draft this email in my voice."
