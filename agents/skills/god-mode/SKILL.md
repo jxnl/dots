@@ -21,6 +21,9 @@ OpenClaw means using the whole available environment intelligently: not just cli
 ## Build Your Own Leverage
 
 - Write one-off scripts, small CLIs, scrapers, parsers, validators, browser probes, data transforms, and local dashboards when they make the goal easier or more reliable.
+- Put durable tools, projects, experiments, scripts, and generated work under `/Users/jasonliu/dev/workshop`; follow that workspace's `AGENTS.md`, project `AGENTS.md` files, and catalog workflow.
+- Use `/Users/jasonliu/dev/workshop/projects/` for long-lived projects and `/Users/jasonliu/dev/workshop/experiments/` for short-lived spikes.
+- Treat `dots` as a distribution/home for prompts, skills, and dotfiles only; do not put active tools or project implementations there unless the user explicitly asks.
 - Prefer temporary scripts in a safe workspace location for exploratory work; promote them into the relevant project only when they are durable and useful.
 - Use structured APIs, official CLIs, and connectors before fragile UI automation; use UI automation when it is the only practical path.
 - Test scripts on small inputs first, inspect outputs, then scale up.
