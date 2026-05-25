@@ -8,6 +8,7 @@ Codex skills stored for installation to `~/.codex/skills` via `./install.sh --sk
 - `audit-ai-writing` - Audit AI-writing residue, citation failures, and cleanup rewrites.
 - `clean-worktrees` - Audit and safely clean Codex-created Git worktrees.
 - `executive-communication` - Draft and critique concise, answer-first leadership updates and asks.
+- `file-organizer` - Organize Downloads, Desktop, Documents, and Google Drive with safe plans.
 - `gh-address-comments` - Address GitHub PR review comments on the current branch.
 - `gh-commit` - Split a mixed working-tree diff into semantic commits.
 - `gh-fix-ci` - Inspect failing GitHub Actions checks and propose a fix plan.

@@ -7,6 +7,7 @@ General assistant setup (Claude Code, Codex CLI, and other tools) with shared pr
 ```
 agents/
 ├── AGENTS.md              # General instructions (Codex-style)
+├── automations/           # Codex automation definitions for backup/re-creation
 └── prompts/               # Reusable prompts / slash commands (tool-agnostic)
 └── skills/                # Codex skills for ~/.codex/skills
 ```
@@ -37,6 +38,9 @@ Installs:
 
 Skills inventory:
 - `agents/skills/README.md`
+
+Automation inventory:
+- `agents/automations/README.md`
 
 ### Cursor
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "File Organizer"
+  short_description: "Organize Downloads, Desktop, Documents, and Drive."
+  default_prompt: "Use $file-organizer to inventory Downloads and Desktop, then produce a safe move, rename, and sync plan before applying changes."
