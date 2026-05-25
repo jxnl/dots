@@ -1,0 +1,4 @@
+interface:
+  display_name: "God Mode"
+  short_description: "Coordinate tools to pursue broad goals"
+  default_prompt: "Use $god-mode to pursue this goal across browser, Slack, desktop apps, and local tools until it is resolved."
