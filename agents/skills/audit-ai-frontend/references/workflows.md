@@ -2,6 +2,38 @@
 
 Use this reference when a UI needs concrete anti-generic repair work, not just a style critique.
 
+## Code-Structure Audit Loop
+
+Use this loop before visual restyling when source code is available.
+
+1. Map the UI to local architecture:
+   - page/route owner
+   - layout shell
+   - existing design-system primitives
+   - state/data source
+   - repeated component shapes
+2. Trace the data path from source to render:
+   - props and loaders/API responses
+   - derived state versus stored state
+   - loading, empty, error, disabled, and permission states
+   - realistic fixture/story data when no backend is wired
+3. Inspect component APIs:
+   - prefer one domain object or a small prop set over many implementation props
+   - prefer stable variants over boolean clusters
+   - use slots/children for flexible content regions
+   - keep callbacks explicit and state ownership near the common parent that needs it
+4. Inspect styling reuse:
+   - use local primitives and semantic tokens before new CSS
+   - promote repeated utility recipes into variants/helpers only when the repo has that pattern
+   - remove arbitrary values and one-off CSS when they duplicate token roles
+5. Patch one coherent cluster:
+   - data model/props first
+   - primitive or variant extraction second
+   - visual token/style cleanup third
+   - responsive/a11y state verification last
+
+Do not abstract only to look clever. Extract when it reduces current duplication, supports real states, or matches an existing local pattern.
+
 ## Browser-Grounded QA Loop
 
 Use this loop whenever the page can be rendered locally.
@@ -14,12 +46,12 @@ Delegate browser operation details to the existing Playwright skills:
 - Keep this workflow focused on what to inspect for AI-frontend quality, not how to operate Playwright primitives.
 
 1. Open the page in a real browser using the `playwright` skill.
-2. Capture at least one desktop screenshot and one mobile screenshot.
+2. Capture at least one desktop screenshot and one mobile screenshot; use extra breakpoints when the layout has tablet/sidebar/table behavior.
 3. After each meaningful state change, run three checks in order: visual inspection, accessibility scan, and semantic/ARIA inspection.
 4. Inspect the DOM/accessibility tree and manually tab through the main flow.
-5. Exercise non-happy-path states: empty data, long content, validation errors, loading, and disabled actions.
+5. Exercise non-happy-path states: empty data, long content, missing values, validation errors, loading, disabled actions, and reduced-motion when relevant.
 6. Patch one coherent issue cluster at a time.
-7. Re-open the page and compare screenshots and interaction behavior before calling the work done.
+7. Re-open the page and compare screenshots, accessibility tree, keyboard behavior, and responsive behavior before calling the work done.
 
 If the repo already has Playwright Test, prefer adding or updating visual and accessibility checks instead of relying only on manual inspection. Use the repo's own test conventions and the Playwright docs surfaced by `playwright` / `playwright-interactive`; these are the audit-specific checks to encode:
 
@@ -29,6 +61,7 @@ If the repo already has Playwright Test, prefer adding or updating visual and ac
 - Add automated a11y scans with `@axe-core/playwright`, but do not treat those scans as complete WCAG coverage.
 - Scope axe scans to the changed component/region when possible, and wait for the UI to settle before calling `analyze()`.
 - Include at least one mobile/tablet emulation profile and one desktop profile for layout regressions.
+- Add ARIA snapshots for stable role/name/heading/menu/dialog structures when those semantics are the point of the fix.
 - If the repo uses Storybook, prefer `play` functions for stateful interaction coverage and Chromatic for browser/viewport visual review.
 
 Manual checks still required:
@@ -85,6 +118,7 @@ Use this loop when the incoming request is under-specified and likely to produce
 3. Lock one direction and write a short design contract.
 4. Implement in slices.
 5. Run a critique pass before finalizing:
+   - Component/data shape: is repeated UI parameterized through real props/data instead of hard-coded fixture markup?
    - User-task fit: does the screen make the primary job and primary action obvious?
    - Visual hierarchy and clutter: does one thing clearly win, and has unnecessary chrome/copy been removed?
    - Consistency: does the screen respect local patterns and tokens rather than inventing one-off styles?

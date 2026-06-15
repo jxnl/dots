@@ -1,4 +1,4 @@
 interface:
   display_name: "AI Code Audit"
-  short_description: "Audit AI-shaped backend/code smells and apply safe fixes."
-  default_prompt: "Use $audit-ai-code to review my current diff for duplicate helpers, defensive branches, broad exception handlers, speculative wrappers, and fixture-shaped hacks."
+  short_description: "De-slop AI-shaped code into local idiom."
+  default_prompt: "Use $audit-ai-code to de-slop my current diff: parameterize real variation, modularize cohesive code, remove duplicate helpers, fixture hacks, boolean-mode/config-bag soup, over-defensive branches, broad exception handlers, and brittle tests."

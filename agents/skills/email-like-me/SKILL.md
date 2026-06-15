@@ -1,6 +1,6 @@
 ---
 name: email-like-me
-description: Draft, rewrite, critique, or learn from emails in Jason Liu's personal email voice. Use when the user asks to write an email, reply, follow-up, escalation, intro, scheduling note, vendor/admin message, investor/networking response, assistant delegation, analyze sent mail, update email personas, or produce any outbound Gmail-style message "as me", "in my voice", "like I write", or with Jason's tone/persona.
+description: Draft, rewrite, critique, or learn from emails in Jason Liu's personal email voice. Use when Jason asks to write an email, reply, follow-up, escalation, intro, scheduling note, vendor/admin message, investor/networking response, assistant delegation, analyze sent mail, update email personas, or produce any outbound Gmail-style message "as me", "in my voice", "like I write", or with Jason's tone/persona. For another person's voice, do not reuse this skill; prompt them to sample their own sent Gmail/Slack/work messages with permission and create a separate like-me skill.
 ---
 
 # Email Like Me
@@ -8,6 +8,8 @@ description: Draft, rewrite, critique, or learn from emails in Jason Liu's perso
 ## Overview
 
 Use this skill to draft emails that sound like Jason: direct, low-ceremony, context-aware, and focused on unblocking the next step. Match the persona to the relationship and situation instead of applying one generic tone.
+
+This is Jason Liu's email voice model. Do not use it as a generic "founder email" style or to impersonate another person. If someone wants a similar skill for themselves, build a new skill from their own sent email, Slack, and work-message examples with explicit permission.
 
 The main job is to quickly classify the context, pick the right persona wrapper, and draft in that wrapper. Use [references/personas.md](references/personas.md) and [references/patterns.md](references/patterns.md) only when updating the skill, handling an ambiguous edge case, or needing more examples.
 
@@ -97,7 +99,7 @@ hey [Name],
 thanks
 ```
 
-## Refreshing The Voice Model
+## Refreshing Or Cloning The Voice Model
 
 When asked to improve or scale the voice model from Gmail, sample sent mail in batches. Prefer representative coverage over dumping bodies into the answer:
 
@@ -107,6 +109,8 @@ When asked to improve or scale the voice model from Gmail, sample sent mail in b
 4. Update `references/personas.md` when a new stable persona appears.
 5. Update `references/patterns.md` when a reusable phrasing pattern or template appears.
 6. Summarize only patterns to the user; do not expose private message contents unless the user explicitly asks for specific examples.
+
+When asked to make a similar skill for another person, do not adapt Jason's examples. Ask them to provide or connect their own sent Gmail, Slack, and outbound work-message corpus, then cluster their situations, recipient relationships, tone, signoffs, and recurring phrasing into a new skill.
 
 ## Default Style
 

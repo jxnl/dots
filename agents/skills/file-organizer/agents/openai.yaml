@@ -1,4 +1,4 @@
 interface:
   display_name: "File Organizer"
-  short_description: "Organize Downloads, Desktop, Documents, and Drive."
-  default_prompt: "Use $file-organizer to inventory Downloads and Desktop, then produce a safe move, rename, and sync plan before applying changes."
+  short_description: "Plan-first Downloads and Desktop cleanup."
+  default_prompt: "Use $file-organizer to inventory Downloads and Desktop, then produce a safe plan for moves, renames, duplicate/delete candidates, and Drive sync before applying changes."

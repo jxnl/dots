@@ -1,6 +1,6 @@
 ---
 name: file-organizer
-description: Organize Jason Liu's Downloads and Desktop, rename vague files, move durable documents into ~/Documents, and mirror important documents to Google Drive after a safe plan is approved.
+description: Organize, audit, rename, archive, or sync Jason Liu's Downloads and Desktop with a plan-first file cleanup workflow. Use for cleanup plans, plan-only file organizer runs, vague filename review, duplicate review, delete/trash candidates, moving durable documents into ~/Documents, mirroring important files to Google Drive, and writing cleanup logs under ~/Downloads/.cleanup_logs after explicit approval.
 metadata:
   short-description: Organize Downloads, Desktop, Documents, and Drive
 ---
