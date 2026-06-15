@@ -12,6 +12,7 @@ Codex skills stored for installation to `~/.codex/skills` via `./install.sh --sk
 - `gh-commit` - Split a mixed working-tree diff into semantic commits.
 - `gh-fix-ci` - Inspect failing GitHub Actions checks and propose a fix plan.
 - `iterate-forever` - Iterate from visual reference to app implementation with screenshot comparison.
+- `loop` - Set up task-aware heartbeat automations that continue the current thread until completion.
 - `pdf` - Create, read, render, and review PDFs where layout matters.
 - `pdf-viewing` - OCR PDFs and rasterize pages to images.
 - `playwright` - Drive browser automation from the terminal with Playwright CLI.
