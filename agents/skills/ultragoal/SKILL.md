@@ -18,14 +18,11 @@ Do not activate a goal from vague planning language. Activate only when the user
 
 ## Default Activation Rule
 
-When the user explicitly invokes this skill for a concrete work objective and asks Codex to
-build, complete, run, pursue, or "do it", treat the request as **Activate** by default.
-Do not stop after writing durable goal files or reporting a goal packet. After grounding
-and, when useful, writing `GOAL.md` or equivalent durable state, call `create_goal`
-before continuing task work.
+When the user explicitly invokes this skill for a concrete work objective and asks Codex to build, complete, run, pursue, or "do it", treat the request as **Activate** by default.
 
-Only stay in **Design** mode when the user asks to draft, design, critique, or discuss
-a goal without starting it.
+Do not stop after writing durable goal files or reporting a goal packet. After grounding and, when useful, writing `GOAL.md` or equivalent durable state, call `create_goal` before continuing task work.
+
+Only stay in **Design** mode when the user asks to draft, design, critique, or discuss a goal without starting it.
 
 ## Workflow
 
@@ -103,11 +100,9 @@ Before activation, red-team the draft:
 - Does the loop say what to do after a failed attempt or wait?
 - Is completion observable outside the running agent?
 
-If activation was requested, or the Default Activation Rule applies, call `create_goal`
-only after the goal packet is grounded and red-teamed. This call is the final action
-of activation; do not call it early, and do not merely say a goal should be set.
-If task work should continue after activation, create the goal first and then resume
-under Active Goal Discipline.
+If activation was requested, or the Default Activation Rule applies, call `create_goal` only after the goal packet is grounded and red-teamed. This call is the final action of activation; do not call it early, and do not merely say a goal should be set.
+
+If task work should continue after activation, create the goal first and then resume under Active Goal Discipline.
 
 Use a compact objective:
 
