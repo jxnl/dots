@@ -1,140 +1,136 @@
 ---
 name: ultragoal
-description: Research, design, critique, or activate a Codex goal for long-running work, including verifiers, durable goal files, review pressure, and bounded parent/child goal delegation.
+description: Design, critique, set, create, activate, or run durable Codex goals for persistent or long-running objectives. Use when the user says "set a goal", "start a goal", "activate goal mode", "persistent goal", "long-running objective", "goal tree", or asks for a goal with verifiers, durable state, approval gates, completion proof, bounded delegation, or parent/child subagent goals.
 ---
 
 # Ultragoal
 
-Turn a promising but underspecified ambition into a standing job Codex can actually finish. Research before committing. Prefer a compact objective backed by durable context, a trustworthy feedback loop, explicit constraints, and independent review.
+Use this skill when a user wants a persistent Codex goal, not just a longer task. A good goal has an observable finish line, a verifier that can fail, and enough context for Codex to recover after interruptions.
 
-Do not use Goal mode merely to make an ordinary task run longer. A good goal lets Codex tell whether it is getting warmer without redefining success.
+Do not activate a goal from vague planning language. Activate only when the user explicitly asks to start, set, activate, create, or run a goal. Never set a token budget unless the user explicitly requests one.
 
 ## Modes
 
-- **Design** (default): research and return a goal packet, but do not activate a goal.
-- **Critique**: diagnose an existing goal and rewrite weak parts.
-- **Activate**: design the goal, then create it only when the user explicitly asks to start, set, activate, or run the goal.
-- **Goal tree**: when the user explicitly authorizes subagents or parallel agent work, design a parent goal plus bounded research, execution, or verification lanes. Create child goals only when the user explicitly asks for goal-backed subagents.
+- **Design:** research and return a goal packet. Do not call `create_goal`.
+- **Critique:** inspect an existing goal or draft and tighten it.
+- **Activate:** design and critique the goal, then call `create_goal` as the final activation step.
+- **Goal tree:** only when the user explicitly authorizes goal-backed subagents. Give each child one bounded objective and verifier.
 
-Never infer activation from a request to research, plan, improve, or draft a goal. Never set a token budget unless the user explicitly requests one.
+## Default Activation Rule
+
+When the user explicitly invokes this skill for a concrete work objective and asks Codex to build, complete, run, pursue, or "do it", treat the request as **Activate** by default.
+
+Do not stop after writing durable goal files or reporting a goal packet. After grounding and, when useful, writing `GOAL.md` or equivalent durable state, call `create_goal` before continuing task work.
+
+Only stay in **Design** mode when the user asks to draft, design, critique, or discuss a goal without starting it.
 
 ## Workflow
 
-### 1. Establish the real outcome
+### 1. Ground the Outcome
 
-Recover the intended result, audience, destination, constraints, and why the work benefits from persistence. Inspect named files, repositories, artifacts, threads, and live systems before writing the goal.
+Find the intended result, audience, destination, constraints, and why persistence helps. Inspect named files, repos, threads, artifacts, and live systems before drafting.
 
-Ask a question only when the missing answer would materially change the finish line, authorize a consequential action, or choose between incompatible goals. Otherwise proceed with a stated assumption.
+Ask only when the missing answer changes the finish line, grants consequential approval, or chooses between incompatible goals. Otherwise state the assumption and continue.
 
-### 2. Research the starting state
+### 2. Research Enough
 
-Gather the smallest body of evidence that can ground the objective:
+Gather the smallest useful evidence set:
 
-1. Read the canonical local source and its applicable instructions.
-2. Inspect the current baseline, existing attempts, tests, benchmarks, reproductions, or acceptance criteria.
-3. Refresh volatile facts from primary or live sources when they determine the goal.
-4. Search team discussion or public practitioner evidence when it can reveal a proven loop, known failure mode, or better verifier.
-5. Stop when the finish line and verification path are supported; do not turn goal design into open-ended research.
+1. Read the canonical local source and applicable instructions.
+2. Inspect the baseline, prior attempts, tests, benchmarks, reproductions, or acceptance criteria.
+3. Refresh volatile facts from primary or live sources when they matter.
+4. Stop once the finish line and verifier are grounded.
 
-Separate observed facts, user requirements, and inferred choices in the goal packet.
+Separate observed facts, user requirements, and inferred choices.
 
-### 3. Decide whether Goal mode fits
+### 3. Check Goal Fit
 
-Recommend Goal mode when the work has most of these properties:
+Recommend Goal mode only when most are true:
 
-- it needs repeated attempts, waiting, recovery, or a long feedback cycle;
-- progress can be measured by a test, benchmark, reproduction, workflow, threshold, artifact inspection, or other external signal;
-- Codex can act on the next failure without needing a fresh preference decision;
-- the environment can remain available long enough to make progress;
-- the completion evidence is stronger than the agent's own assertion.
+- progress needs repeated attempts, waiting, recovery, or long feedback cycles;
+- success can be measured by a test, benchmark, workflow, artifact inspection, screenshot, readback, or other external signal;
+- Codex can respond to the next failure without another preference decision;
+- completion evidence is stronger than Codex saying "done."
 
-Prefer an ordinary task, a plan, or a short interactive session when the work is one-shot, taste-dependent, blocked on repeated human choices, lacks a credible verifier, or could cause unbounded external actions.
+Prefer an ordinary task or plan when the work is one-shot, taste-dependent, blocked on repeated human choices, lacks a credible verifier, or risks unbounded external action.
 
-### 4. Design the feedback loop
+### 4. Define the Loop
 
-Define:
+Specify:
 
-- **Outcome:** one ambitious, observable result.
-- **Baseline:** current state, exact failure, or starting metric.
-- **Primary verifier:** the strongest independent check of success.
+- **Outcome:** one observable result.
+- **Baseline:** current state, failure, or starting metric.
+- **Primary verifier:** strongest independent success check.
 - **Supporting checks:** regression, quality, safety, or durability checks.
-- **Iteration loop:** inspect, change one meaningful thing, run the verifier, record evidence, and choose the next action.
-- **Anti-cheating constraints:** forbid weakening tests, changing the benchmark, hiding failures, substituting mocks, or narrowing scope unless explicitly approved.
-- **Review pressure:** side chat, skeptical review, fresh-context audit, or an independent verifier lane at meaningful checkpoints and before completion.
-- **Blocker standard:** concrete evidence of an external blocker plus the smallest actionable next step; difficulty, uncertainty, or slow progress is not a blocker.
-- **Completion proof:** exact commands, outputs, artifact paths, screenshots, or readbacks that must exist before the goal can be marked complete.
+- **Iteration loop:** inspect, change one meaningful thing, run verifier, record evidence, choose next action.
+- **Anti-cheating rules:** do not weaken tests, narrow scope, hide failures, swap in mocks, or change benchmarks without approval.
+- **Approval gates:** irreversible, public, shared, or costly actions need separate user approval.
+- **Blocker standard:** external blocker plus smallest next action; difficulty or uncertainty is not enough.
+- **Completion proof:** exact commands, outputs, paths, screenshots, or readbacks required before `update_goal(status="complete")`.
 
-For flaky or stateful checks, require clean-state reproduction and enough consecutive successes to distinguish a fix from luck.
+For flaky or stateful checks, require clean-state reproduction and enough consecutive passes to rule out luck.
 
-### 5. Keep state durable
+### 5. Keep State Durable
 
-Keep the active goal objective short. When the supporting specification is more than a few compact paragraphs, write or update the nearest appropriate durable file instead of cramming it into the goal text.
+Keep the active goal objective compact. Put supporting context in the nearest durable file when it exceeds a few paragraphs.
 
-Use the project's established files when they exist. Otherwise propose:
+Prefer project conventions. Otherwise propose:
 
 ```text
 GOAL.md      outcome, baseline, constraints, success and blocker criteria
-WORKLOG.md   hypotheses, attempts, evidence, current state, next action
+WORKLOG.md   attempts, evidence, current state, next action
 RESULT.md    final change, verification, remaining risks
 ```
 
-Do not create files in Design mode unless the user asked for a durable artifact or local conventions make that the obvious destination. Preserve dirty state and do not rewrite an existing goal packet without reading it first.
+Do not create files in Design mode unless the user asked for a durable artifact or the repo convention makes it obvious. Preserve dirty work and read existing goal files before editing them.
 
-### 6. Design delegation without losing ownership
+### 6. Delegate Carefully
 
-When subagents are authorized, the parent thread remains responsible for scope, integration, conflicts, and final completion. Delegate only cleanly separable lanes such as environment discovery, alternative approaches, source research, or independent verification.
+When subagents are authorized, the parent keeps scope, integration, conflict resolution, and final completion. Delegate only separable lanes: environment discovery, source research, alternative approaches, or independent verification.
 
-For every child lane, specify:
+For each lane, name the objective, non-goals, ownership boundary, verifier, stop condition, and returned evidence. Use child goals only when the user explicitly asked for goal-backed subagents.
 
-- a bounded objective and non-goals;
-- source or mutation ownership with no overlap;
-- a verifier and stop condition;
-- the artifact or evidence returned to the parent;
-- whether it is a research task or an explicitly authorized child goal.
+### 7. Activate Last
 
-Subagents can manage their own active goals when the user explicitly requests a goal tree. Give each child one local finish line; do not clone the parent goal. The parent must reconcile child results and must not mark itself complete merely because every child stopped.
+Before activation, red-team the draft:
 
-When spawning a goal-backed child, carry the user's authorization into the delegation prompt and instruct the child to create its own bounded goal, inspect that goal while working, and update its status only after its local completion proof is satisfied. Keep the parent's active goal separate from every child's goal.
+- Can success be faked by weakening the verifier?
+- Could the words be satisfied while missing the user's real outcome?
+- Are approval gates explicit?
+- Does the loop say what to do after a failed attempt or wait?
+- Is completion observable outside the running agent?
 
-Prefer ordinary delegated tasks over child goals when a lane can finish in one turn. Avoid nested goals when agents would edit the same files, wait on one another circularly, or multiply costly work without independent evidence value.
+If activation was requested, or the Default Activation Rule applies, call `create_goal` only after the goal packet is grounded and red-teamed. This call is the final action of activation; do not call it early, and do not merely say a goal should be set.
 
-### 7. Draft, critique, then activate
+If task work should continue after activation, create the goal first and then resume under Active Goal Discipline.
 
-Before activation, run a red-team pass:
-
-- Can success be faked by weakening or changing the verifier?
-- Could Codex satisfy the words while missing the user's real outcome?
-- Are irreversible, public, shared, or costly actions separately approval-gated?
-- Does the goal explain what to do after a failed attempt or external wait?
-- Is completion observable to someone other than the running agent?
-
-If the user explicitly requested activation, create the goal only after this pass. Use a compact objective such as:
+Use a compact objective:
 
 ```text
 Complete and verify the objective defined in <absolute-path-to-GOAL.md>.
 ```
 
-For a self-contained goal, state the observable outcome and strongest verifier directly. Do not activate a goal while still in a planning-only mode; finish the plan first, then switch to an execution-capable mode.
+For a self-contained goal, put the observable outcome and strongest verifier directly in the objective. After `create_goal`, report the exact active objective and continue from that created goal.
 
 ## Goal Packet
 
 Return:
 
-1. **Fit:** use Goal mode or a better alternative, with one-sentence rationale.
-2. **Grounding:** relevant current state, assumptions, and evidence gaps.
-3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, iteration loop, review pressure, blocker standard, and completion proof.
-4. **Delegation map:** parent ownership and child lanes, only when useful and authorized.
-5. **Exact objective:** the concise text suitable for goal activation.
+1. **Fit:** Goal mode or better alternative, with one-sentence rationale.
+2. **Grounding:** current state, assumptions, evidence gaps.
+3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, loop, approval gates, blocker standard, completion proof.
+4. **Delegation map:** only when useful and authorized.
+5. **Exact objective:** concise text suitable for `create_goal`.
 6. **Activation state:** `drafted`, `active`, or `not recommended`.
 
-If activated, report the exact active objective. If only drafted, say plainly that no goal was created.
+If activated, include the exact active objective. If not, say no goal was created.
 
-## Completion Discipline
+## Active Goal Discipline
 
-While operating an active goal:
+When operating an active goal:
 
-- inspect current goal state when resuming or after material steering;
+- inspect goal state when resuming or after material steering;
 - continue while a safe, relevant next step remains;
-- mark complete only when the objective and completion proof are both satisfied and no required work remains;
-- mark blocked only after the same true external blocking condition persists for the required consecutive goal turns and meaningful progress is impossible;
-- preserve partial results and the next action when stopping.
+- mark complete only after the objective and completion proof are satisfied;
+- mark blocked only after the required repeated external blocker threshold is met and no meaningful progress remains;
+- preserve partial results and next action when stopping.

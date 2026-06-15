@@ -1,4 +1,4 @@
 interface:
   display_name: "Tweet Like Me"
-  short_description: "Draft and rewrite X/Twitter posts in Jason Liu’s voice."
-  default_prompt: "Draft or rewrite this tweet in my voice using the best-fit style for the context."
+  short_description: "Draft X/Twitter posts in Jason Liu's @jxnlco voice."
+  default_prompt: "Draft or rewrite this tweet in Jason Liu's @jxnlco voice using the best-fit style for the context."

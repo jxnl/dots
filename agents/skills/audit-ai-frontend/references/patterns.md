@@ -41,9 +41,59 @@ Fix:
 - Redesign the component behavior per breakpoint, not just width-shrink the desktop layout.
 - Use fluid type/spacing, container-aware layouts, and explicit mobile navigation and table fallbacks.
 
+## P1: Component And Implementation Slop
+
+### 4. Hard-coded fixture screen
+
+Tell:
+- Sample arrays, copied cards, fake metrics, and perfect strings live inside the rendered page component.
+- The screen cannot render realistic data, long labels, missing values, empty lists, permissions, or error states.
+- Components accept only `className` or no props, even when repeated content clearly has a data shape.
+
+Fix:
+- Define the smallest useful data model and pass records through props.
+- Move demo fixtures to stories/tests or a named fixture module when the app needs examples.
+- Add states from the same data model: loading, empty, partial, error, long text, and unavailable values.
+
+### 5. Broad component API or boolean-mode soup
+
+Tell:
+- Components expose many booleans such as `isHero`, `isCompact`, `showMeta`, `showActions`, `withGradient`, `hasBorder`.
+- One component switches between unrelated layouts by conditionals instead of stable variants or composition.
+- Props mirror implementation details instead of user-facing states or domain objects.
+
+Fix:
+- Replace clusters of booleans with a small variant enum, discriminated union, or separate components.
+- Use slots/children for content regions that should remain flexible.
+- Keep event handlers and state ownership explicit; lift state only to the closest useful owner.
+
+### 6. Duplicated JSX and one-off CSS piles
+
+Tell:
+- Repeated `Icon + title + description` blocks differ only by literals.
+- Long utility strings or arbitrary values are copied across components.
+- Inline styles, local CSS modules, and global classes all set the same visual concepts.
+
+Fix:
+- Extract a local primitive only when it has a real reusable job.
+- Promote repeated colors, radii, shadows, spacing, and motion into existing tokens or component variants.
+- Keep Tailwind utility use idiomatic, but move recurring recipes into `cn`, `cva`, local variants, or project primitives when the repo already uses them.
+
+### 7. Local design-system bypass
+
+Tell:
+- The page imports a new UI library or hand-rolls buttons, dialogs, menus, tabs, cards, or form controls when local primitives exist.
+- shadcn/ui or Radix semantics are replaced with clickable `div`s or custom ARIA.
+- Component states look different from adjacent app surfaces for no product reason.
+
+Fix:
+- Reuse existing primitives and semantic tokens first.
+- If a primitive is too limited, extend it through its local variant/API pattern instead of styling around it at every call site.
+- Preserve native semantics; add ARIA only when the role contract and keyboard behavior are complete.
+
 ## P1: Strong AI Aesthetic Tells
 
-### 4. Default AI palette
+### 8. Default AI palette
 
 Tell:
 - Purple-to-blue gradients, indigo CTAs, cyan glows on dark backgrounds, gradient headline text, glass cards over blurred blobs.
@@ -54,7 +104,7 @@ Fix:
 - Use one dominant neutral family, one supporting hue family, and one accent with a clear job.
 - Replace decorative gradient text with composition, photography, texture, or shape if the content itself is the emphasis.
 
-### 5. Default AI typography
+### 9. Default AI typography
 
 Tell:
 - Inter, Roboto, Arial, Open Sans, or system font stacks used as the entire visual personality.
@@ -66,7 +116,7 @@ Fix:
 - If the codebase already has a typography system, tune the scale, line-height, and weight contrast instead of introducing a random new font.
 - Keep body line length readable and use fluid type for hero/display text.
 
-### 6. Cardocalypse
+### 10. Cardocalypse
 
 Tell:
 - Every concept is inside a rounded card.
@@ -80,7 +130,7 @@ Fix:
 - Reserve cards for content that truly needs grouping, state, or affordance.
 - Mix editorial blocks, split layouts, tables, timelines, or stacked rows instead of repeating one card grid.
 
-### 7. Icon-pill sameness
+### 11. Icon-pill sameness
 
 Tell:
 - Large Lucide-style icon inside a rounded square/circle above every heading.
@@ -91,7 +141,7 @@ Fix:
 - Move iconography into one distinctive motif or structural treatment instead of repeating the same pill badge.
 - Prefer domain-specific imagery, diagrams, or type-led hierarchy when icons are filler.
 
-### 8. Template SaaS landing-page structure
+### 12. Template SaaS landing-page structure
 
 Tell:
 - Centered headline, subhead, two CTAs, hero mockup, then three feature cards, three metrics, testimonials, and a generic FAQ.
@@ -103,7 +153,7 @@ Fix:
 - Create one memorable section composition or interaction that feels specific to the product.
 - If preserving structure, de-template one high-visibility section first: hero, primary feature block, or metrics.
 
-### 9. Decorative motion and glow
+### 13. Decorative motion and glow
 
 Tell:
 - Hover scale on every card, bouncy easing, endless float animations, glow borders, generic staggered fade-ins.
@@ -114,7 +164,7 @@ Fix:
 - Prefer transform/opacity, short durations, and smooth deceleration.
 - Respect `prefers-reduced-motion`.
 
-### 10. Generic AI marketing copy
+### 14. Generic AI marketing copy
 
 Tell:
 - Vague claims like "Transform your workflow", "Unlock insights", "Build the future".
@@ -128,7 +178,7 @@ Fix:
 
 ## P2: Craft And Design-System Drift
 
-### 11. Uniform spacing and radius everywhere
+### 15. Uniform spacing and radius everywhere
 
 Tell:
 - The same padding, gap, border radius, and shadow on every section.
@@ -138,7 +188,7 @@ Fix:
 - Build spacing rhythm: tighter within groups, larger between sections.
 - Use a small, deliberate radius/shadow scale and assign each token a role.
 
-### 12. Token inconsistency
+### 16. Token inconsistency
 
 Tell:
 - Arbitrary hex colors, inline style values, or one-off utility classes scattered across components.
@@ -148,7 +198,7 @@ Fix:
 - Consolidate into CSS variables or existing semantic tokens.
 - Prefer changing the design-system layer over patching every component individually.
 
-### 13. Safe but forgettable detail work
+### 17. Safe but forgettable detail work
 
 Tell:
 - Rounded rectangles, soft shadow, low-contrast gray text, and no distinctive shape language.
@@ -160,7 +210,7 @@ Fix:
 
 ## P1/P2: Dense App And Dashboard Tells
 
-### 14. Equal-weight dashboard tiles
+### 18. Equal-weight dashboard tiles
 
 Tell:
 - Every KPI, chart, activity feed, and table sits in an equally styled card with the same emphasis.
@@ -171,7 +221,7 @@ Fix:
 - Use lower-chrome rows, tables, split panes, or grouped sections for secondary content instead of repeating card shells.
 - Make filters and sort controls persistent and visually obvious.
 
-### 15. Generic admin/settings scaffolding
+### 19. Generic admin/settings scaffolding
 
 Tell:
 - Settings pages are a stack of identical cards with duplicated "Manage..." descriptions and vague toggles.
@@ -183,7 +233,7 @@ Fix:
 - Use specific labels, helper text, and action copy.
 - Add clear destructive states and confirmation copy tied to the exact object/action.
 
-### 16. Table and list polish without real data behavior
+### 20. Table and list polish without real data behavior
 
 Tell:
 - Beautiful but brittle tables that assume short names, no missing values, no pagination stress, and no row actions.
@@ -194,7 +244,7 @@ Fix:
 - Add sorting/filtering affordances where they are needed for the task.
 - Use hierarchy, alignment, and compact row structure before adding another layer of card styling.
 
-### 17. Faux analytics decoration
+### 21. Faux analytics decoration
 
 Tell:
 - Tiny sparklines, arbitrary percentages, or chart cards included for visual sophistication but not decision support.
@@ -209,6 +259,10 @@ Fix:
 
 Search for these framework-agnostic patterns before patching:
 
+- hard-coded arrays or fixture literals in pages: `const features = [`, `const cards = [`, `stats = [`, `testimonials = [`
+- broad boolean props: `is[A-Z]`, `has[A-Z]`, `show[A-Z]`, `with[A-Z]`, especially many on one component
+- repeated variant strings and ad hoc styling: `variant ===`, `className={`, `style={{`, arbitrary Tailwind values
+- new custom controls where primitives exist: `role="button"`, `onClick` on non-buttons, custom dialog/menu/tab code
 - `Inter`, `Roboto`, `Arial`, `Open Sans`, `system-ui`, `ui-sans-serif`
 - purple/indigo/cyan gradients, gradient-clipped headline text, blurred glow layers, and glass surfaces
 - repeated large radii such as `16px`, `24px`, or `9999px` used everywhere without a clear role
@@ -232,12 +286,15 @@ If the project uses Tailwind, also search for these optional utility-class equiv
 Use this order when making a page feel less AI-generated without a redesign:
 
 1. Fix accessibility, responsive behavior, and missing states.
-2. Replace one overused font stack or retune type hierarchy.
-3. Simplify the palette and remove one obvious gradient/glow trope.
-4. Delete unnecessary cards and flatten nested surfaces.
-5. De-template one prominent section with a more specific composition.
-6. Cut vague copy and rewrite CTAs around concrete actions.
-7. Keep one purposeful motion or visual motif and remove the rest.
+2. Replace hard-coded fixture rendering with props/data and realistic states.
+3. Extract or reuse the smallest local primitive needed to remove duplication.
+4. Move repeated visual constants into existing tokens or component variants.
+5. Replace one overused font stack or retune type hierarchy.
+6. Simplify the palette and remove one obvious gradient/glow trope.
+7. Delete unnecessary cards and flatten nested surfaces.
+8. De-template one prominent section with a more specific composition.
+9. Cut vague copy and rewrite CTAs around concrete actions.
+10. Keep one purposeful motion or visual motif and remove the rest.
 
 ## Prompt Hygiene For New UI Generation
 

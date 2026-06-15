@@ -1,15 +1,29 @@
-# Source basis
+# Source Basis
 
-This skill treats "AI-looking" UI as a quality pattern, not a provenance claim. Use these references to ground the visual-smell and UX checks.
+This skill treats "AI-looking" UI as a quality pattern, not a provenance claim. Use these sources as background for prompt refreshes; do not load them for every audit.
 
-- Wikipedia on AI slop: `https://en.wikipedia.org/wiki/AI_slop`
-- CrowdGenUI study on generated UI converging to generic solutions and missing task/user context: `https://arxiv.org/abs/2411.03477`
-- Jidong Lab essay on why AI-generated UIs converge visually: `https://www.jidonglab.com/blog/why-every-ai-generated-ui-looks-the-same-and-how-to-escape-the-digital-sea-of-sameness`
-- WCAG 2.2 for objective accessibility failures such as contrast, focus indicators, and touch target size: `https://www.w3.org/TR/WCAG22/`
-- OpenAI model/release notes for current GPT/Codex coding behavior: `https://openai.com/research/index/release/`
-- Anthropic Claude Sonnet 4.5 release notes for current coding/agentic/computer-use positioning: `https://www.anthropic.com/news/claude-sonnet-4-5`
-- Google Gemini 3 in Search / AI Mode notes for generative UI, dynamic visual layouts, interactive tools, and simulations: `https://blog.google/products/search/gemini-3-search-ai-mode`
-- Vercel AI Elements notes for shadcn/ui-based AI interface primitives: `https://vercel.com/changelog/introducing-ai-elements`
-- shadcn/ui docs for Tailwind/CSS-variable component defaults used by many generated UIs: `https://ui.shadcn.com/docs`
-- Lovable docs for Supabase-centered app-builder workflows: `https://docs.lovable.dev/`
-- Bolt docs for browser full-stack app-builder workflows: `https://support.bolt.new/`
+Web refreshed: 2026-06-15.
+
+## AI-Shaped UI Risks
+
+- CrowdGenUI on LLM UI generation producing generic solutions that miss task context and user preferences: `https://arxiv.org/abs/2411.03477`
+- VISTA benchmark on visual spec-to-web-app agents; evaluates structural alignment, behavior, and visual fidelity together: `https://arxiv.org/abs/2605.26144`
+- Wikipedia on AI slop terminology: `https://en.wikipedia.org/wiki/AI_slop`
+
+## Component Structure And Tokens
+
+- React "Thinking in React" for mapping UI to component hierarchy, data model, props, and minimal state: `https://react.dev/learn/thinking-in-react`
+- React "Passing Props to a Component" for prop-driven component customization: `https://react.dev/learn/passing-props-to-a-component`
+- Tailwind responsive design for mobile-first breakpoints and container-query variants: `https://tailwindcss.com/docs/responsive-design`
+- Tailwind theme variables for tokens as the utility API: `https://tailwindcss.com/docs/theme`
+- shadcn/ui theming for semantic CSS variables, token pairs, and radius scales: `https://ui.shadcn.com/docs/theming`
+- Design Tokens Format Module for token vocabulary, aliases, and cross-tool exchange: `https://www.designtokens.org/tr/drafts/format/`
+
+## Accessibility And Verification
+
+- WCAG 2.2 for objective accessibility requirements: `https://www.w3.org/TR/WCAG22/`
+- WAI-ARIA APG "Read Me First" for native semantics first and role contracts: `https://www.w3.org/WAI/ARIA/apg/practices/read-me-first/`
+- Playwright visual comparisons for screenshot baselines and environment sensitivity: `https://playwright.dev/docs/test-snapshots`
+- Playwright accessibility testing with axe and the automated-plus-manual testing boundary: `https://playwright.dev/docs/accessibility-testing`
+- Playwright ARIA snapshots for role/name/structure verification: `https://playwright.dev/docs/aria-snapshots`
+- Storybook interaction, accessibility, and visual tests for component-level state coverage: `https://storybook.js.org/docs/writing-tests/interaction-testing`, `https://storybook.js.org/docs/writing-tests/accessibility-testing`, `https://storybook.js.org/docs/writing-tests/visual-testing`
