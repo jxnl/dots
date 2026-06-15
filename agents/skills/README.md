@@ -99,12 +99,6 @@ Use for static reports, explainers, briefs, dashboards, note indexes, research p
 
 ## Codex Operations And Persistence
 
-### `god-mode`
-
-Orchestrate broad, ambiguous, or long-running goals across tools and apps.
-
-Use when the user asks Codex to pursue an outcome, coordinate multiple surfaces, keep working through blockers, or run autonomously with clear approval boundaries.
-
 ### `ultragoal`
 
 Design, critique, set, create, activate, or run durable Codex goals.
