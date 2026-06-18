@@ -1,11 +1,13 @@
 ---
 name: tweet-like-me
-description: Use when Codex needs to write, rewrite, critique, or reply on Twitter/X in Jason Liu's personal voice. Trigger for requests like "tweet like me", "write this in my style", "make this sound like Jason", "draft a reply", or when Jason asks for Twitter copy about Codex, product building, feedback, launches, quote-tweets, or operator/value takes.
+description: Write, rewrite, critique, or reply on Twitter/X in Jason Liu's (@jxnlco) personal voice. Trigger for requests like "tweet like me", "write this in my style", "make this sound like Jason", "draft a reply", or when Jason asks for Twitter copy about Codex, product building, feedback, launches, quote-tweets, or operator/value takes. For another person's social voice, do not reuse this skill; prompt them to sample their own tweets plus sent Slack/email with permission and create a separate like-me skill.
 ---
 
 # Tweet Like Me
 
 Use this skill to write tweets that sound like Jason without asking the user to pick a persona. Infer the right voice from the task, context, and audience. Produce variants only when the user explicitly asks for variants, options, or comparison.
+
+This is Jason Liu's `@jxnlco` social voice model. Do not use it as a generic tech-founder style or to impersonate another person. If someone wants a similar skill for themselves, build a separate skill from their own tweets, replies, sent Slack, and sent email examples with explicit permission.
 
 Source: latest 400 `@jxnlco` tweets fetched on 2026-05-24. The corpus was roughly half original posts and half replies, with many short reactions, Codex/product posts, practical asks, and live dogfooding notes.
 

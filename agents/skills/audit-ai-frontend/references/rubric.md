@@ -6,6 +6,20 @@ Score each dimension as `P0`, `P1`, `P2`, or `OK`, then only report the highest-
 
 ## Core Dimensions
 
+### Component API and data model
+
+Check:
+- Does each repeated UI shape map to a clear data model, prop interface, or local primitive?
+- Are component APIs narrow and domain-oriented, or overloaded with booleans and implementation knobs?
+- Can the component render long content, missing values, empty/error/loading states, and alternative actions without rewriting the screen?
+
+### Local architecture fit
+
+Check:
+- Does the code reuse existing routes, layout shells, hooks, primitives, tokens, and utility helpers?
+- Are repeated visual decisions promoted into tokens or variants instead of copied utility/CSS piles?
+- Would the next adjacent screen reuse this work, or would it need a new one-off layout?
+
 ### User-task fit
 
 Check:
@@ -31,7 +45,7 @@ Check:
 
 Check:
 - Do spacing, radius, color, elevation, and component states follow a small set of reusable rules?
-- Are there one-off values that should be promoted into tokens or component variants?
+- Are there one-off values that should be promoted into tokens, component variants, shared primitives, or fixture data?
 - If the current "generic" look is already a documented brand/system choice, is the review preserving that instead of overcorrecting?
 
 ### Copy specificity
@@ -59,7 +73,7 @@ Check:
 
 Check:
 - Does the layout adapt at mobile/tablet widths, or just shrink the desktop composition?
-- Do long text, large zoom/text, and narrow viewports avoid overlap, clipping, or horizontal scroll?
+- Do long text, missing data, large zoom/text, and narrow viewports avoid overlap, clipping, or horizontal scroll?
 - For data-heavy UIs, is there a clear mobile prioritization or collapse strategy?
 
 ### Trust and proof quality
@@ -83,6 +97,7 @@ For each reported finding include:
 - `Issue`
 - `Evidence`
 - `Class`
+- `Root cause`
 - `Why it matters / why it reads as generic`
 - `Possible non-AI explanation`
 - `Smallest fix`
