@@ -32,9 +32,10 @@ Gather the smallest body of evidence that can ground the objective:
 
 1. Read the canonical local source and its applicable instructions.
 2. Inspect the current baseline, existing attempts, tests, benchmarks, reproductions, or acceptance criteria.
-3. Refresh volatile facts from primary or live sources when they determine the goal.
-4. Search team discussion or public practitioner evidence when it can reveal a proven loop, known failure mode, or better verifier.
-5. Stop when the finish line and verification path are supported; do not turn goal design into open-ended research.
+3. Inventory the capabilities needed to exercise the real outcome, including terminal access, Browser, authenticated Chrome, Computer Use, local apps, devices, accounts, permissions, and test environments.
+4. Refresh volatile facts from primary or live sources when they determine the goal.
+5. Search team discussion or public practitioner evidence when it can reveal a proven loop, known failure mode, or better verifier.
+6. Stop when the finish line and verification path are supported; do not turn goal design into open-ended research.
 
 Separate observed facts, user requirements, and inferred choices in the goal packet.
 
@@ -56,13 +57,29 @@ Define:
 
 - **Outcome:** one ambitious, observable result.
 - **Baseline:** current state, exact failure, or starting metric.
-- **Primary verifier:** the strongest independent check of success.
+- **Primary verifier:** the strongest independent check of success on the surface where the outcome actually matters.
 - **Supporting checks:** regression, quality, safety, or durability checks.
 - **Iteration loop:** inspect, change one meaningful thing, run the verifier, record evidence, and choose the next action.
 - **Anti-cheating constraints:** forbid weakening tests, changing the benchmark, hiding failures, substituting mocks, or narrowing scope unless explicitly approved.
 - **Review pressure:** side chat, skeptical review, fresh-context audit, or an independent verifier lane at meaningful checkpoints and before completion.
 - **Blocker standard:** concrete evidence of an external blocker plus the smallest actionable next step; difficulty, uncertainty, or slow progress is not a blocker.
 - **Completion proof:** exact commands, outputs, artifact paths, screenshots, or readbacks that must exist before the goal can be marked complete.
+
+The primary verifier must do two jobs: reliably distinguish success from failure and return enough evidence to choose the next repair. Prefer the strongest feasible verifier closest to the user's actual experience. Static analysis, unit tests, mocks, builds, and code inspection are supporting evidence; they are not substitutes for exercising an interactive workflow when the outcome depends on one.
+
+#### Test on the real interaction surface
+
+Require Browser, authenticated Chrome, or Computer Use verification when success depends on rendered UI, browser or app state, authentication, permissions, native dialogs, files, clipboard, keyboard or pointer input, window focus, notifications, media, accessibility, installation, restart behavior, OS integration, or a multi-app workflow. Use the actual app or browser and representative state rather than inferring success from source code or a mocked environment.
+
+For real-surface verification, put these in the goal brief:
+
+- the exact surface, build, URL, account type, machine or device, and starting state;
+- a short reproducible workflow with observable pass and fail criteria;
+- evidence to capture, such as screenshots, video, console or network output, logs, resulting files, or a final state readback;
+- clean-state, reload or restart, failure-recovery, and important negative-path checks proportional to risk;
+- the required capability and fallback owner if Codex cannot access the surface.
+
+Before activation, verify that the required browser, computer-use tool, app, device, credentials, and environment are actually available. If the real-surface verifier is unavailable, do not silently replace it with a weaker check. Name the capability gap and either choose a user-approved equivalent or define a blocked handoff with the exact manual test and evidence required. Keep sends, purchases, publication, access changes, and other consequential actions approval-gated even when they appear inside a test workflow.
 
 For flaky or stateful checks, require clean-state reproduction and enough consecutive successes to distinguish a fix from luck.
 
@@ -107,6 +124,8 @@ Before activation, run a red-team pass:
 - Are irreversible, public, shared, or costly actions separately approval-gated?
 - Does the goal explain what to do after a failed attempt or external wait?
 - Is completion observable to someone other than the running agent?
+- If the outcome is interactive, does the goal actually exercise it with Browser, authenticated Chrome, or Computer Use on the correct surface?
+- Are all required verification capabilities available, or does the goal name the exact blocked handoff instead of weakening the verifier?
 
 If the user explicitly requested activation, create the goal only after this pass. Use a compact objective such as:
 
@@ -122,7 +141,7 @@ Return:
 
 1. **Fit:** use Goal mode or a better alternative, with one-sentence rationale.
 2. **Grounding:** relevant current state, assumptions, and evidence gaps.
-3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, iteration loop, review pressure, blocker standard, and completion proof.
+3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, verification surface and capabilities, iteration loop, review pressure, blocker standard, and completion proof.
 4. **Delegation map:** parent ownership and child lanes, only when useful and authorized.
 5. **Exact objective:** the concise text suitable for goal activation.
 6. **Activation state:** `drafted`, `active`, or `not recommended`.
@@ -135,6 +154,7 @@ While operating an active goal:
 
 - inspect current goal state when resuming or after material steering;
 - continue while a safe, relevant next step remains;
+- run the primary verifier on the declared surface after material changes, using lower-level checks only as supporting evidence;
 - mark complete only when the objective and completion proof are both satisfied and no required work remains;
 - mark blocked only after the same true external blocking condition persists for the required consecutive goal turns and meaningful progress is impossible;
 - preserve partial results and the next action when stopping.
