@@ -36,10 +36,12 @@ Ask only when the missing answer changes the finish line, grants consequential a
 
 Gather the smallest useful evidence set:
 
-1. Read the canonical local source and applicable instructions.
-2. Inspect the baseline, prior attempts, tests, benchmarks, reproductions, or acceptance criteria.
-3. Refresh volatile facts from primary or live sources when they matter.
-4. Stop once the finish line and verifier are grounded.
+k1. Read the canonical local source and its applicable instructions.
+2. Inspect the current baseline, existing attempts, tests, benchmarks, reproductions, or acceptance criteria.
+3. Inventory the capabilities needed to exercise the real outcome, including terminal access, Browser, authenticated Chrome, Computer Use, local apps, devices, accounts, permissions, and test environments.
+4. Refresh volatile facts from primary or live sources when they determine the goal.
+5. Search team discussion or public practitioner evidence when it can reveal a proven loop, known failure mode, or better verifier.
+6. Stop when the finish line and verification path are supported; do not turn goal design into open-ended research.
 
 Separate observed facts, user requirements, and inferred choices.
 
@@ -58,9 +60,9 @@ Prefer an ordinary task or plan when the work is one-shot, taste-dependent, bloc
 
 Specify:
 
-- **Outcome:** one observable result.
-- **Baseline:** current state, failure, or starting metric.
-- **Primary verifier:** strongest independent success check.
+- **Outcome:** one ambitious, observable result.
+- **Baseline:** current state, exact failure, or starting metric.
+- **Primary verifier:** the strongest independent check of success on the surface where the outcome actually matters.
 - **Supporting checks:** regression, quality, safety, or durability checks.
 - **Iteration loop:** inspect, change one meaningful thing, run verifier, record evidence, choose next action.
 - **Anti-cheating rules:** do not weaken tests, narrow scope, hide failures, swap in mocks, or change benchmarks without approval.
@@ -68,21 +70,65 @@ Specify:
 - **Blocker standard:** external blocker plus smallest next action; difficulty or uncertainty is not enough.
 - **Completion proof:** exact commands, outputs, paths, screenshots, or readbacks required before `update_goal(status="complete")`.
 
-For flaky or stateful checks, require clean-state reproduction and enough consecutive passes to rule out luck.
+The primary verifier must do two jobs: reliably distinguish success from failure and return enough evidence to choose the next repair. Prefer the strongest feasible verifier closest to the user's actual experience. Static analysis, unit tests, mocks, builds, and code inspection are supporting evidence; they are not substitutes for exercising an interactive workflow when the outcome depends on one.
+
+#### Test on the real interaction surface
+
+Require Browser, authenticated Chrome, or Computer Use verification when success depends on rendered UI, browser or app state, authentication, permissions, native dialogs, files, clipboard, keyboard or pointer input, window focus, notifications, media, accessibility, installation, restart behavior, OS integration, or a multi-app workflow. Use the actual app or browser and representative state rather than inferring success from source code or a mocked environment.
+
+For real-surface verification, put these in the goal brief:
+
+- the exact surface, build, URL, account type, machine or device, and starting state;
+- a short reproducible workflow with observable pass and fail criteria;
+- evidence to capture, such as screenshots, video, console or network output, logs, resulting files, or a final state readback;
+- clean-state, reload or restart, failure-recovery, and important negative-path checks proportional to risk;
+- the required capability and fallback owner if Codex cannot access the surface.
+
+Before activation, verify that the required browser, computer-use tool, app, device, credentials, and environment are actually available. If the real-surface verifier is unavailable, do not silently replace it with a weaker check. Name the capability gap and either choose a user-approved equivalent or define a blocked handoff with the exact manual test and evidence required. Keep sends, purchases, publication, access changes, and other consequential actions approval-gated even when they appear inside a test workflow.
+
+For flaky or stateful checks, require clean-state reproduction and enough consecutive successes to distinguish a fix from luck.
 
 ### 5. Keep State Durable
 
-Keep the active goal objective compact. Put supporting context in the nearest durable file when it exceeds a few paragraphs.
+Keep the active goal objective short and put the durable operating state under the current workspace or project root:
 
-Prefer project conventions. Otherwise propose:
+- **`.codex/<request>/goal.md`:** the stable finish line: outcome, baseline, constraints, non-goals, primary verifier, completion proof, blocker criteria, and the path to the companion plan.
+- **`.codex/<request>/plan.md`:** the living route: a link back to the goal, ordered phases, implementation checklists, phase-level testing criteria, evidence, status, and next action.
+
+Derive `<request>` once as a short, descriptive, kebab-case slug. Reuse that directory when resuming or steering the same goal; create a different directory only for a genuinely distinct goal. When activating a goal, create or update both files before starting implementation and make them cross-reference one another. Read and preserve an existing request directory rather than replacing it blindly, and record both absolute paths in the goal packet.
+
+Structure `plan.md` so every phase has:
 
 ```text
-GOAL.md      outcome, baseline, constraints, success and blocker criteria
-WORKLOG.md   attempts, evidence, current state, next action
-RESULT.md    final change, verification, remaining risks
+## Phase N: Observable milestone
+Status: pending | in progress | blocked | complete
+
+Implementation
+- [ ] Concrete change or investigation
+
+Verification
+- [ ] Exact test, browser/computer-use workflow, or artifact inspection
+- [ ] Observable pass criteria and required evidence
+
+Exit criteria
+- [ ] Conditions that must be true before the next phase starts
 ```
 
-Do not create files in Design mode unless the user asked for a durable artifact or the repo convention makes it obvious. Preserve dirty work and read existing goal files before editing them.
+Keep at most one phase `in progress`. Check off work only after it is done, and check off verification only after the declared test passes. Record failed checks and resulting plan changes without erasing useful evidence. Optional `.codex/<request>/worklog.md` or `.codex/<request>/result.md` files may hold detailed attempts or the final handoff, but they do not replace `goal.md` or `plan.md`.
+
+Treat user steering, new evidence, changed constraints, failed verification, and completed phases as plan-update events. Before continuing implementation after any such event:
+
+1. re-read `.codex/<request>/goal.md` and `.codex/<request>/plan.md`;
+2. decide whether the finish line changed or only the route changed;
+3. update affected phases, checklists, verification criteria, dependencies, and next action in `plan.md`;
+4. update `goal.md` when steering or evidence changes the outcome, constraints, verifier, completion proof, or blocker criteria;
+5. preserve completed evidence, explicitly mark invalidated work, and then resume from the revised plan.
+
+Do not let chat become the only source of current plan state. Do not create these files in Design mode unless the user asked for durable artifacts; include complete draft contents in the goal packet instead.
+
+### 6. Design delegation without losing ownership
+
+When subagents are authorized, the parent thread remains responsible for scope, integration, conflicts, and final completion. Delegate only cleanly separable lanes such as environment discovery, alternative approaches, source research, or independent verification.
 
 ### 6. Delegate Carefully
 
@@ -102,12 +148,18 @@ Before activation, red-team the draft:
 
 If activation was requested, or the Default Activation Rule applies, call `create_goal` only after the goal packet is grounded and red-teamed. This call is the final action of activation; do not call it early, and do not merely say a goal should be set.
 
-If task work should continue after activation, create the goal first and then resume under Active Goal Discipline.
+- Can success be faked by weakening or changing the verifier?
+- Could Codex satisfy the words while missing the user's real outcome?
+- Are irreversible, public, shared, or costly actions separately approval-gated?
+- Does the goal explain what to do after a failed attempt or external wait?
+- Is completion observable to someone other than the running agent?
+- If the outcome is interactive, does the goal actually exercise it with Browser, authenticated Chrome, or Computer Use on the correct surface?
+- Are all required verification capabilities available, or does the goal name the exact blocked handoff instead of weakening the verifier?
 
 Use a compact objective:
 
 ```text
-Complete and verify the objective defined in <absolute-path-to-GOAL.md>.
+Complete and verify the objective in <workspace>/.codex/<request>/goal.md by executing and maintaining <workspace>/.codex/<request>/plan.md. Read and maintain both files throughout the work: update plan.md when the route, phase state, checks, or evidence changes, and update goal.md when steering or evidence changes the outcome, constraints, verifier, completion proof, or blocker criteria.
 ```
 
 For a self-contained goal, put the observable outcome and strongest verifier directly in the objective. After `create_goal`, report the exact active objective and continue from that created goal.
@@ -116,12 +168,13 @@ For a self-contained goal, put the observable outcome and strongest verifier dir
 
 Return:
 
-1. **Fit:** Goal mode or better alternative, with one-sentence rationale.
-2. **Grounding:** current state, assumptions, evidence gaps.
-3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, loop, approval gates, blocker standard, completion proof.
-4. **Delegation map:** only when useful and authorized.
-5. **Exact objective:** concise text suitable for `create_goal`.
-6. **Activation state:** `drafted`, `active`, or `not recommended`.
+1. **Fit:** use Goal mode or a better alternative, with one-sentence rationale.
+2. **Grounding:** relevant current state, assumptions, and evidence gaps.
+3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, verification surface and capabilities, iteration loop, review pressure, blocker standard, and completion proof.
+4. **Durable artifacts:** the request slug, absolute paths, and complete proposed contents for `.codex/<request>/goal.md` and phased `.codex/<request>/plan.md`; write them before activation, but only when activation or durable artifacts were requested.
+5. **Delegation map:** parent ownership and child lanes, only when useful and authorized.
+6. **Exact objective:** the concise text suitable for goal activation.
+7. **Activation state:** `drafted`, `active`, or `not recommended`.
 
 If activated, include the exact active objective. If not, say no goal was created.
 
@@ -129,8 +182,12 @@ If activated, include the exact active objective. If not, say no goal was create
 
 When operating an active goal:
 
-- inspect goal state when resuming or after material steering;
+- inspect the active goal plus `.codex/<request>/goal.md` and `.codex/<request>/plan.md` when resuming;
+- after user steering or material new evidence, update `plan.md` before continuing and update `goal.md` when its outcome, constraints, verifier, completion proof, or blocker criteria changed;
+- keep phase statuses, implementation checklists, verification checklists, evidence, and next action current throughout execution;
 - continue while a safe, relevant next step remains;
-- mark complete only after the objective and completion proof are satisfied;
-- mark blocked only after the required repeated external blocker threshold is met and no meaningful progress remains;
-- preserve partial results and next action when stopping.
+- run the primary verifier on the declared surface after material changes, using lower-level checks only as supporting evidence;
+- mark phases complete only after their implementation and verification exit criteria pass;
+- mark the goal complete only when the objective and completion proof are both satisfied, every required plan phase is complete, and no required work remains;
+- mark blocked only after the same true external blocking condition persists for the required consecutive goal turns and meaningful progress is impossible;
+- preserve partial results and the next action when stopping.
