@@ -22,3 +22,4 @@ Codex skills stored for installation to `~/.codex/skills` via `./install.sh --sk
 - `yeet` - Stage, commit, push, and open a draft GitHub PR.
 - `youtube-extractor` - Extract transcripts, titles, and thumbnails from YouTube videos.
 - `tweet-like-me` - Draft, rewrite, and critique X/Twitter posts in Jason's persona-grouped voice.
+- `ultragoal` - Research and design verifiable Codex goals with bounded delegation.
