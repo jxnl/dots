@@ -1,4 +1,4 @@
-# Skills
+# Skills Catalog
 
 Codex skills stored for installation to `~/.codex/skills` via `./install.sh --skills` or `./install.sh --agents`.
 

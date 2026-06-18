@@ -1,0 +1,11 @@
+version = 1
+id = "daily-file-organizer"
+kind = "cron"
+name = "Daily file organizer"
+prompt = "Use $file-organizer to inventory /Users/jasonliu/Desktop, /Users/jasonliu/Downloads, and /Users/jasonliu/Documents. Produce a safe daily cleanup plan for new or changed files since the last run: proposed renames, moves into /Users/jasonliu/Documents, Desktop cleanup actions, duplicate/delete-review candidates, and Google Drive mirror actions for important durable documents. Do not delete files. Do not overwrite files. If a local Google Drive root is unavailable, report that sync is blocked and ask for the exact Drive path. Include the cleanup log path and unresolved decisions in the output."
+status = "ACTIVE"
+rrule = "FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR,SA,SU;BYHOUR=9;BYMINUTE=0;BYSECOND=0"
+model = "gpt-5.5"
+reasoning_effort = "medium"
+execution_environment = "local"
+cwds = ["/Users/jasonliu"]

@@ -1,4 +1,4 @@
 interface:
   display_name: "Audit AI Frontend"
-  short_description: "Audit and de-genericize AI-looking web UI"
-  default_prompt: "Use $audit-ai-frontend to review this UI/code for AI-generated frontend tells and propose targeted fixes."
+  short_description: "Audit and componentize AI-shaped UI"
+  default_prompt: "Use $audit-ai-frontend to de-slop this React/Tailwind/shadcn UI: audit component APIs, parameterization, responsive behavior, accessibility, design-system drift, and generic cards/gradients."
