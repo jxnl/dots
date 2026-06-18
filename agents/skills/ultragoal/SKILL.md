@@ -85,17 +85,41 @@ For flaky or stateful checks, require clean-state reproduction and enough consec
 
 ### 5. Keep state durable
 
-Keep the active goal objective short. When the supporting specification is more than a few compact paragraphs, write or update the nearest appropriate durable file instead of cramming it into the goal text.
+Keep the active goal objective short and put the durable operating state under the current workspace or project root:
 
-Use the project's established files when they exist. Otherwise propose:
+- **`.codex/<request>/goal.md`:** the stable finish line: outcome, baseline, constraints, non-goals, primary verifier, completion proof, blocker criteria, and the path to the companion plan.
+- **`.codex/<request>/plan.md`:** the living route: a link back to the goal, ordered phases, implementation checklists, phase-level testing criteria, evidence, status, and next action.
+
+Derive `<request>` once as a short, descriptive, kebab-case slug. Reuse that directory when resuming or steering the same goal; create a different directory only for a genuinely distinct goal. When activating a goal, create or update both files before starting implementation and make them cross-reference one another. Read and preserve an existing request directory rather than replacing it blindly, and record both absolute paths in the goal packet.
+
+Structure `plan.md` so every phase has:
 
 ```text
-GOAL.md      outcome, baseline, constraints, success and blocker criteria
-WORKLOG.md   hypotheses, attempts, evidence, current state, next action
-RESULT.md    final change, verification, remaining risks
+## Phase N: Observable milestone
+Status: pending | in progress | blocked | complete
+
+Implementation
+- [ ] Concrete change or investigation
+
+Verification
+- [ ] Exact test, browser/computer-use workflow, or artifact inspection
+- [ ] Observable pass criteria and required evidence
+
+Exit criteria
+- [ ] Conditions that must be true before the next phase starts
 ```
 
-Do not create files in Design mode unless the user asked for a durable artifact or local conventions make that the obvious destination. Preserve dirty state and do not rewrite an existing goal packet without reading it first.
+Keep at most one phase `in progress`. Check off work only after it is done, and check off verification only after the declared test passes. Record failed checks and resulting plan changes without erasing useful evidence. Optional `.codex/<request>/worklog.md` or `.codex/<request>/result.md` files may hold detailed attempts or the final handoff, but they do not replace `goal.md` or `plan.md`.
+
+Treat user steering, new evidence, changed constraints, failed verification, and completed phases as plan-update events. Before continuing implementation after any such event:
+
+1. re-read `.codex/<request>/goal.md` and `.codex/<request>/plan.md`;
+2. decide whether the finish line changed or only the route changed;
+3. update affected phases, checklists, verification criteria, dependencies, and next action in `plan.md`;
+4. update `goal.md` when steering or evidence changes the outcome, constraints, verifier, completion proof, or blocker criteria;
+5. preserve completed evidence, explicitly mark invalidated work, and then resume from the revised plan.
+
+Do not let chat become the only source of current plan state. Do not create these files in Design mode unless the user asked for durable artifacts; include complete draft contents in the goal packet instead.
 
 ### 6. Design delegation without losing ownership
 
@@ -130,7 +154,7 @@ Before activation, run a red-team pass:
 If the user explicitly requested activation, create the goal only after this pass. Use a compact objective such as:
 
 ```text
-Complete and verify the objective defined in <absolute-path-to-GOAL.md>.
+Complete and verify the objective in <workspace>/.codex/<request>/goal.md by executing and maintaining <workspace>/.codex/<request>/plan.md. Read and maintain both files throughout the work: update plan.md when the route, phase state, checks, or evidence changes, and update goal.md when steering or evidence changes the outcome, constraints, verifier, completion proof, or blocker criteria.
 ```
 
 For a self-contained goal, state the observable outcome and strongest verifier directly. Do not activate a goal while still in a planning-only mode; finish the plan first, then switch to an execution-capable mode.
@@ -142,9 +166,10 @@ Return:
 1. **Fit:** use Goal mode or a better alternative, with one-sentence rationale.
 2. **Grounding:** relevant current state, assumptions, and evidence gaps.
 3. **Goal brief:** outcome, baseline, constraints, non-goals, verifier, verification surface and capabilities, iteration loop, review pressure, blocker standard, and completion proof.
-4. **Delegation map:** parent ownership and child lanes, only when useful and authorized.
-5. **Exact objective:** the concise text suitable for goal activation.
-6. **Activation state:** `drafted`, `active`, or `not recommended`.
+4. **Durable artifacts:** the request slug, absolute paths, and complete proposed contents for `.codex/<request>/goal.md` and phased `.codex/<request>/plan.md`; write them before activation, but only when activation or durable artifacts were requested.
+5. **Delegation map:** parent ownership and child lanes, only when useful and authorized.
+6. **Exact objective:** the concise text suitable for goal activation.
+7. **Activation state:** `drafted`, `active`, or `not recommended`.
 
 If activated, report the exact active objective. If only drafted, say plainly that no goal was created.
 
@@ -152,9 +177,12 @@ If activated, report the exact active objective. If only drafted, say plainly th
 
 While operating an active goal:
 
-- inspect current goal state when resuming or after material steering;
+- inspect the active goal plus `.codex/<request>/goal.md` and `.codex/<request>/plan.md` when resuming;
+- after user steering or material new evidence, update `plan.md` before continuing and update `goal.md` when its outcome, constraints, verifier, completion proof, or blocker criteria changed;
+- keep phase statuses, implementation checklists, verification checklists, evidence, and next action current throughout execution;
 - continue while a safe, relevant next step remains;
 - run the primary verifier on the declared surface after material changes, using lower-level checks only as supporting evidence;
-- mark complete only when the objective and completion proof are both satisfied and no required work remains;
+- mark phases complete only after their implementation and verification exit criteria pass;
+- mark the goal complete only when the objective and completion proof are both satisfied, every required plan phase is complete, and no required work remains;
 - mark blocked only after the same true external blocking condition persists for the required consecutive goal turns and meaningful progress is impossible;
 - preserve partial results and the next action when stopping.
