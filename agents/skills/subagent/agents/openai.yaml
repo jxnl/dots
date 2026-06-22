@@ -1,4 +1,0 @@
-interface:
-  display_name: "Subagent"
-  short_description: "Delegate codebase tasks to non-interactive Codex exec runs"
-  default_prompt: "Use $subagent to run a focused non-interactive codebase investigation."

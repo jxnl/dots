@@ -73,24 +73,6 @@ Use only when the user asks for the full ship flow.
 
 ## Browser, Files, And Local Tools
 
-### `playwright`
-
-Drive browser automation from the terminal with Playwright CLI.
-
-Use for navigation, forms, screenshots, DOM snapshots, data extraction, and UI-flow debugging when a CLI-first browser is appropriate.
-
-### `pdf`
-
-Read, create, render, and inspect PDFs where layout matters.
-
-Use when visual fidelity, page rendering, extraction, or PDF generation must be verified.
-
-### `pdf-viewing`
-
-OCR PDFs with page tracking and rasterize pages to images.
-
-Use for PDF ingestion, page-aware text extraction, metadata inspection, and saving PDF artifacts under a local project directory.
-
 ### `simple-html-artifact`
 
 Build or refine single-file, information-first HTML artifacts.
@@ -116,12 +98,6 @@ Use when Jason invokes `$loop` or asks a thread to keep going, check again, foll
 Inspect Codex session history and propose improvements to behavior, skills, project `AGENTS.md`, or global Codex instructions.
 
 Use for dream passes, repeated-correction mining, skill audits, and durable instruction proposals.
-
-### `subagent`
-
-Delegate codebase exploration or scripted actions to non-interactive `codex exec` sessions.
-
-Use when a task benefits from bounded subagent reading or execution and the output can be consumed as CLI results or file changes.
 
 ### `slidev-presentation-kit`
 

@@ -13,7 +13,7 @@ Review in this order:
 
 1. Establish the local contract.
    - Read components, routes/pages, CSS/theme tokens, existing primitives, design-system conventions, copy style, and data/state patterns.
-   - If runnable, invoke `$playwright` or `$playwright-interactive` and follow that skill's `SKILL.md`; this skill decides what to inspect, not browser mechanics.
+   - If runnable, inspect the UI in a real browser with whatever browser tooling is available; this skill decides what to inspect, not browser mechanics.
    - If screenshot-only, review visuals but label implementation risks as `Inferred`.
 
 2. Inspect data flow and component shape before styling.
@@ -24,7 +24,7 @@ Review in this order:
 3. Load only the reference you need.
    - `references/patterns.md` for concrete AI-tell and code-smell fixes.
    - `references/rubric.md` for broad UX/a11y/component/design audits.
-   - `references/workflows.md` for code-structure, Playwright QA, reference-packet, and brief-lock loops.
+   - `references/workflows.md` for code-structure, browser QA, reference-packet, and brief-lock loops.
 
 4. Preserve local system intent while removing accidental defaults.
    - Keep copy/order/IA and known product tokens unless the user asks for a redesign.
@@ -71,6 +71,5 @@ For implementation asks, patch the code directly. Prefer the smallest local abst
 
 - `references/patterns.md`: checklist of AI-frontend tells, code smells, and repair patterns.
 - `references/rubric.md`: compact UX/a11y/component/design-quality rubric for broader audits.
-- `references/workflows.md`: code-structure audit, Playwright QA, reference-packet, and brief-lock loops; delegates browser mechanics to `$playwright` and `$playwright-interactive`.
+- `references/workflows.md`: code-structure audit, browser QA, reference-packet, and brief-lock loops.
 - `references/sources.md`: research basis and links for periodic prompt refreshes.
-- Use `$playwright` and `$playwright-interactive` directly for browser execution workflows.

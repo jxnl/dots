@@ -38,14 +38,11 @@ Do not abstract only to look clever. Extract when it reduces current duplication
 
 Use this loop whenever the page can be rendered locally.
 
-Delegate browser operation details to the existing Playwright skills:
+Use whatever browser tooling is available in the current Codex environment.
+Keep this workflow focused on what to inspect for AI-frontend quality, not how
+to operate browser primitives.
 
-- Use `$playwright` for one-shot CLI browser inspection, snapshots, screenshots, and trace capture.
-- Use `$playwright-interactive` for persistent browser sessions, repeated edit/reload loops, and deeper visual QA with a shared QA inventory.
-- Open `${CODEX_HOME:-$HOME/.codex}/skills/playwright/SKILL.md` or `${CODEX_HOME:-$HOME/.codex}/skills/playwright-interactive/SKILL.md` before running browser commands.
-- Keep this workflow focused on what to inspect for AI-frontend quality, not how to operate Playwright primitives.
-
-1. Open the page in a real browser using the `playwright` skill.
+1. Open the page in a real browser.
 2. Capture at least one desktop screenshot and one mobile screenshot; use extra breakpoints when the layout has tablet/sidebar/table behavior.
 3. After each meaningful state change, run three checks in order: visual inspection, accessibility scan, and semantic/ARIA inspection.
 4. Inspect the DOM/accessibility tree and manually tab through the main flow.
