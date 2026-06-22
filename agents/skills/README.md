@@ -105,6 +105,12 @@ Design, critique, set, create, activate, or run durable Codex goals.
 
 Use for persistent or long-running objectives with verifiers, durable state, approval gates, completion proof, and bounded parent/child delegation.
 
+### `loop`
+
+Create and manage simple heartbeat automations attached to the current Codex thread.
+
+Use when Jason invokes `$loop` or asks a thread to keep going, check again, follow up, retry, monitor, or resume on a recurring cadence.
+
 ### `self-improve`
 
 Inspect Codex session history and propose improvements to behavior, skills, project `AGENTS.md`, or global Codex instructions.
