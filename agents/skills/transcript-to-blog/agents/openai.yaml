@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transcript to Blog"
+  short_description: "Turn spoken ideas into clear posts using your words"
+  default_prompt: "Use $transcript-to-blog to ask a few useful questions, then turn this transcript into a clear post that keeps my words, voice, examples, and order."
