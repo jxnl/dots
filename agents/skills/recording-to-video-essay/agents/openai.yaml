@@ -1,0 +1,4 @@
+interface:
+  display_name: "Recording to Video Essay"
+  short_description: "Turn spoken recordings into clean captioned video essays"
+  default_prompt: "Use $recording-to-video-essay to turn this recording into a clean video essay while keeping my words, order, pacing, and meaning."

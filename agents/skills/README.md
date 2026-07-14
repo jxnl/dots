@@ -33,6 +33,18 @@ Use for generic AI fluff, weak audience model, inflated significance, vague attr
 
 ## Personal Voice And Drafting
 
+### `transcript-to-blog`
+
+Turn spoken transcripts, voice notes, interviews, and meeting notes into clear posts while preserving the speaker's words, voice, examples, and order.
+
+Use for dictation-to-draft workflows, short pre-draft interviews, audience/message/CTA checks, stronger titles and hooks, and cleaning generic AI language without inventing facts or stories.
+
+### `recording-to-video-essay`
+
+Turn raw talking-head recordings and voiceovers into tight, captioned video essays with reviewable cuts and image overlays.
+
+Use for word-level transcript cleanup, pauses, false starts, repeated takes, FFmpeg edits, Remotion subtitles, B-roll, previews, and final exports.
+
 ### `email-like-me`
 
 Draft, rewrite, critique, or learn from emails in Jason Liu's personal email voice.
