@@ -53,9 +53,73 @@ backup_path() {
     echo "${path}.bak.${ts}"
 }
 
+assert_no_symbolic_link_path() {
+    local path="$1"
+    local boundary=""
+    local relative=""
+    local current=""
+    local part=""
+
+    case "$path" in
+        /*)
+            boundary="${HOME%/}"
+            case "$path" in
+                "$boundary") relative="" ;;
+                "$boundary"/*) relative="${path#"$boundary"/}" ;;
+                *) boundary="/"; relative="${path#/}" ;;
+            esac
+            ;;
+        *)
+            boundary="$PWD"
+            relative="${path#./}"
+            ;;
+    esac
+
+    current="$boundary"
+    while [ -n "$relative" ]; do
+        part="${relative%%/*}"
+        if [ "$part" = "$relative" ]; then
+            relative=""
+        else
+            relative="${relative#*/}"
+        fi
+        [ -z "$part" ] && continue
+        [ "$part" = "." ] && continue
+        if [ "$part" = ".." ]; then
+            echo "Error: destination path may not contain '..': $path" >&2
+            exit 1
+        fi
+        current="${current%/}/$part"
+        if [ -L "$current" ]; then
+            echo "Error: destination path contains a symbolic link: $current" >&2
+            exit 1
+        fi
+    done
+}
+
+assert_copy_destinations() {
+    local src_dir="$1"
+    local dest_dir="$2"
+    local src=""
+    local relative=""
+
+    assert_no_symbolic_link_path "$dest_dir"
+    while IFS= read -r -d '' src; do
+        relative="${src#"$src_dir"/}"
+        assert_no_symbolic_link_path "${dest_dir%/}/$relative"
+    done < <(find "$src_dir" -mindepth 1 -print0)
+}
+
+ensure_destination_dir() {
+    local path="$1"
+    assert_no_symbolic_link_path "$path"
+    mkdir -p "$path"
+}
+
 install_cp_file() {
     local src="$1"
     local dest="$2"
+    assert_no_symbolic_link_path "$dest"
     if [ "$DRY_RUN" = true ]; then
         echo "[dry-run] cp \"$src\" \"$dest\""
         return 0
@@ -67,6 +131,7 @@ install_cp_file() {
     if [ "$BACKUP" = true ] && [ -e "$dest" ]; then
         local bak
         bak="$(backup_path "$dest")"
+        assert_no_symbolic_link_path "$bak"
         cp -a "$dest" "$bak"
         echo "Backed up $dest -> $bak"
     fi
@@ -76,11 +141,12 @@ install_cp_file() {
 install_cp_dir_contents() {
     local src_dir="$1"
     local dest_dir="$2"
+    assert_copy_destinations "$src_dir" "$dest_dir"
     if [ "$DRY_RUN" = true ]; then
         echo "[dry-run] cp -r \"$src_dir/.\" \"$dest_dir/\""
         return 0
     fi
-    mkdir -p "$dest_dir"
+    ensure_destination_dir "$dest_dir"
     cp -r "$src_dir/." "$dest_dir/"
 }
 
@@ -424,17 +490,19 @@ echo "Installing dotfiles..."
 # Install vim configuration
 if [ "$INSTALL_VIM" = true ]; then
     echo "📝 Installing vim configuration..."
-    mkdir -p ~/.vim
+    ensure_destination_dir ~/.vim
     install_cp_file vimrc ~/.vimrc
     if [ -f "nvim/init.vim" ]; then
-        mkdir -p ~/.config/nvim
+        ensure_destination_dir ~/.config/nvim
         install_cp_file nvim/init.vim ~/.config/nvim/init.vim
     fi
+    assert_copy_destinations colors "$HOME/.vim/colors"
     if [ "$DRY_RUN" = true ]; then
         echo "[dry-run] cp -r \"colors\" \"$HOME/.vim/\""
     else
         if [ "$BACKUP" = true ] && [ -e "$HOME/.vim/colors" ]; then
             bak="$(backup_path "$HOME/.vim/colors")"
+            assert_no_symbolic_link_path "$bak"
             cp -a "$HOME/.vim/colors" "$bak"
             echo "Backed up $HOME/.vim/colors -> $bak"
         fi
@@ -460,7 +528,7 @@ fi
 # Install Claude configuration
 if [ "$INSTALL_CLAUDE" = true ]; then
     echo "🤖 Installing Claude configuration..."
-    mkdir -p ~/.claude/commands
+    ensure_destination_dir ~/.claude/commands
     install_cp_file agents/AGENTS.md ~/.claude/CLAUDE.md
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
@@ -476,7 +544,7 @@ fi
 
 if [ "$INSTALL_OPENAI" = true ]; then
     echo "🧠 Installing Codex configuration (OpenAI Developers)..."
-    mkdir -p ~/.codex/prompts
+    ensure_destination_dir ~/.codex/prompts
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -491,7 +559,7 @@ fi
 
 if [ "$INSTALL_SKILLS" = true ]; then
     echo "🧠 Installing Codex skills..."
-    mkdir -p ~/.codex/skills
+    ensure_destination_dir ~/.codex/skills
     if [ -d "agents/skills" ]; then
         install_cp_dir_contents agents/skills ~/.codex/skills
     else
@@ -502,7 +570,7 @@ fi
 
 if [ "$INSTALL_CURSOR" = true ]; then
     echo "🧭 Installing Cursor commands..."
-    mkdir -p ~/.cursor/commands
+    ensure_destination_dir ~/.cursor/commands
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -517,7 +585,7 @@ fi
 
 if [ "$INSTALL_CURSOR_PROJECT" = true ]; then
     echo "🧭 Installing Cursor project commands..."
-    mkdir -p .cursor/commands
+    ensure_destination_dir .cursor/commands
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
