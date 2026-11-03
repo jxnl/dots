@@ -2,11 +2,16 @@
 " VIM CONFIGURATION
 " ============================================================================
 
-" Colorscheme
+" Keep Vim in script mode
+set nocompatible
+
+" Colors and syntax
+if has('termguicolors')
+  set termguicolors
+endif
 colorscheme molokai
 syntax enable
-set t_Co=256
-set encoding=utf8
+set encoding=utf-8
 
 " ============================================================================
 " GENERAL SETTINGS
@@ -19,6 +24,7 @@ set autoread
 set wildmenu
 set wildmode=full
 set wildignore+=*.o,*.obj,.git,*.pyc,__pycache__
+set shortmess+=I
 
 " Backspace behavior
 set backspace=indent,eol,start
@@ -37,8 +43,10 @@ set t_vb=
 
 " Line numbers
 set number
+set relativenumber
 set ruler
 set showcmd
+set signcolumn=yes
 
 " Search settings
 set ignorecase
@@ -53,9 +61,14 @@ set mat=2
 
 " Performance
 set lazyredraw
+set updatetime=250
+set synmaxcol=240
+set redrawtime=1500
 
 " Cursor context
 set scrolloff=10
+set splitbelow
+set splitright
 
 " Display whitespace characters
 set listchars=tab:>.,trail:.,precedes:<,extends:>
@@ -71,10 +84,12 @@ if has('clipboard')
 endif
 
 " GUI options (remove scrollbars)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
+if has('gui_running')
+  set guioptions-=r
+  set guioptions-=R
+  set guioptions-=l
+  set guioptions-=L
+endif
 
 " Disable folding by default
 set nofoldenable
@@ -99,7 +114,7 @@ set smartindent
 
 " Disable backup files
 set nobackup
-set nowb
+set nowritebackup
 set noswapfile
 
 " Persistent undo
@@ -121,26 +136,26 @@ endif
 let mapleader = ","
 
 " Fast save
-nmap <leader>w :w<cr>
+nnoremap <leader>w :w<cr>
 
-" Sudo save (for permission-denied errors)
-command W w !sudo tee % > /dev/null
+" Sudo save (for permission-denied errors). The bang makes reloads idempotent.
+command! W write !sudo tee % > /dev/null
 
 " Search mappings
-map <space> /
-map <c-space> ?
+nnoremap <space> /
+nnoremap <c-space> ?
 
 " Clear search highlight
 nnoremap <leader><space> :nohlsearch<cr>
 
 " Smart window navigation
-map <leader>j <C-W>j
-map <leader>k <C-W>k
-map <leader>h <C-W>h
-map <leader>l <C-W>l
+nnoremap <leader>j <C-W>j
+nnoremap <leader>k <C-W>k
+nnoremap <leader>h <C-W>h
+nnoremap <leader>l <C-W>l
 
 " Tab navigation
-nmap <S-Tab> <<
+nnoremap <S-Tab> <<
 
 " Move lines up/down
 nnoremap <A-j> :m .+1<CR>==
@@ -169,52 +184,56 @@ set completeopt=menuone,longest,preview
 " FILE TYPE SPECIFIC SETTINGS
 " ============================================================================
 
-" Python
-autocmd FileType python setlocal colorcolumn=88
-autocmd FileType python setlocal expandtab
-autocmd FileType python setlocal textwidth=88
-autocmd BufWrite *.py :call DeleteTrailingWS()
+" FileType + write autocmds (deduplicated on reload)
+augroup user_filetype_settings
+  autocmd!
+  " Python
+  autocmd FileType python setlocal colorcolumn=88 textwidth=88 expandtab
+  autocmd BufWritePre *.py call DeleteTrailingWS()
 
-" JavaScript/TypeScript
-autocmd FileType javascript,typescript,javascriptreact,typescriptreact setlocal sw=2 ts=2 sts=2
-autocmd FileType json setlocal sw=2 ts=2 sts=2
+  " JavaScript/TypeScript
+  autocmd FileType javascript,typescript,javascriptreact,typescriptreact setlocal sw=2 ts=2 sts=2
+  autocmd FileType json setlocal sw=2 ts=2 sts=2
 
-" HTML/CSS
-autocmd FileType html,css,scss setlocal sw=2 ts=2 sts=2
+  " HTML/CSS
+  autocmd FileType html,css,scss setlocal sw=2 ts=2 sts=2
 
-" YAML
-autocmd FileType yaml setlocal sw=2 ts=2 sts=2
+  " YAML
+  autocmd FileType yaml setlocal sw=2 ts=2 sts=2
 
-" Markdown
-autocmd FileType markdown setlocal spell nonumber wrap linebreak
+  " Markdown
+  autocmd FileType markdown setlocal spell nonumber wrap linebreak
 
-" Go
-autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+  " Go
+  autocmd FileType go setlocal noexpandtab tabstop=4 shiftwidth=4
+augroup END
 
 " ============================================================================
 " UTILITY FUNCTIONS
 " ============================================================================
 
 " Delete trailing whitespace
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+function! DeleteTrailingWS()
+  let l:save_view = winsaveview()
+  silent! keeppatterns %s/\s\+$//ge
+  call winrestview(l:save_view)
 endfunc
 
 " ============================================================================
 " PLUGIN MANAGER (vim-plug)
 " ============================================================================
 
-set nocompatible
 filetype off
 
 " Auto-install vim-plug if not present
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+augroup user_plug_bootstrap
+  autocmd!
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * nested PlugInstall --sync | source $MYVIMRC
+  endif
+augroup END
 
 call plug#begin('~/.vim/plugged')
 
@@ -240,9 +259,9 @@ Plug 'machakann/vim-highlightedyank'  " Highlight yanked text
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'vim-scripts/mru.vim'
+Plug 'preservim/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+Plug 'vim-scripts/mru.vim', { 'on': ['MRU'] }
 
 " ============================================================================
 " GIT INTEGRATION
@@ -264,43 +283,43 @@ Plug 'mhinz/vim-startify'          " Start screen
 " ============================================================================
 
 Plug 'dense-analysis/ale'                    " Async linting
-Plug 'psf/black', { 'branch': 'stable' }     " Black formatter
-Plug 'vim-python/python-syntax'              " Enhanced Python syntax
-Plug 'Vimjas/vim-python-pep8-indent'         " PEP8 indentation
-Plug 'jeetsukumaran/vim-pythonsense'         " Python text objects
+Plug 'psf/black', { 'branch': 'stable', 'for': 'python' }     " Black formatter
+Plug 'vim-python/python-syntax', { 'for': 'python' }              " Enhanced Python syntax
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }         " PEP8 indentation
+Plug 'jeetsukumaran/vim-pythonsense', { 'for': 'python' }         " Python text objects
 
 if has('python3')
-  Plug 'davidhalter/jedi-vim'                " Python completion
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' }                " Python completion
 endif
 
 " ============================================================================
 " WEB DEVELOPMENT
 " ============================================================================
 
-Plug 'mattn/emmet-vim'                       " HTML/CSS expansion
-Plug 'pangloss/vim-javascript'               " JavaScript support
-Plug 'leafgarland/typescript-vim'            " TypeScript syntax
-Plug 'maxmellon/vim-jsx-pretty'              " JSX syntax
+Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'scss', 'jsx', 'tsx'] }                       " HTML/CSS expansion
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascriptreact'] }               " JavaScript support
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescriptreact'] }            " TypeScript syntax
+Plug 'maxmellon/vim-jsx-pretty', { 'for': ['javascriptreact', 'typescriptreact', 'jsx', 'tsx'] }              " JSX syntax
 
 " ============================================================================
 " MARKDOWN AND DOCUMENTATION
 " ============================================================================
 
-Plug 'preservim/vim-markdown'
-Plug 'lervag/vimtex'                         " LaTeX support
+Plug 'preservim/vim-markdown', { 'for': 'markdown' }
+Plug 'lervag/vimtex', { 'for': 'tex' }                         " LaTeX support
 
 " ============================================================================
 " SNIPPETS
 " ============================================================================
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips', { 'for': ['python', 'javascript', 'typescript', 'markdown', 'yaml', 'json', 'html', 'css'] }
+Plug 'honza/vim-snippets', { 'for': ['python', 'javascript', 'typescript', 'markdown', 'yaml', 'json', 'html', 'css'] }
 
 " ============================================================================
 " UTILITIES
 " ============================================================================
 
-Plug 'sjl/gundo.vim'                         " Undo tree
+Plug 'sjl/gundo.vim', { 'on': 'GundoToggle' }                         " Undo tree
 Plug 'christoomey/vim-tmux-navigator'        " Tmux integration
 
 " ============================================================================
@@ -371,7 +390,10 @@ let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__', '\.git$', 'node_modules']
 
 " Auto-close NERDTree if it's the last window
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup user_nerdtree
+  autocmd!
+  autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup END
 
 " MRU (Most Recently Used)
 nnoremap <leader>m :MRU<CR>
@@ -405,4 +427,18 @@ let g:user_emmet_leader_key='<C-e>'
 filetype plugin indent on
 
 " Auto-source vimrc on save
-autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+augroup user_vimrc_reload
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
+
+" Open Codex in a terminal split without leaving the current buffer.
+if executable('codex') && exists(':terminal') == 2
+  if has('nvim')
+    command! Codex split | execute 'terminal codex' | startinsert
+    command! CodexResume split | execute 'terminal codex resume --last' | startinsert
+  else
+    command! Codex terminal codex
+    command! CodexResume terminal codex resume --last
+  endif
+endif

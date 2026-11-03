@@ -1,151 +1,55 @@
-# Dots Directory
+# dots
 
-Personal dotfiles repository for development tools and environments.
+My terminal setup for editing in Vim, running Codex alongside it, and keeping a project open in tmux.
 
-## Contents
+## Everyday commands
 
-- **vimrc** - Vim configuration with plugins and keybindings
-- **nvim/** - Neovim configuration (installed to `~/.config/nvim`)
-- **tmux.conf** - Tmux terminal multiplexer configuration  
-- **bash_profile** - Bash shell configuration
-- **colors/** - Vim color schemes
-- **agents/** - Shared agent prompts + tool-specific settings (including Codex skills)
+Open a project with `cd path/to/project && vim README.md`. Press **Esc** before using the Vim keys below. The leader key is **comma**.
 
-## Codex Commands
+| In Vim or Neovim | What it does |
+| --- | --- |
+| `,f` / `,g` | Find a file / search the project with ripgrep. |
+| `,b` / `,d` | Switch buffers / toggle the file tree. |
+| `,w` / `:q` | Save / close the current window. |
+| `:Git` | Open Git status through Fugitive. |
+| `:Codex` | Start Codex in a terminal split in the current directory. |
+| `:CodexResume` | Reopen the most recent Codex chat for this directory. |
 
-Custom slash commands for Codex CLI workflows (also compatible with Claude Code and Cursor):
+To return from the terminal to your file, press **Ctrl-W p** in Vim. In Neovim, press **Ctrl-\\**, **Ctrl-N**, then **Ctrl-W p**. Run `nvim` when you want native LSP navigation. Use `gd` for definition, `gr` for references, and `ga` for code actions.
 
-### GitHub Workflows
-- **gh-commit** - Smart commit manager with conventional commits, branch safety
-- **gh-review-pr** - Comprehensive PR review (metadata, code, CI, discussions)
-- **gh-address-pr-comments** - Interactive PR comment resolution
-- **gh-fix-ci** - Auto-detect and fix CI failures from logs
+| At the shell | What it does |
+| --- | --- |
+| `tmux new -A -s dev` | Create or reattach to the dev session. |
+| **Ctrl-B** then **-** / **_** | Split the tmux pane top/bottom or left/right. |
+| **Ctrl-B** then **d** | Detach. Reattach with the same tmux command. |
+| `codex resume --last` | Continue the last chat in this directory. |
+| `codex review --uncommitted` | Review the working tree before committing. |
 
-### Development Tools
-- **make-tests** - Collaborative test creation with coverage analysis
-- **de-slop** - Remove AI artifacts (redundant comments, mock-heavy tests, fake data)
-- **new-cmd** - Command creation helper
+Inside Codex, type `/skills` to browse installed skills. Try `$dotfiles-check verify my installer changes` in this repo, or `$gh-fix-ci investigate the failing check` in a GitHub checkout. [Codex commands](https://developers.openai.com/codex/cli/slash-commands) · [Agent skills](https://developers.openai.com/codex/skills)
 
-### Agents
-- **youtube** - YouTube transcript processing
+## Install on macOS
 
-Files:
-- `agents/AGENTS.md` - Global instructions (uv, no mocking, commit conventions)
+Run these from the checkout. Preview the destination files before replacing a customized profile.
 
-## Installation
+```sh
+git clone https://github.com/jxnl/dots.git
+cd dots
+brew bundle --file Brewfile
+./install.sh --dry-run
+./install.sh --backup
+vim +PlugInstall
+```
 
-Dependencies: bash, git, curl, vim (or neovim).
+The installer copies the Vim and Neovim configs, Bash profile, tmux config, Claude/Codex/Cursor prompts, and Codex skills. With `--backup`, changed files get a timestamped sibling backup. Use `./install.sh --vim --backup` for just the editors or `./install.sh --skills --backup` for just the skills. Run `./install.sh --help` for all options.
 
-Optional: install a trash CLI so `rm` routes to the Trash (e.g. `brew install trash`).
-Optional (macOS): use `Brewfile` to install common tools (`brew bundle --file Brewfile`), including `codex`, `claude-code`, `python`, `uv`, and `bun`.
+For Neovim, run `:PlugInstall`, restart, then run `:TSInstall python lua vim go rust markdown` once. The Brewfile includes the parser compiler, Pyright, and gopls. If you use Rust through rustup, add its language server with `rustup component add rust-analyzer`.
 
-### Choose what to install
+The optional `.zshrc` template uses Oh My Zsh and loads NVM when installed. Keep machine-specific setup in your own profile. The installer leaves Zsh setup to you. The `gitignore` file is also a template.
 
-- **Dotfiles**: vim/bash/tmux plus agent prompts (default).
-- **Agents-only**: install prompts/skills without touching dotfiles.
+## Verify a change
 
-1. Install Homebrew packages (optional, macOS):
-   ```bash
-   brew bundle --file Brewfile
-   ```
-
-2. Install vim-plug (optional; auto-installs on first Vim/Neovim start):
-   ```bash
-   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-   ```
-
-3. Install dotfiles:
-   ```bash
-   git clone https://github.com/jxnl/dots.git
-   cd dots
-   chmod +x install.sh
-   chmod +x agents/install.sh
-   # Dotfiles (default)
-   ./install.sh
-   # Agents-only (no vim/bash/tmux)
-   ./agents/install.sh
-   # Codex only (prompts)
-   ./install.sh --openai          # or: ./install.sh --codex
-   # All agents (Codex + Claude + Cursor + skills)
-   ./install.sh --agents
-   # Claude (optional)
-   ./install.sh --claude           # Install only Claude config
-   ./install.sh --vim              # Install only vim config
-   ./install.sh --bash             # Install only bash config
-   ./install.sh --tmux             # Install only tmux config
-   ./install.sh --skills           # Install only Codex skills
-   ./install.sh --help             # Show all options
-   ```
-
-4. Install Vim/Neovim plugins:
-   ```bash
-   vim +PlugInstall +qall
-   # or
-   nvim +PlugInstall +qall
-   ```
-
-## Installation Flags
-
-The installer supports selective installation with these flags:
-
-- `--interactive` - Interactive installer (prompts for choices)
-- `--backup` - Backup existing destination files before overwriting
-- `--dry-run` - Print actions without writing files
-- `--vim` - Install only vim configuration (vimrc + colors)
-- `--bash` - Install only bash configuration (bash_profile)
-- `--tmux` - Install only tmux configuration (tmux.conf)
-- `--agents` - Install assistant prompts (Claude + Codex + Cursor)
-- `--claude` - Install only Claude configuration
-- `--openai`/`--codex` - Install only Codex configuration (OpenAI Developers)
-- `--cursor` - Install only Cursor commands (global)
-- `--cursor-project` - Install Cursor commands to .cursor/commands (project)
-- `--skills` - Install Codex skills to ~/.codex/skills
-- `--prompt NAME` - Install only one prompt (repeatable)
-- `--only-prompts a,b,c` - Install only these prompts (comma-separated)
-- `--list-prompts` - List available prompts
-- `--help` - Show usage information and all available flags
-
-## Notes
-
-- `gitignore` is provided as a template and is not installed automatically.
-- `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
-- Vim plugins are managed with vim-plug and can be installed via `:PlugInstall`.
-- Neovim config installs to `~/.config/nvim/init.vim`.
-- Codex CLI installs via Homebrew cask `codex` and depends on `ripgrep`.
-
-## Key Plugins & Shortcuts
-
-### Navigation
-- **Easymotion**: `\\w`, `\\j`, `\\k`, `\\f{char}` - Quick movement
-- **NERDTree**: `\d` - File explorer
-- **fzf.vim**: `\f` (files), `\g` (content), `:Buffers`, `:Commits`
-- **MRU**: `\m` - Recent files
-- **vim-tmux-navigator**: `Ctrl+h/j/k/l` - Navigate vim/tmux
-
-### Editing
-- **vim-surround**: `cs"'`, `ds"`, `ysiw]`, `yss)`
-- **vim-gitgutter**: `]c`/`[c` (next/prev change), `<leader>hs` (stage hunk)
-- **Gundo**: `\u` - Undo tree
-
-### Tools
-- **vim-fugitive**: `:Gstatus`, `:Gcommit`, `:Gblame`, `:Gdiff`
-- **Syntastic**: Auto syntax checking, `:SyntasticCheck`
-- **vim-airline**: Enhanced status bar with git info
-
-### Window Management
-- `Ctrl+w` + `v/s/q/o/r/=`
-
-### Essential Commands
-- `gg=G` - Auto-indent file
-- `zt/zz/zb` - Position line (top/middle/bottom)
-- `zo/zc/zR/zM` - Fold controls
-- `:s/old/new/g` - Search/replace
-- `:set list` - Show invisible chars
-
-## Zsh Setup (Optional)
-
-```bash
-brew install zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```sh
+bash tests/run.sh
+zsh -n .zshrc
+brew bundle check --no-upgrade --file Brewfile
 ```

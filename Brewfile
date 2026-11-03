@@ -1,5 +1,3 @@
-tap "homebrew/bundle"
-
 # Core tools
 brew "git"
 brew "gh"
@@ -18,6 +16,9 @@ cask "claude-code"
 
 # Editors
 brew "neovim"
+brew "tree-sitter-cli"
+brew "gopls"
+brew "pyright"
 brew "vim"
 brew "tmux"
 
