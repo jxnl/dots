@@ -12,7 +12,7 @@
 - Optional: `brew bundle --file Brewfile` on macOS for common tooling.
 
 ## Shell Defaults
-- `bash_profile` prefers `nvim` when available, routes `rm` to `trash` if installed, and enables `noclobber`.
+- `bash_profile` defaults to `vim` and respects an existing editor choice, routes `rm` to `trash` if installed, and enables `noclobber`.
 
 ## Vim Plugins
 - Plugins are managed with vim-plug; use `:PlugInstall` in vim/nvim.

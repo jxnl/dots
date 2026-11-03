@@ -9,7 +9,7 @@ agents/
 ├── AGENTS.md              # General instructions (Codex-style)
 ├── automations/           # Codex automation definitions for backup/re-creation
 └── prompts/               # Reusable prompts / slash commands (tool-agnostic)
-└── skills/                # Codex skills for ~/.codex/skills
+└── skills/                # Codex skills for ~/.agents/skills
 ```
 
 ## Installation
@@ -34,7 +34,7 @@ Installs:
 
 Installs:
 - `~/.codex/prompts/*.md` (copied from `agents/prompts/`)
-- `~/.codex/skills/*` (copied from `agents/skills/`)
+- `~/.agents/skills/*` (copied from `agents/skills/`)
 
 Skills inventory:
 - `agents/skills/README.md`

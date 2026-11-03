@@ -9,7 +9,7 @@ INSTALL_CLAUDE=true
 INSTALL_OPENAI=true
 INSTALL_CURSOR=true
 INSTALL_CURSOR_PROJECT=false
-INSTALL_SKILLS=false
+INSTALL_SKILLS=true
 
 SELECTED_PROMPTS=()
 INTERACTIVE=false
@@ -70,6 +70,7 @@ install_cp_file() {
         cp -a "$dest" "$bak"
         echo "Backed up $dest -> $bak"
     fi
+    mkdir -p "$(dirname "$dest")"
     cp "$src" "$dest"
 }
 
@@ -81,14 +82,18 @@ install_cp_dir_contents() {
         return 0
     fi
     mkdir -p "$dest_dir"
-    cp -r "$src_dir/." "$dest_dir/"
+    local file relative
+    while IFS= read -r -d '' file; do
+        relative="${file#"$src_dir"/}"
+        install_cp_file "$file" "$dest_dir/$relative"
+    done < <(find "$src_dir" -type f ! -name .DS_Store -print0)
 }
 
 list_prompts() {
     if [ -d "agents/prompts" ]; then
         find agents/prompts -maxdepth 1 -type f -name '*.md' -print \
             | xargs -n1 basename \
-            | sed 's/\\.md$//' \
+            | sed 's/\.md$//' \
             | sort
     fi
 }
@@ -188,6 +193,7 @@ run_interactive_wizard() {
     echo "Interactive installer"
     echo ""
 
+    INSTALL_SKILLS=false
     INSTALL_VIM=false
     INSTALL_BASH=false
     INSTALL_TMUX=false
@@ -259,6 +265,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --vim)
+            INSTALL_SKILLS=false
             INSTALL_VIM=true
             INSTALL_BASH=false
             INSTALL_TMUX=false
@@ -269,6 +276,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --bash)
+            INSTALL_SKILLS=false
             INSTALL_VIM=false
             INSTALL_BASH=true
             INSTALL_TMUX=false
@@ -279,6 +287,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --tmux)
+            INSTALL_SKILLS=false
             INSTALL_VIM=false
             INSTALL_BASH=false
             INSTALL_TMUX=true
@@ -300,6 +309,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --claude)
+            INSTALL_SKILLS=false
             INSTALL_VIM=false
             INSTALL_BASH=false
             INSTALL_TMUX=false
@@ -321,6 +331,7 @@ while [[ $# -gt 0 ]]; do
             shift
             ;;
         --cursor)
+            INSTALL_SKILLS=false
             INSTALL_VIM=false
             INSTALL_BASH=false
             INSTALL_TMUX=false
@@ -394,7 +405,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --openai/--codex  Install only Codex configuration (OpenAI Developers)"
             echo "  --cursor  Install only Cursor commands (global)"
             echo "  --cursor-project  Install Cursor commands to .cursor/commands (project)"
-            echo "  --skills  Install Codex skills to ~/.codex/skills"
+            echo "  --skills  Install Codex skills to ~/.agents/skills"
             echo "  --prompt NAME  Install only one prompt (repeatable)"
             echo "  --only-prompts a,b,c  Install only these prompts"
             echo "  --list-prompts  List available prompts"
@@ -424,22 +435,11 @@ echo "Installing dotfiles..."
 # Install vim configuration
 if [ "$INSTALL_VIM" = true ]; then
     echo "📝 Installing vim configuration..."
-    mkdir -p ~/.vim
     install_cp_file vimrc ~/.vimrc
     if [ -f "nvim/init.vim" ]; then
-        mkdir -p ~/.config/nvim
         install_cp_file nvim/init.vim ~/.config/nvim/init.vim
     fi
-    if [ "$DRY_RUN" = true ]; then
-        echo "[dry-run] cp -r \"colors\" \"$HOME/.vim/\""
-    else
-        if [ "$BACKUP" = true ] && [ -e "$HOME/.vim/colors" ]; then
-            bak="$(backup_path "$HOME/.vim/colors")"
-            cp -a "$HOME/.vim/colors" "$bak"
-            echo "Backed up $HOME/.vim/colors -> $bak"
-        fi
-        cp -r colors ~/.vim/
-    fi
+    install_cp_dir_contents colors "$HOME/.vim/colors"
     echo "✅ Vim configuration installed"
 fi
 
@@ -460,7 +460,6 @@ fi
 # Install Claude configuration
 if [ "$INSTALL_CLAUDE" = true ]; then
     echo "🤖 Installing Claude configuration..."
-    mkdir -p ~/.claude/commands
     install_cp_file agents/AGENTS.md ~/.claude/CLAUDE.md
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
@@ -476,7 +475,6 @@ fi
 
 if [ "$INSTALL_OPENAI" = true ]; then
     echo "🧠 Installing Codex configuration (OpenAI Developers)..."
-    mkdir -p ~/.codex/prompts
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -491,9 +489,23 @@ fi
 
 if [ "$INSTALL_SKILLS" = true ]; then
     echo "🧠 Installing Codex skills..."
-    mkdir -p ~/.codex/skills
     if [ -d "agents/skills" ]; then
-        install_cp_dir_contents agents/skills ~/.codex/skills
+        for skill in agents/skills/*; do
+            [ -f "$skill/SKILL.md" ] || continue
+            name="${skill##*/}"
+            target="$HOME/.agents/skills/$name"
+            legacy="$HOME/.codex/skills/$name"
+            if [ -d "$legacy" ] && [ ! -e "$target" ] && [ ! -L "$target" ]; then
+                if [ "$DRY_RUN" = true ]; then
+                    echo "[dry-run] link $target -> $legacy"
+                else
+                    mkdir -p "$HOME/.agents/skills"
+                    ln -s "$legacy" "$target"
+                fi
+                target="$legacy"
+            fi
+            install_cp_dir_contents "$skill" "$target"
+        done
     else
         echo "No skills found under agents/skills."
     fi
@@ -502,7 +514,6 @@ fi
 
 if [ "$INSTALL_CURSOR" = true ]; then
     echo "🧭 Installing Cursor commands..."
-    mkdir -p ~/.cursor/commands
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then
@@ -517,7 +528,6 @@ fi
 
 if [ "$INSTALL_CURSOR_PROJECT" = true ]; then
     echo "🧭 Installing Cursor project commands..."
-    mkdir -p .cursor/commands
     if [ ${#SELECTED_PROMPTS[@]} -gt 0 ] && [ "${SELECTED_PROMPTS[0]}" = "__NONE__" ]; then
         : # no prompts
     elif [ ${#SELECTED_PROMPTS[@]} -gt 0 ]; then

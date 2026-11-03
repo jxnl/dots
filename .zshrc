@@ -112,3 +112,34 @@ alias ..='cd ../'                           # Go back 1 directory level
 alias ...='cd ../../'                       # Go back 2 directory levels
 alias ~="cd ~"                              # ~:            Go Home
 alias c='clear'                             # c:            Clear terminal display
+
+# Optional NVM. Keep normal version selection for project pins and inherited
+# versions. Skip the default lookup only when its exact LTS release is absent.
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [[ -s "$NVM_DIR/nvm.sh" ]] && (( ! $+functions[nvm] )); then
+  _nvm_missing_default_lts() {
+    setopt localoptions extendedglob
+    [[ -z ${NVM_BIN-} && ${commands[node]-} == /* && ${commands[node]} != "$NVM_DIR"/* ]] || return 1
+    local dir=$PWD aliases_dir=$NVM_DIR/alias lts version
+    while true; do
+      [[ -e "$dir/.nvmrc" ]] && return 1
+      [[ $dir == / ]] && break
+      dir=${dir:h}
+    done
+    [[ -r "$aliases_dir/default" && -r "$aliases_dir/lts/*" ]] || return 1
+    [[ $(<"$aliases_dir/default") == 'lts/*' ]] || return 1
+    lts=$(<"$aliases_dir/lts/*")
+    [[ $lts == lts/[a-z]## && -r "$aliases_dir/$lts" ]] || return 1
+    version=$(<"$aliases_dir/$lts")
+    [[ $version == v<->.<->.<-> && ! -e "$aliases_dir/$version" &&
+       ! -e "$NVM_DIR/versions/node/$version" && ! -e "$NVM_DIR/$version" &&
+       ! -e "$NVM_DIR/versions/io.js/$version" ]]
+  }
+  if (( $# == 0 )) && _nvm_missing_default_lts; then
+    source "$NVM_DIR/nvm.sh" --no-use
+  else
+    source "$NVM_DIR/nvm.sh"
+  fi
+  unfunction _nvm_missing_default_lts
+  [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+fi

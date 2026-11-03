@@ -1,18 +1,10 @@
 alias bashrc='source ~/.bash_profile'
 
-# Prefer Neovim when available; fall back to Vim.
-if command -v nvim >/dev/null 2>&1; then
-  export EDITOR="nvim"
-  export VISUAL="nvim"
-  export GIT_EDITOR="nvim"
-  alias vim='nvim'
-  alias v='nvim'
-else
-  export EDITOR="vim"
-  export VISUAL="vim"
-  export GIT_EDITOR="vim"
-  alias v='vim'
-fi
+# Keep Vim and Neovim available under their own names.
+export EDITOR="${EDITOR:-vim}"
+export VISUAL="${VISUAL:-$EDITOR}"
+export GIT_EDITOR="${GIT_EDITOR:-$EDITOR}"
+alias v='vim'
 
 # Shell safety defaults
 set -o noclobber
